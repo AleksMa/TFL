@@ -35,8 +35,22 @@ int main() {
   }
 
   do {
+    for (int i = 0; i < n; ++i) {
+      cout << source[i] << " ";
+    }
+    cout << endl;
 
-  } while (!equal(dest, next))
+    for (int i = 0; i < n; ++i) {
+      next[i] = dest[next[i] - 1];
+      cout << next[i] << " ";
+    }
+
+    cout << endl << endl;
+
+
+
+
+  } while (!equal(dest, next));
 
   return 0;
 }
