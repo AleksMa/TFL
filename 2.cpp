@@ -25,32 +25,35 @@ int main() {
 
   vector<int> source(n), dest(n), next(n);
 
-  for (int i = 0; i < n; ++i) {
+/*  for (int i = 0; i < n; ++i) {
     cin >> source[i];
-  }
+  }*/
 
   for (int i = 0; i < n; ++i) {
     cin >> dest[i];
     next[i] = dest[i];
+    source[i] = i + 1;
   }
 
-  do {
-    for (int i = 0; i < n; ++i) {
+  for (int i = 0; i < n; ++i) {
+    cout << source[i] << " ";
+  }
+  cout << endl;
+
+  while (!equal(source, next)) {
+/*    for (int i = 0; i < n; ++i) {
       cout << source[i] << " ";
     }
-    cout << endl;
+    cout << endl;*/
 
     for (int i = 0; i < n; ++i) {
-      next[i] = dest[next[i] - 1];
       cout << next[i] << " ";
+      next[i] = dest[next[i] - 1];
     }
 
-    cout << endl << endl;
+    cout << endl;
 
-
-
-
-  } while (!equal(dest, next));
+  }
 
   return 0;
 }
