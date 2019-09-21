@@ -10,6 +10,7 @@
 using namespace std;
 
 const int N = 4;
+bool found_generators = false;
 
 enum Elem {
   e, f, g, a
@@ -34,6 +35,8 @@ char get_elem(int elem) {
   return ' ';
 }
 
+
+// Проверка на ассоциативность полным перебором (с выводом контрпримера приотсутствии ассоциативности)
 bool is_assoc() {
   bool assoc = true;
   for (int i = 0; i < N; ++i) {
@@ -58,21 +61,23 @@ bool is_assoc() {
   return assoc;
 }
 
-bool gen_elements(int elem, set<int> &elements) {
+// Последовательное порождение некоторым множеством элементов всех возможных значений
+// Породили все элементы - множество порождающее
+bool gen_elements(const set<int>& base, set<int> &elements) {
   bool get_new = false;
   set<int> new_elements;
-  for (auto mul:elements) {
-    int left = Matrix[elem][mul];
-    if (elements.find(left) == elements.end()) {
-      //cout << get_elem(elem) << ": " << get_elem(left) << endl;
-      new_elements.insert(left);
-      get_new = true;
-    }
-    int right = Matrix[mul][elem];
-    if (elements.find(right) == elements.end()) {
-      //cout << get_elem(elem) << ": " << get_elem(right) << endl;
-      new_elements.insert(right);
-      get_new = true;
+  for (auto base_elem : base) {
+    for (auto mul:elements) {
+      int left = Matrix[base_elem][mul];
+      if (elements.find(left) == elements.end()) {
+        new_elements.insert(left);
+        get_new = true;
+      }
+      int right = Matrix[mul][base_elem];
+      if (elements.find(right) == elements.end()) {
+        new_elements.insert(right);
+        get_new = true;
+      }
     }
   }
   elements.insert(new_elements.begin(), new_elements.end());
@@ -81,14 +86,48 @@ bool gen_elements(int elem, set<int> &elements) {
   else if (elements.size() == N)
     return true;
   else {
-    return gen_elements(elem, elements);
+    return gen_elements(base, elements);
   }
 }
 
-bool is_generator(int elem) {
+// Запуск проверки на порождающее множество
+bool is_generator(set<int> &base) {
+  if (base.size() == N)
+    return true;
   set<int> elements;
-  elements.insert(elem);
-  return gen_elements(elem, elements);
+  elements.insert(base.begin(), base.end());
+  return gen_elements(base, elements);
+}
+
+// Рекурсивная генерация m-местных сочетаний на N элементах с проверкой порождающих
+void generators_rec(const set<int>& base, int m, set<int> c) {
+  if (m == 0) {
+    bool fl = is_generator(c);
+    if (fl) {
+      for (auto t : c) {
+        cout << get_elem(t) << " ";
+      }
+      cout << endl;
+      found_generators = true;
+    }
+  } else {
+    set<int> new_base;
+    new_base.insert(base.begin(), base.end());
+    for (auto q : base) {
+      if (base.size() < m)
+        return;
+      new_base.erase(q);
+      set<int> next_base;
+      next_base.insert(c.begin(), c.end());
+      next_base.insert(q);
+      generators_rec(new_base, m - 1, next_base);
+    }
+  }
+}
+
+void generators(const set<int> &base, int m) {
+  set<int> c;
+  return generators_rec(base, m, c);
 }
 
 bool is_left_e(int elem) {
@@ -110,9 +149,14 @@ bool is_right_e(int elem) {
 int main() {
   is_assoc();
 
-  for (int i = 0; i < N; ++i) {
-    cout << get_elem(i) << ": " << (is_generator(i) ? "порождающий" : "не порождающий") << endl;
-  }
+  set<int> base;
+  for (int i = 0; i < N; ++i)
+    base.insert(i);
+
+  int m = 1;
+  cout << "Порождающие: ";
+  while(!found_generators)
+    generators(base, m++);
 
   cout << endl;
 
