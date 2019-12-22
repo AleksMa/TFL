@@ -10,23 +10,23 @@
 
 <expression> := <primary-expr> | <postfix-expr> | <prefix-expr> | <unary-expr> | <binary-expr> | <assignment-expr> | <ternary-expr> | <object-literal> | <array-literal>
 
-<postfix-expr> := <object-accessor> | <left-hand-side-exp> "++" | <object-accessor> "--"
+<postfix-expr> := <object-accessor> | <object-accessor> "++" | <object-accessor> "--"
 
 <prefix-expr> := <object-accessor> | "++" <object-accessor> | "--" <object-accessor>
 
 <unary-expr> := <unary-op> <primary-expr>
 
-<unary-op> := "-" | "+" | "~" | "!" | "delete" | "void" | "typeof"
+<unary-op> := "-" | "+" | "!" | "typeof"
 
 <binary-expr> := <primary-expr> <binary-op> <expression>
 
-<binary-op> := "===" | "!==" | ">>>" | "<<=" | ">>=" | "<=" | ">=" | "==" | "!=" | "<<" | ">>" | "&&" | "||" | "<" | ">" | "+" | "-" | "*" | "%" | "&"
+<binary-op> := "===" | "!==" | "<=" | ">=" | "==" | "!=" | "<<" | ">>" | "&&" | "||" | "<" | ">" | "+" | "-" | "*" | "%"
 
 <assignment-expr> := <assignment> | <assignment> "," <assignment-expr>
 
 <assignment> := <object-accessor> <assignment-op> <expression> | <object-accessor> "=" <function-declaration>
 
-<assignment-op> := ">>>=" | "<<=" | ">>=" | "+=" | "-=" | "*=" | "%=" | "&=" | "|=" | "^=" | "="
+<assignment-op> := "+=" | "-=" | "*=" | "%=" | "&=" | "|=" | "^=" | "="
 
 <ternary-expr> := <primary-expr> "?" <primary-expr> ":" <primary-expr>
 

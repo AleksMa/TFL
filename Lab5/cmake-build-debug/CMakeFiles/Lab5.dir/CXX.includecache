@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/alexey/TFL/Lab5/Lexer.cpp
+Lexer.h
+/home/alexey/TFL/Lab5/Lexer.h
+
 /home/alexey/TFL/Lab5/Lexer.h
 bits/stdc++.h
 /home/alexey/TFL/Lab5/bits/stdc++.h

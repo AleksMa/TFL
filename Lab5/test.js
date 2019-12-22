@@ -26,6 +26,7 @@ let bar = new Dummy();
 
 
 bar.setValue(123);/*a
+
 a*/
 
 // Тесты
