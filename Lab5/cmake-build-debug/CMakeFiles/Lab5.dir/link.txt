@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Lab5.dir/main.cpp.o CMakeFiles/Lab5.dir/Lexer.cpp.o CMakeFiles/Lab5.dir/Token.cpp.o  -o Lab5 

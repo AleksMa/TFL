@@ -5,21 +5,21 @@
 #ifndef LAB5_TOKEN_H
 #define LAB5_TOKEN_H
 
+
 #include "bits/stdc++.h"
-#include "Lexer.h"
 
 using namespace std;
 
 enum TokenType {
     COMMENT, // 0
     NEWLINE, // 1
-    STRING_LITERAL, // 2
+    STRING, // 2
     NULL_LITERAL, // 3
-    BOOLEAN_LITERAL, // 4
-    NUMERIC_LITERAL, // 5
-    REGEXP_LITERAL, // 6
-    IDENTIFIER, // 7
-    PUNCTUATOR, // 8
+    BOOLEAN, // 4
+    NUMERIC, // 5
+    REGEXP, // 6
+    IDENTIFICATION, // 7
+    PUNCTUATION, // 8
     KEYWORD, // 9
     UNKNOWN // 10
 };
@@ -28,9 +28,11 @@ class Token {
 private:
     TokenType type;
     string value;
-    int raw;
-    int col;
     int pos;
+    int col;
+    int row;
+    int tableValue;
+
 public:
     TokenType getType() const;
 
@@ -50,7 +52,13 @@ public:
 
     Token();
 
-    Token(TokenType type, const string &value);
+    Token(TokenType type, string value);
+
+    Token(TokenType type, string value, int pos, int col, int row);
+
+    Token(TokenType type, const string &value, int pos, int col, int row, int tableValue);
+
+    static map<TokenType, string> tokenTypes;
 };
 
 

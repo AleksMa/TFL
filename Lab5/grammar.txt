@@ -11,14 +11,14 @@
 						 | ;
 
 
-<literal> := STRING_LITERAL | NULL_LITERAL | BOOLEAN_LITERAL | NUMERIC_LITERAL | REGEXP_LITERAL
+<literal> := STRING | NULL_LITERAL | BOOLEAN | NUMERIC | REGEXP
 
 <primary-expr> := <object-accessor> | <literal> | ( <expression> )
 
-<object-accessor> := IDENTIFIER
-                 | IDENTIFIER [ <expression> ]
-                 | IDENTIFIER . <object-accessor>
-                 | IDENTIFIER . <object-accessor>   [ <expression> ]
+<object-accessor> := IDENTIFICATION
+                 | IDENTIFICATION [ <expression> ]
+                 | IDENTIFICATION . <object-accessor>
+                 | IDENTIFICATION . <object-accessor>   [ <expression> ]
 
 
 <expression> := <primary-expr>
@@ -63,7 +63,7 @@
 
 <object-key-value-list> := <object-key-value> | <object-key-value> , <object-key-value-list>
 
-<object-key-value> := STRING_LITERAL : <expression> | IDENTIFIER : <expression>
+<object-key-value> := STRING : <expression> | IDENTIFICATION : <expression>
 
 
 <array-literal> := [ ] | [ <array-element-list> ]
@@ -80,7 +80,7 @@
 
 <argument-list> := <argument> , <argument-list> | <argument>
 
-<argument> := IDENTIFIER | IDENTIFIER = <expression>
+<argument> := IDENTIFICATION | IDENTIFICATION = <expression>
 
 <function-body> := { <func-body-stmnt-list> } | <func-body-stmnt>
 

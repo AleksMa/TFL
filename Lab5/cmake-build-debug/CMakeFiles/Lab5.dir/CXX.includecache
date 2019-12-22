@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/alexey/TFL/Lab5/Lexer.h
+bits/stdc++.h
+/home/alexey/TFL/Lab5/bits/stdc++.h
+Token.h
+/home/alexey/TFL/Lab5/Token.h
+
+/home/alexey/TFL/Lab5/Token.h
+bits/stdc++.h
+/home/alexey/TFL/Lab5/bits/stdc++.h
+
+/home/alexey/TFL/Lab5/main.cpp
+iostream
+-
+Lexer.h
+/home/alexey/TFL/Lab5/Lexer.h
+
