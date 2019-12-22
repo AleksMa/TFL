@@ -1,0 +1,79 @@
+<statement-list> := <statement> <statement-list> | <statement>
+
+<statement> := <expression-statement> | <assignment-statement> | <while-statement> | <if-else-statement> | <for-statement> | <function-declaration> | "{" <statement-list> "}" | ";"
+
+<literal> := STRING_LITERAL | NULL_LITERAL | BOOLEAN_LITERAL | NUMERIC_LITERAL | REGEXP_LITERAL
+
+<primary-expr> := <object-accessor> | <literal> | "(" <expression> ")"
+
+<object-accessor> := IDENTIFIER | IDENTIFIER "[" <expression> "]" | IDENTIFIER "." <object-accessor> | IDENTIFIER "." <object-accessor> "[" <expression> "]"
+
+<expression> := <primary-expr> | <postfix-expr> | <prefix-expr> | <unary-expr> | <binary-expr> | <assignment-expr> | <ternary-expr> | <object-literal> | <array-literal>
+
+<postfix-expr> := <object-accessor> | <left-hand-side-exp> "++" | <object-accessor> "--"
+
+<prefix-expr> := <object-accessor> | "++" <object-accessor> | "--" <object-accessor>
+
+<unary-expr> := <unary-op> <primary-expr>
+
+<unary-op> := "-" | "+" | "~" | "!" | "delete" | "void" | "typeof"
+
+<binary-expr> := <primary-expr> <binary-op> <expression>
+
+<binary-op> := "===" | "!==" | ">>>" | "<<=" | ">>=" | "<=" | ">=" | "==" | "!=" | "<<" | ">>" | "&&" | "||" | "<" | ">" | "+" | "-" | "*" | "%" | "&"
+
+<assignment-expr> := <assignment> | <assignment> "," <assignment-expr>
+
+<assignment> := <object-accessor> <assignment-op> <expression> | <object-accessor> "=" <function-declaration>
+
+<assignment-op> := ">>>=" | "<<=" | ">>=" | "+=" | "-=" | "*=" | "%=" | "&=" | "|=" | "^=" | "="
+
+<ternary-expr> := <primary-expr> "?" <primary-expr> ":" <primary-expr>
+
+<object-literal> := "{" "}" | "{" <object-key-value-list> "}"
+
+<object-key-value-list> := <object-key-value> | <object-key-value> "," <object-key-value-list>
+
+<object-key-value> := STRING_LITERAL ":" <expression> | IDENTIFIER ":" <expression>
+
+<array-literal> := "[" "]" | "[" <array-element-list> "]"
+
+<array-element-list> := <expression> "," <array-element-list>
+
+<expression-statement> := <expression> ";"
+
+<assignment-statement> := "var" <assignment-expr> ";"
+
+<function-declaration> := "function" "(" <argument-list> ")" <function-body>
+
+<argument-list> := <argument> "," <argument-list> | <argument>
+
+<argument> := IDENTIFIER | IDENTIFIER "=" <expression>
+
+<function-body> := "{" <func-body-stmnt-list> "}" | <func-body-stmnt>
+
+<func-body-stmnt-list> := <func-body-stmnt> | <func-body-stmnt> <func-body-stmnt-list>
+
+<func-body-smtnt> := <statement> | return <expression> ";"
+
+<while-statement> := "while" "(" <expression> ")" <loop-body>
+
+<for-statement> := "for" "(" <expression> ";" <expression> ";" <expression> ")" <loop-body>
+
+<loop-body> := "{" <loop-body-stmnt-list> "}" | <loop-body-stmnt>
+
+<loop-body-stmnt-list> := <loop-body-stmnt> | <loop-body-stmnt> <loop-body-stmnt-list>
+
+<loop-body-stmnt> := "break" ";" | "continue" ";" | <statement>
+
+<if-else-statement> := <if-statement> | <if-statement> <else-statement-list>
+
+<if-statement> := "if" "(" <expression> ")" <if-body>
+
+<else-statement-list> := "else" <if-statement> | "else" <if-statement> <else-statement-list>
+
+<if-body> := "{" <if-body-stmnt-list> "}" | <if-body-stmnt>
+
+<if-body-stmnt-list> := <if-body-stmnt> <if-body-stmnt-list> | <if-body-stmnt>
+
+<if-body-stmnt> := <statement> | "break" ";"
