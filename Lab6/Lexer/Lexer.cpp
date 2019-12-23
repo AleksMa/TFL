@@ -9,7 +9,7 @@ void write_tables(const string header, const vector<string> &table) {
     transform(filename.begin(), filename.end(), filename.begin(),
               [](unsigned char c) { return std::tolower(c); });
     cout << filename << endl;
-    ofstream output_stream("/home/alexey/TFL/Lab6/dest/" + filename + ".csv");
+    ofstream output_stream("/home/alexey/TFL/Lab6/lexer_output/" + filename + ".csv");
     output_stream << header << endl << endl;
     for (int i = 0; i < table.size(); i++) {
         output_stream << i << ", " << table[i] << endl;
@@ -18,7 +18,7 @@ void write_tables(const string header, const vector<string> &table) {
 }
 
 void Lexer::write_tokens() {
-    ofstream output_stream("/home/alexey/TFL/Lab6/dest/TOKENS.txt");
+    ofstream output_stream("/home/alexey/TFL/Lab6/lexer_output/TOKENS.txt");
     if (!correct) {
         output_stream << "UNEXPECTED TOKEN {" << incorrect.get_value() << "} ON " << incorrect.get_column() << ":"
                       << incorrect.get_line();
@@ -35,7 +35,7 @@ void Lexer::write_tokens() {
     output_stream.close();
 
 
-    ofstream output_stream_ordered("/home/alexey/TFL/Lab6/dest/TOKENS_ORDERED.txt");
+    ofstream output_stream_ordered("/home/alexey/TFL/Lab6/lexer_output/TOKENS_ORDERED.txt");
     int k = 1;
     for (int i = 0; i < tokens.size(); i++) {
         if (tokens[i].get_type() == COMMENT || tokens[i].get_type() == NEWLINE)
@@ -76,7 +76,7 @@ void Lexer::make_regex() {
             regex("^(true|false)"),                 // bool literal
             regex("^((0[xb][a-fA-F0-9]+)|([0-9]+((\\.[0-9]+)([eE][+\\-]?[0-9]+)?)?))"), // numeric literal
             regex("^(/.*/[gimsuy]*)"),           // regex literal
-            regex("^([a-zA-Z_][\\w]*)"),              // IDENTIFICATION
+            regex("^([a-zA-Z$][\\w]*)"),              // identificator
             regex(R"(^((===)|(!==)|(<=)|(>=)|(==)|(!=)|(\+{2})|(--)|(<<)|(>>)|(&&)|([|]{2})|(\+=)|(-=)|(\*=)|(%=)|(&=)|([|]=)|(\^=)|[.;,<>+\-*/%&|^!~?:={}()\[\]]))")
     };
 }
