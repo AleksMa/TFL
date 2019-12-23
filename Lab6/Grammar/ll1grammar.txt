@@ -34,13 +34,17 @@
 
 <object-literal> := { } | { <object-key-value-list> }
 
-<object-key-value-list> := <object-key-value> | <object-key-value> , <object-key-value-list>
+<object-key-value-list> := <object-key-value> <object-key-value-list-tail>
+
+<object-key-value-list-tail> := , <object-key-value> <object-key-value-list-tail> | empty
 
 <object-key-value> := STRING : <expression> | IDENTIFICATION : <expression>
 
 <array-literal> := [ ] | [ <array-element-list> ]
 
-<array-element-list> := <expression> , <array-element-list>
+<array-element-list> := <expression> <array-element-list-tail>
+
+<array-element-list-tail> := , <expression> <array-element-list-tail> | empty
 
 <expression-statement> := <expression> ;
 
@@ -48,7 +52,9 @@
 
 <function-declaration> := function ( <argument-list> ) <function-body>
 
-<argument-list> := <argument> , <argument-list> | <argument>
+<argument-list> := <argument> <argument-list-tail>
+
+<argument-list-tail> := , <argument> <argument-list> | empty
 
 <argument> := IDENTIFICATION | IDENTIFICATION = <expression>
 

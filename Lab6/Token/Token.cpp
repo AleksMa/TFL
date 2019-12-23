@@ -5,17 +5,17 @@
 #include "Token.h"
 
 map<TokenType, string> Token::tokenTypes = {
-        {COMMENT,        "COMMENT"}, // 0
-        {NEWLINE,        "NEWLINE"}, // 1
-        {STRING,         "STRING"}, // 2
-        {NULL_LITERAL,   "NULL_LITERAL"}, // 3
-        {BOOLEAN,        "BOOLEAN"},// 4
-        {NUMERIC,        "NUMERIC"}, // 5
-        {REGEXP,         "REGEXP"}, // 6
-        {IDENTIFICATION, "IDENTIFICATION"}, // 7
-        {PUNCTUATION,    "PUNCTUATION"}, // 8
-        {KEYWORD,        "KEYWORD"}, // 9
-        {UNKNOWN,        "UNKNOWN"} // 10
+        {COMMENT,        "COMMENT"},
+        {NEWLINE,        "NEWLINE"},
+        {STRING,         "STRING"},
+        {NULL_LITERAL,   "NULL_LITERAL"},
+        {BOOLEAN,        "BOOLEAN"},
+        {NUMERIC,        "NUMERIC"},
+        {REGEXP,         "REGEXP"},
+        {IDENTIFICATION, "IDENTIFICATION"},
+        {PUNCTUATION,    "PUNCTUATION"},
+        {KEYWORD,        "KEYWORD"},
+        {UNKNOWN,        "UNKNOWN"}
 };
 
 Token::Token(TokenType type, string value) : type(type), value(value) {}
@@ -24,9 +24,9 @@ Token::Token() {}
 
 string Token::toString() const {
     //return "{token: " + value + ", type: " + tokenTypes[type] + ", position: " + to_string(row) + ":" + to_string(col) + "}";
-    return "{type: " + tokenTypes[type] +
-           (type != NEWLINE && type != NULL_LITERAL ? ", index: " + to_string(tableValue) : "") +
-           ", position: " + to_string(row) + ":" + to_string(col) + "}";
+    return "{" + tokenTypes[type] +
+           (type != NEWLINE && type != NULL_LITERAL ? ", idx: " + to_string(tableValue) : "") +
+           ", pos: " + to_string(row) + ":" + to_string(col) + "}";
 }
 
 void Token::setPosition(int lineNumber, int columnNumber, int posNumber) {
@@ -40,7 +40,7 @@ TokenType Token::getType() const {
     return type;
 }
 
-const string &Token::getValue() const {
+string Token::getValue() const {
     return value;
 }
 

@@ -36,14 +36,11 @@ private:
 public:
     TokenType getType() const;
 
-    const string &getValue() const;
+    string getValue() const;
 
     int getLine() const;
-
     int getColumn() const;
-
     int start() const;
-
     int end() const;
 
     string toString() const;

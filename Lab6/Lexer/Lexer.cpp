@@ -4,6 +4,28 @@
 
 #include "Lexer.h"
 
+void write_tables(const string header, const vector<string> &table) {
+    string filename = header;
+    transform(filename.begin(), filename.end(), filename.begin(),
+              [](unsigned char c){ return std::tolower(c); });
+    cout << filename << endl;
+    ofstream output_stream("/home/alexey/TFL/Lab6/dest/" + filename + ".csv");
+    output_stream << header << endl << endl;
+    for (int i = 0; i < table.size(); i++) {
+        output_stream << i << ", " << table[i] << endl;
+    }
+    output_stream.close();
+}
+
+void Lexer::write_tokens() {
+    ofstream output_stream("/home/alexey/TFL/Lab6/dest/TOKENS.txt");
+    for (int i = 0; i < tokens.size(); i++) {
+        output_stream << tokens[i].toString() << endl;
+    }
+    output_stream.close();
+}
+
+
 void Lexer::makeKeywords() {
     keywords = {
             "break", "do", "instanceof",
@@ -38,19 +60,12 @@ Lexer::Lexer(string source) : source(source) {
     makeKeywords();
 
     // Normalization
-    regex spaceRegex("[ \t]+");
+    regex spaceRegex("([ \t]+)|((/\\*(.|\\n)*?\\*/)|(//[^\\n]*))");
     regex curSpaceRegex("^([ \t]+)");
     smatch spaceMatch;
     normalizedSource = regex_replace(source, spaceRegex, " ");
 
     cout << source << endl;
-
-    for (char c : source) {
-        cout << +c << endl;
-    }
-
-    char cc = '\n';
-    cout << "\\n: " <<  +cc << endl;
 
     int pos = 0, col = 0, row = 0;
 
@@ -76,11 +91,25 @@ Lexer::Lexer(string source) : source(source) {
                     tokens.emplace_back(static_cast<TokenType>(i), match[0], pos, col, row, tables[i].size());
                     tables[i].push_back(match[0]);
                 }
-                tokens.emplace_back(static_cast<TokenType>(i), match[0], pos, col, row);
+                else {
+                    tokens.emplace_back(static_cast<TokenType>(i), match[0], pos, col, row);
+                }
                 pos += match[0].length();
                 if (i == NEWLINE) {
                     col = 0;
                     row++;
+                } else if (i == COMMENT && match[0].str()[1] == '*') {
+                    int countFromSpace = 0, height = 0;
+                    for (char c : match[0].str()) {
+                        if (c == '\n'){
+                            countFromSpace = 0;
+                            height++;
+                        } else {
+                            countFromSpace++;
+                        }
+                    }
+                    row += height;
+                    col = countFromSpace;
                 } else {
                     col += match[0].length();
                 }
@@ -98,7 +127,7 @@ Lexer::Lexer(string source) : source(source) {
         }
     }
 
-    for (const auto& token : tokens) {
+    for (const auto &token : tokens) {
         cout << token.toString() << endl;
     }
 
@@ -107,11 +136,14 @@ Lexer::Lexer(string source) : source(source) {
     for (int i = 0; i < 11; i++) {
         if (i == NEWLINE || i == NULL_LITERAL)
             continue;
-        cout << Token::tokenTypes[static_cast<TokenType>(i)] << endl;
-        for (int j = 0; j < tables[i].size(); j++) {
-            cout << j << ": " << tables[i][j] << endl;
-        }
-        cout << endl;
+//        cout << Token::tokenTypes[static_cast<TokenType>(i)] << endl;
+//        for (int j = 0; j < tables[i].size(); j++) {
+//            cout << j << ": " << tables[i][j] << endl;
+//        }
+//        cout << endl;
+        write_tables(Token::tokenTypes[static_cast<TokenType>(i)], tables[i]);
     }
+
+    write_tokens();
 
 }

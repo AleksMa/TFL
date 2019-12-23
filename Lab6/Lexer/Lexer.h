@@ -37,6 +37,7 @@ private:
 public:
 
     Lexer(string source);
+    void write_tokens();
 };
 
 

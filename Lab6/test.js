@@ -6,6 +6,13 @@ function Dummy() {
     return Dummy.singleton;
 }
 
+/*
+MULTI
+LINE
+COMMENT
+ */
+
+
 let a = 2 * 5;
 
 
@@ -25,9 +32,7 @@ let foo = new Dummy;
 let bar = new Dummy;
 
 
-bar.setValue(123);/*a
-
-a*/
+bar.setValue(123);
 
 // Тесты
 console.log('foo === bar ->', foo === bar); // true
