@@ -16,6 +16,7 @@ private:
     vector<Token> tokens;
 
 public:
+
     Parser(vector<Token> tokens);
     void StatementList();
     void StatementListTail();
@@ -41,10 +42,30 @@ public:
     void ArrayElementList();
     void ArrayElementListTail();
     void ExpressionStatement();
-    void AssgnmenrStatement();
+    void AssignmentStatement();
     void FuntionDeclaration();
     void ArgumentList();
     void ArgumentListTail();
+    void Argument();
+    void FunctionBody();
+    void FunctionBodyStatementList();
+    void FunctionBodyStatementListTail();
+    void FunctionBodyStatement();
+    void while_statement();
+    void for_statement();
+    void loop_body();
+    void loop_body_statement_list();
+    void loop_body_statement_list_tail();
+    void loop_body_statement();
+    void if_else_statement();
+    void if_statement();
+    void else_statement_list();
+    void if_body();
+    void if_body_statement_list();
+
+
+
+
 
 };
 

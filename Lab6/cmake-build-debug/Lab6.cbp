@@ -90,6 +90,12 @@
 		<Unit filename="/home/alexey/TFL/Lab6/Lexer/Lexer.h">
 			<Option target="Lab6"/>
 		</Unit>
+		<Unit filename="/home/alexey/TFL/Lab6/Parser/Parser.cpp">
+			<Option target="Lab6"/>
+		</Unit>
+		<Unit filename="/home/alexey/TFL/Lab6/Parser/Parser.h">
+			<Option target="Lab6"/>
+		</Unit>
 		<Unit filename="/home/alexey/TFL/Lab6/Token/Token.cpp">
 			<Option target="Lab6"/>
 		</Unit>

@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/alexey/TFL/Lab6/Lexer/Lexer.cpp" "/home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles/Lab6.dir/Lexer/Lexer.cpp.o"
+  "/home/alexey/TFL/Lab6/Parser/Parser.cpp" "/home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles/Lab6.dir/Parser/Parser.cpp.o"
   "/home/alexey/TFL/Lab6/Token/Token.cpp" "/home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles/Lab6.dir/Token/Token.cpp.o"
   "/home/alexey/TFL/Lab6/main.cpp" "/home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles/Lab6.dir/main.cpp.o"
   )

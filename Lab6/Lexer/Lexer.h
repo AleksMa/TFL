@@ -15,24 +15,18 @@ using namespace std;
 class Lexer {
 private:
     vector<class Token> tokens;
-    vector<regex> tokensExpressions;
+    vector<regex> tokens_expressions;
     string source;
-    string normalizedSource;
+    string normalized_source;
     set<string> keywords;
+
+    bool correct;
+    Token incorrect;
 
     vector<vector<string>> tables;
 
-    vector<string> commentsTable;
-    vector<string> stringsTable;
-    vector<string> boolTable;
-    vector<string> numericTable;
-    vector<string> regexTable;
-    vector<string> identificatorTable;
-    vector<string> keywordTable;
-    vector<string> punctuationTable;
-
-    void makeRegex();
-    void makeKeywords();
+    void make_regex();
+    void make_keywords();
 
 public:
 

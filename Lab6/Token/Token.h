@@ -10,7 +10,7 @@
 
 using namespace std;
 
-enum TokenType {
+enum token_type {
     COMMENT, // 0
     NEWLINE, // 1
     STRING, // 2
@@ -26,36 +26,37 @@ enum TokenType {
 
 class Token {
 private:
-    TokenType type;
+    token_type type;
     string value;
     int pos;
     int col;
     int row;
-    int tableValue;
+    int table_index;
 
 public:
-    TokenType getType() const;
+    token_type get_type() const;
 
-    string getValue() const;
+    string get_value() const;
 
-    int getLine() const;
-    int getColumn() const;
+    int get_line() const;
+    int get_column() const;
     int start() const;
     int end() const;
 
-    string toString() const;
+    string to_str() const;
+    string to_str_extended() const;
 
-    void setPosition(int lineNumber, int columnNumber, int pos);
+    void set_position(int lineNumber, int columnNumber, int pos);
 
     Token();
 
-    Token(TokenType type, string value);
+    Token(token_type type, string value);
 
-    Token(TokenType type, string value, int pos, int col, int row);
+    Token(token_type type, string value, int pos, int col, int row);
 
-    Token(TokenType type, const string &value, int pos, int col, int row, int tableValue);
+    Token(token_type type, const string &value, int pos, int col, int row, int table_value);
 
-    static map<TokenType, string> tokenTypes;
+    static map<token_type, string> token_types;
 };
 
 

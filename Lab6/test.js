@@ -6,15 +6,11 @@ function Dummy() {
     return Dummy.singleton;
 }
 
+//№a
 /*
 MULTI
 LINE
-COMMENT
- */
-
-
-let a = 2 * 5;
-
+COMMENT */
 
 Dummy.prototype.value = 'fail';
 

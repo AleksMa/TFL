@@ -4,66 +4,85 @@
 
 #include "Token.h"
 
-map<TokenType, string> Token::tokenTypes = {
-        {COMMENT,        "COMMENT"},
-        {NEWLINE,        "NEWLINE"},
-        {STRING,         "STRING"},
-        {NULL_LITERAL,   "NULL_LITERAL"},
-        {BOOLEAN,        "BOOLEAN"},
-        {NUMERIC,        "NUMERIC"},
-        {REGEXP,         "REGEXP"},
-        {IDENTIFICATION, "IDENTIFICATION"},
-        {PUNCTUATION,    "PUNCTUATION"},
-        {KEYWORD,        "KEYWORD"},
+map<token_type, string> Token::token_types = {
+        {COMMENT,        "COM"},
+        {NEWLINE,        "NL"},
+        {STRING,         "STR"},
+        {NULL_LITERAL,   "NULL"},
+        {BOOLEAN,        "BOOL"},
+        {NUMERIC,        "NUM"},
+        {REGEXP,         "RE"},
+        {IDENTIFICATION, "IDENT"},
+        {PUNCTUATION,    "PUNCT"},
+        {KEYWORD,        "KW"},
         {UNKNOWN,        "UNKNOWN"}
 };
 
-Token::Token(TokenType type, string value) : type(type), value(value) {}
+//map<token_type, string> Token::token_types = {
+//        {COMMENT,        "COMMENT"},
+//        {NEWLINE,        "NEWLINE"},
+//        {STRING,         "STRING"},
+//        {NULL_LITERAL,   "NULL_LITERAL"},
+//        {BOOLEAN,        "BOOLEAN"},
+//        {NUMERIC,        "NUMERIC"},
+//        {REGEXP,         "REGEXP"},
+//        {IDENTIFICATION, "IDENTIFICATION"},
+//        {PUNCTUATION,    "PUNCTUATION"},
+//        {KEYWORD,        "KEYWORD"},
+//        {UNKNOWN,        "UNKNOWN"}
+//};
+
+Token::Token(token_type type, string value) : type(type), value(value) {}
 
 Token::Token() {}
 
-string Token::toString() const {
-    //return "{token: " + value + ", type: " + tokenTypes[type] + ", position: " + to_string(row) + ":" + to_string(col) + "}";
-    return "{" + tokenTypes[type] +
-           (type != NEWLINE && type != NULL_LITERAL ? ", idx: " + to_string(tableValue) : "") +
+string Token::to_str() const {
+           return "{" + token_types[type] +
+                  (type != NEWLINE && type != NULL_LITERAL ? ", " + to_string(table_index) : "") +
+                  ", " + to_string(row) + ":" + to_string(col) + "}";
+}
+
+string Token::to_str_extended() const {
+    return "{" + token_types[type] +
+           (type != NEWLINE && type != NULL_LITERAL ? ", index: " + to_string(table_index) : "") +
            ", pos: " + to_string(row) + ":" + to_string(col) + "}";
 }
 
-void Token::setPosition(int lineNumber, int columnNumber, int posNumber) {
+void Token::set_position(int lineNumber, int columnNumber, int posNumber) {
     pos = lineNumber + 1;
     col = columnNumber + 1;
-    row = posNumber;
+    row = pos;
 }
 
 
-TokenType Token::getType() const {
+token_type Token::get_type() const {
     return type;
 }
 
-string Token::getValue() const {
+string Token::get_value() const {
     return value;
 }
 
-int Token::getLine() const {
-    return pos;
+int Token::get_line() const {
+    return row;
 }
 
-int Token::getColumn() const {
+int Token::get_column() const {
     return col;
 }
 
 int Token::start() const {
-    return row;
+    return pos;
 }
 
 int Token::end() const {
-    return row + value.size();
+    return pos + value.size();
 }
 
-Token::Token(TokenType type, string value, int pos, int col, int row) :
+Token::Token(token_type type, string value, int pos, int col, int row) :
         type(type), value(value), pos(pos), col(col + 1), row(row + 1) {}
 
-Token::Token(TokenType type, const string &value, int pos, int col, int row, int tableValue) : type(type), value(value),
-                                                                                               pos(pos), col(col + 1),
-                                                                                               row(row + 1),
-                                                                                               tableValue(tableValue) {}
+Token::Token(token_type type, const string &value, int pos, int col, int row, int table_value) : type(type), value(value),
+                                                                                                 pos(pos), col(col + 1),
+                                                                                                 row(row + 1),
+                                                                                                 table_index(table_value) {}

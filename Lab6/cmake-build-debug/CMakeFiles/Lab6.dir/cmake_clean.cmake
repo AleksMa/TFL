@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Lab6.dir/Lexer/Lexer.cpp.o"
+  "CMakeFiles/Lab6.dir/Parser/Parser.cpp.o"
   "CMakeFiles/Lab6.dir/Token/Token.cpp.o"
   "CMakeFiles/Lab6.dir/main.cpp.o"
   "Lab6"
