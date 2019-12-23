@@ -8,135 +8,168 @@ Parser::Parser(vector<Token> tokens): tokens(tokens) {
 
 }
 
-void Parser::StatementList(){
+bool Parser::statement_list() {
+    return false;
+}
+
+bool Parser::statement_list_tail() {
+    return false;
+}
+
+bool Parser::statement() {
+    return false;
+}
+
+bool Parser::literal() {
+    return false;
+}
+
+bool Parser::primary_expression() {
+    return false;
+}
+
+bool Parser::object_accessor() {
+    return false;
+}
+
+bool Parser::expression() {
+    return false;
+}
+
+bool Parser::postfix_expression() {
+    return false;
+}
+
+bool Parser::prefix_expression() {
+    return false;
+}
+
+bool Parser::unary_expression() {
+    return false;
+}
+
+bool Parser::unary_operation() {
+    return false;
+}
+
+bool Parser::binary_expression() {
+    return false;
+}
+
+bool Parser::binary_operation() {
+    return false;
+}
+
+bool Parser::assignment_expression() {
+    return false;
+}
+
+bool Parser::assignment_operation() {
+    return false;
+}
+
+bool Parser::ternary_expression() {
+    return false;
+}
+
+bool Parser::object_literal() {
+    return false;
+}
+
+bool Parser::object_kv_list() {
+    return false;
+}
+
+bool Parser::object_kv_list_tail() {
+    return false;
+}
+
+bool Parser::object_kv_pair() {
+    return false;
+}
+
+bool Parser::array_literal() {
+    return false;
+}
+
+bool Parser::array_element_list() {
+    return false;
+}
+
+bool Parser::array_element_list_tail() {
+    return false;
+}
+
+bool Parser::expression_statement() {
+    return false;
+}
+
+bool Parser::assignment_statement() {
+    return false;
+}
+
+bool Parser::funtion_declaration() {
+    return false;
+}
+
+bool Parser::argument_list() {
+    return false;
+}
+
+bool Parser::argument_list_tail() {
+    return false;
+}
+
+bool Parser::argument() {
+    return false;
+}
+
+bool Parser::function_body() {
+    return false;
+}
+
+bool Parser::function_body_statement_list() {
+    return false;
+}
+
+bool Parser::function_body_statement_list_tail() {
+    return false;
+}
+
+bool Parser::function_body_statement() {
+    return false;
 };
 
 
-void Parser::StatementListTail(){
+bool Parser::while_statement(){
 };
 
-void Parser::Statement(){
+bool Parser::for_statement(){
 };
 
-void Parser::Literal(){
+bool Parser::loop_body(){
 };
 
-void Parser::PrimaryExpression(){
+bool Parser::loop_body_statement_list(){
 };
 
-void Parser::ObjectAccessor(){
+bool Parser::loop_body_statement_list_tail(){
 };
 
-void Parser::Expression(){
+bool Parser::loop_body_statement(){
 };
 
-void Parser::PostfixExpression(){
+bool Parser::if_else_statement(){
 };
 
-void Parser::PrefixExpression(){
+bool Parser::if_statement(){
 };
 
-void Parser::UnaryExpression(){
+bool Parser::else_statement_list(){
 };
 
-void Parser::UnaryOperation(){
+bool Parser::if_body(){
 };
 
-void Parser::BinaryExpression(){
-};
-
-void Parser::BinaryOperation(){
-};
-
-void Parser::AssignmentExpression(){
-};
-
-void Parser::AssignmentOperation(){
-};
-
-void Parser::TernaryExpression(){
-};
-
-void Parser::ObjectLiteral(){
-};
-
-void Parser::ObjectKVList(){
-};
-
-void Parser::ObjectKVListTail(){
-};
-
-void Parser::ObjectKVPair(){
-};
-
-void Parser::ArrayLiteral(){
-};
-
-void Parser::ArrayElementList(){
-};
-
-void Parser::ArrayElementListTail(){
-};
-
-void Parser::ExpressionStatement(){
-};
-
-void Parser::AssignmentStatement(){
-};
-
-void Parser::FuntionDeclaration(){
-};
-
-void Parser::ArgumentList(){
-};
-
-void Parser::ArgumentListTail(){
-};
-
-void Parser::Argument(){
-};
-
-void Parser::FunctionBody(){
-};
-
-void Parser::FunctionBodyStatementList(){
-};
-
-void Parser::FunctionBodyStatementListTail(){
-};
-
-void Parser::FunctionBodyStatement(){
-};
-
-void Parser::while_statement(){
-};
-
-void Parser::for_statement(){
-};
-
-void Parser::loop_body(){
-};
-
-void Parser::loop_body_statement_list(){
-};
-
-void Parser::loop_body_statement_list_tail(){
-};
-
-void Parser::loop_body_statement(){
-};
-
-void Parser::if_else_statement(){
-};
-
-void Parser::if_statement(){
-};
-
-void Parser::else_statement_list(){
-};
-
-void Parser::if_body(){
-};
-
-void Parser::if_body_statement_list(){
-};
+bool Parser::if_body_statement_list(){
+}

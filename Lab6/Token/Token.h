@@ -10,6 +10,9 @@
 
 using namespace std;
 
+
+//https://ariya.io/2012/07/most-popular-javascript-tokens
+
 enum token_type {
     COMMENT, // 0
     NEWLINE, // 1

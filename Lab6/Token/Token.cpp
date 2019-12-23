@@ -4,6 +4,7 @@
 
 #include "Token.h"
 
+
 map<token_type, string> Token::token_types = {
         {COMMENT,        "COM"},
         {NEWLINE,        "NL"},
