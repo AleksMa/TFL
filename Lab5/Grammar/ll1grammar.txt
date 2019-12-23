@@ -1,4 +1,6 @@
-<statement-list> := <statement> <statement-list> | <statement>
+<statement-list> := <statement> <statement-list-tail> | empty
+
+<statement-list-tail> := <statement> <statement-list-tail> | empty
 
 <statement> := <expression-statement> | <assignment-statement> | <while-statement> | <if-else-statement> | <for-statement> | <function-declaration> | { <statement-list> } | ;
 
@@ -16,11 +18,11 @@
 
 <unary-expr> := <unary-op> <primary-expr>
 
-<unary-op> := - | + | ! | typeof
+<unary-op> := - | + | !
 
 <binary-expr> := <primary-expr> <binary-op> <expression>
 
-<binary-op> := === | !== | <= | >= | == | != | << | >> | && | || | < | > | + | - | * | %
+<binary-op> := === | !== | <= | >= | == | != | << | >> | && | || | < | > | + | - | * | / | %
 
 <assignment-expr> := <assignment> | <assignment> , <assignment-expr>
 

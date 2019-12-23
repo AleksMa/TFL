@@ -84,16 +84,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/alexey/TFL/Lab5/Lexer.cpp">
+		<Unit filename="/home/alexey/TFL/Lab5/Lexer/Lexer.cpp">
 			<Option target="Lab5"/>
 		</Unit>
-		<Unit filename="/home/alexey/TFL/Lab5/Lexer.h">
+		<Unit filename="/home/alexey/TFL/Lab5/Lexer/Lexer.h">
 			<Option target="Lab5"/>
 		</Unit>
-		<Unit filename="/home/alexey/TFL/Lab5/Token.cpp">
+		<Unit filename="/home/alexey/TFL/Lab5/Token/Token.cpp">
 			<Option target="Lab5"/>
 		</Unit>
-		<Unit filename="/home/alexey/TFL/Lab5/Token.h">
+		<Unit filename="/home/alexey/TFL/Lab5/Token/Token.h">
 			<Option target="Lab5"/>
 		</Unit>
 		<Unit filename="/home/alexey/TFL/Lab5/main.cpp">

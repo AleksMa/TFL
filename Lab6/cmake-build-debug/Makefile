@@ -48,10 +48,10 @@ RM = /snap/clion/99/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/alexey/TFL/Lab5
+CMAKE_SOURCE_DIR = /home/alexey/TFL/Lab6
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/alexey/TFL/Lab5/cmake-build-debug
+CMAKE_BINARY_DIR = /home/alexey/TFL/Lab6/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alexey/TFL/Lab5/cmake-build-debug/CMakeFiles /home/alexey/TFL/Lab5/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles /home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alexey/TFL/Lab5/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Lab5
+# Target rules for targets named Lab6
 
 # Build rule for target.
-Lab5: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Lab5
-.PHONY : Lab5
+Lab6: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Lab6
+.PHONY : Lab6
 
 # fast build rule for target.
-Lab5/fast:
-	$(MAKE) -f CMakeFiles/Lab5.dir/build.make CMakeFiles/Lab5.dir/build
-.PHONY : Lab5/fast
+Lab6/fast:
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/build
+.PHONY : Lab6/fast
 
 Lexer/Lexer.o: Lexer/Lexer.cpp.o
 
@@ -129,7 +129,7 @@ Lexer/Lexer.o: Lexer/Lexer.cpp.o
 
 # target to build an object file
 Lexer/Lexer.cpp.o:
-	$(MAKE) -f CMakeFiles/Lab5.dir/build.make CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.o
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/Lexer/Lexer.cpp.o
 .PHONY : Lexer/Lexer.cpp.o
 
 Lexer/Lexer.i: Lexer/Lexer.cpp.i
@@ -138,7 +138,7 @@ Lexer/Lexer.i: Lexer/Lexer.cpp.i
 
 # target to preprocess a source file
 Lexer/Lexer.cpp.i:
-	$(MAKE) -f CMakeFiles/Lab5.dir/build.make CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.i
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/Lexer/Lexer.cpp.i
 .PHONY : Lexer/Lexer.cpp.i
 
 Lexer/Lexer.s: Lexer/Lexer.cpp.s
@@ -147,7 +147,7 @@ Lexer/Lexer.s: Lexer/Lexer.cpp.s
 
 # target to generate assembly for a file
 Lexer/Lexer.cpp.s:
-	$(MAKE) -f CMakeFiles/Lab5.dir/build.make CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.s
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/Lexer/Lexer.cpp.s
 .PHONY : Lexer/Lexer.cpp.s
 
 Token/Token.o: Token/Token.cpp.o
@@ -156,7 +156,7 @@ Token/Token.o: Token/Token.cpp.o
 
 # target to build an object file
 Token/Token.cpp.o:
-	$(MAKE) -f CMakeFiles/Lab5.dir/build.make CMakeFiles/Lab5.dir/Token/Token.cpp.o
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/Token/Token.cpp.o
 .PHONY : Token/Token.cpp.o
 
 Token/Token.i: Token/Token.cpp.i
@@ -165,7 +165,7 @@ Token/Token.i: Token/Token.cpp.i
 
 # target to preprocess a source file
 Token/Token.cpp.i:
-	$(MAKE) -f CMakeFiles/Lab5.dir/build.make CMakeFiles/Lab5.dir/Token/Token.cpp.i
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/Token/Token.cpp.i
 .PHONY : Token/Token.cpp.i
 
 Token/Token.s: Token/Token.cpp.s
@@ -174,7 +174,7 @@ Token/Token.s: Token/Token.cpp.s
 
 # target to generate assembly for a file
 Token/Token.cpp.s:
-	$(MAKE) -f CMakeFiles/Lab5.dir/build.make CMakeFiles/Lab5.dir/Token/Token.cpp.s
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/Token/Token.cpp.s
 .PHONY : Token/Token.cpp.s
 
 main.o: main.cpp.o
@@ -183,7 +183,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/Lab5.dir/build.make CMakeFiles/Lab5.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -192,7 +192,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/Lab5.dir/build.make CMakeFiles/Lab5.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -201,7 +201,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/Lab5.dir/build.make CMakeFiles/Lab5.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/Lab6.dir/build.make CMakeFiles/Lab6.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -211,7 +211,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... Lab5"
+	@echo "... Lab6"
 	@echo "... edit_cache"
 	@echo "... Lexer/Lexer.o"
 	@echo "... Lexer/Lexer.i"

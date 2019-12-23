@@ -16,7 +16,7 @@
 
 <unary-expr> := <unary-op> <primary-expr>
 
-<unary-op> := "-" | "+" | "!" | "typeof"
+<unary-op> := "-" | "+" | "!"
 
 <binary-expr> := <primary-expr> <binary-op> <expression>
 

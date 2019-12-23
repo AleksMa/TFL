@@ -43,10 +43,10 @@ RM = /snap/clion/99/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/alexey/TFL/Lab5
+CMAKE_SOURCE_DIR = /home/alexey/TFL/Lab6
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/alexey/TFL/Lab5/cmake-build-debug
+CMAKE_BINARY_DIR = /home/alexey/TFL/Lab6/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Lab5.dir/depend.make
@@ -59,42 +59,42 @@ include CMakeFiles/Lab5.dir/flags.make
 
 CMakeFiles/Lab5.dir/main.cpp.o: CMakeFiles/Lab5.dir/flags.make
 CMakeFiles/Lab5.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexey/TFL/Lab5/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Lab5.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab5.dir/main.cpp.o -c /home/alexey/TFL/Lab5/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Lab5.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab5.dir/main.cpp.o -c /home/alexey/TFL/Lab6/main.cpp
 
 CMakeFiles/Lab5.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab5.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexey/TFL/Lab5/main.cpp > CMakeFiles/Lab5.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexey/TFL/Lab6/main.cpp > CMakeFiles/Lab5.dir/main.cpp.i
 
 CMakeFiles/Lab5.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab5.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexey/TFL/Lab5/main.cpp -o CMakeFiles/Lab5.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexey/TFL/Lab6/main.cpp -o CMakeFiles/Lab5.dir/main.cpp.s
 
 CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.o: CMakeFiles/Lab5.dir/flags.make
 CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.o: ../Lexer/Lexer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexey/TFL/Lab5/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.o -c /home/alexey/TFL/Lab5/Lexer/Lexer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.o -c /home/alexey/TFL/Lab6/Lexer/Lexer.cpp
 
 CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexey/TFL/Lab5/Lexer/Lexer.cpp > CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexey/TFL/Lab6/Lexer/Lexer.cpp > CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.i
 
 CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexey/TFL/Lab5/Lexer/Lexer.cpp -o CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexey/TFL/Lab6/Lexer/Lexer.cpp -o CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.s
 
 CMakeFiles/Lab5.dir/Token/Token.cpp.o: CMakeFiles/Lab5.dir/flags.make
 CMakeFiles/Lab5.dir/Token/Token.cpp.o: ../Token/Token.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexey/TFL/Lab5/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Lab5.dir/Token/Token.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab5.dir/Token/Token.cpp.o -c /home/alexey/TFL/Lab5/Token/Token.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Lab5.dir/Token/Token.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab5.dir/Token/Token.cpp.o -c /home/alexey/TFL/Lab6/Token/Token.cpp
 
 CMakeFiles/Lab5.dir/Token/Token.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab5.dir/Token/Token.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexey/TFL/Lab5/Token/Token.cpp > CMakeFiles/Lab5.dir/Token/Token.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alexey/TFL/Lab6/Token/Token.cpp > CMakeFiles/Lab5.dir/Token/Token.cpp.i
 
 CMakeFiles/Lab5.dir/Token/Token.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab5.dir/Token/Token.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexey/TFL/Lab5/Token/Token.cpp -o CMakeFiles/Lab5.dir/Token/Token.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alexey/TFL/Lab6/Token/Token.cpp -o CMakeFiles/Lab5.dir/Token/Token.cpp.s
 
 # Object files for target Lab5
 Lab5_OBJECTS = \
@@ -110,7 +110,7 @@ Lab5: CMakeFiles/Lab5.dir/Lexer/Lexer.cpp.o
 Lab5: CMakeFiles/Lab5.dir/Token/Token.cpp.o
 Lab5: CMakeFiles/Lab5.dir/build.make
 Lab5: CMakeFiles/Lab5.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alexey/TFL/Lab5/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Lab5"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Lab5"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Lab5.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -123,6 +123,6 @@ CMakeFiles/Lab5.dir/clean:
 .PHONY : CMakeFiles/Lab5.dir/clean
 
 CMakeFiles/Lab5.dir/depend:
-	cd /home/alexey/TFL/Lab5/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/alexey/TFL/Lab5 /home/alexey/TFL/Lab5 /home/alexey/TFL/Lab5/cmake-build-debug /home/alexey/TFL/Lab5/cmake-build-debug /home/alexey/TFL/Lab5/cmake-build-debug/CMakeFiles/Lab5.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/alexey/TFL/Lab6/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/alexey/TFL/Lab6 /home/alexey/TFL/Lab6 /home/alexey/TFL/Lab6/cmake-build-debug /home/alexey/TFL/Lab6/cmake-build-debug /home/alexey/TFL/Lab6/cmake-build-debug/CMakeFiles/Lab5.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Lab5.dir/depend
 
