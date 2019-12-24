@@ -6,17 +6,17 @@
 
 
 map<token_type, string> Token::token_types = {
-        {COMMENT,        "COM"},
-        {NEWLINE,        "NL"},
-        {STRING,         "STR"},
-        {NULL_LITERAL,   "NULL"},
-        {BOOLEAN,        "BOOL"},
-        {NUMERIC,        "NUM"},
-        {REGEXP,         "RE"},
-        {IDENTIFICATION, "IDENT"},
-        {PUNCTUATION,    "PUNCT"},
-        {KEYWORD,        "KW"},
-        {UNKNOWN,        "UNKNOWN"}
+        {COMMENT,      "COM"},
+        {NEWLINE,      "NL"},
+        {STRING,       "STR"},
+        {NULL_LITERAL, "NULL"},
+        {BOOLEAN,      "BOOL"},
+        {NUMERIC,      "NUM"},
+        {REGEXP,       "RE"},
+        {IDENTIFIER,   "IDENT"},
+        {PUNCTUATOR,   "PUNCT"},
+        {KEYWORD,      "KW"},
+        {UNKNOWN,      "UNKNOWN"}
 };
 
 //map<token_type, string> Token::token_types = {
@@ -27,8 +27,8 @@ map<token_type, string> Token::token_types = {
 //        {BOOLEAN,        "BOOLEAN"},
 //        {NUMERIC,        "NUMERIC"},
 //        {REGEXP,         "REGEXP"},
-//        {IDENTIFICATION, "IDENTIFICATION"},
-//        {PUNCTUATION,    "PUNCTUATION"},
+//        {IDENTIFIER, "IDENTIFIER"},
+//        {PUNCTUATOR,    "PUNCTUATOR"},
 //        {KEYWORD,        "KEYWORD"},
 //        {UNKNOWN,        "UNKNOWN"}
 //};

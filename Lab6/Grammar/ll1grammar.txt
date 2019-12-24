@@ -4,7 +4,7 @@
 
 <statement>             := <expression-statement> | <assignment-statement> | <while-statement> | <if-else-statement> | <for-statement> | <function-declaration> | { <statement-list> } | ;
 
-<object-accessor>       := IDENTIFICATION | IDENTIFICATION [ <expression> ] | IDENTIFICATION . <object-accessor> | IDENTIFICATION . <object-accessor> [ <expression> ]
+<object-accessor>       := IDENTIFIER | IDENTIFIER [ <expression> ] | IDENTIFIER . <object-accessor> | IDENTIFIER . <object-accessor> [ <expression> ]
 
 <expression>            := <primary-expr> | <postfix-expr> | <prefix-expr> | <unary-expr> | <binary-expr> | <assignment-expr> | <ternary-expr> | <object-literal> | <array-literal>
 
@@ -38,7 +38,7 @@
 
 <object-key-value-list-tail> := , <object-key-value> <object-key-value-list-tail> | empty
 
-<object-key-value>      := STRING : <expression> | IDENTIFICATION : <expression>
+<object-key-value>      := STRING : <expression> | IDENTIFIER : <expression>
 
 <array-literal>         := [ ] | [ <array-element-list> ]
 
@@ -56,7 +56,7 @@
 
 <argument-list-tail>    := , <argument> <argument-list> | empty
 
-<argument>              := IDENTIFICATION | IDENTIFICATION = <expression>
+<argument>              := IDENTIFIER | IDENTIFIER = <expression>
 
 <function-body>         := { <func-body-statement-list> } | <func-body-statement>
 

@@ -18,5 +18,6 @@ int main() {
     //cout << source << endl;
 
     Lexer lex(source);
+    lex.full_lexical_analyse();
     return 0;
 }

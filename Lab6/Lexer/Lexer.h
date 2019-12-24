@@ -14,24 +14,38 @@ using namespace std;
 
 class Lexer {
 private:
-    vector<class Token> tokens;
-    vector<regex> tokens_expressions;
+    int pos, col, row;
+
     string source;
     string normalized_source;
+
+    vector<regex> tokens_expressions;
     set<string> keywords;
+
+    vector<class Token> tokens;
+    vector<vector<string>> tables;
 
     bool correct;
     Token incorrect;
 
-    vector<vector<string>> tables;
-
     void make_regex();
     void make_keywords();
+
+    string input_prefix = "/home/alexey/TFL/Lab6/lexer_output/";
+
+    void write_table(int code, string path);
+    void write_tables(string path);
+    void write_tokens(string path);
+    void write_tokens_ordered(string path);
 
 public:
 
     Lexer(string source);
-    void write_tokens();
+
+    void normalize();
+    void lexical_analyse();
+    void full_lexical_analyse();
+
 };
 
 

@@ -4,54 +4,7 @@
 
 #include "Lexer.h"
 
-void write_tables(const string header, const vector<string> &table) {
-    string filename = header;
-    transform(filename.begin(), filename.end(), filename.begin(),
-              [](unsigned char c) { return std::tolower(c); });
-    cout << filename << endl;
-    ofstream output_stream("/home/alexey/TFL/Lab6/lexer_output/" + filename + ".csv");
-    output_stream << header << endl << endl;
-    for (int i = 0; i < table.size(); i++) {
-        output_stream << i << ", " << table[i] << endl;
-    }
-    output_stream.close();
-}
-
-void Lexer::write_tokens() {
-    ofstream output_stream("/home/alexey/TFL/Lab6/lexer_output/TOKENS.txt");
-    if (!correct) {
-        output_stream << "UNEXPECTED TOKEN {" << incorrect.get_value() << "} ON " << incorrect.get_column() << ":"
-                      << incorrect.get_line();
-        output_stream.close();
-        return;
-    }
-
-    for (int i = 0; i < tokens.size(); i++) {
-        output_stream << tokens[i].to_str_extended() << endl;
-
-        if (tokens[i].get_type() == NEWLINE)
-            output_stream << endl;
-    }
-    output_stream.close();
-
-
-    ofstream output_stream_ordered("/home/alexey/TFL/Lab6/lexer_output/TOKENS_ORDERED.txt");
-    int k = 1;
-    for (int i = 0; i < tokens.size(); i++) {
-        if (tokens[i].get_type() == COMMENT || tokens[i].get_type() == NEWLINE)
-            continue;
-        if (tokens[i].get_line() != k) {
-            output_stream_ordered << endl;
-            i--;
-            k++;
-        }
-        else
-            output_stream_ordered << tokens[i].to_str() << " ";
-    }
-    output_stream_ordered.close();
-
-}
-
+// INIT FUNCTIONS
 
 void Lexer::make_keywords() {
     keywords = {
@@ -69,34 +22,50 @@ void Lexer::make_keywords() {
 
 void Lexer::make_regex() {
     tokens_expressions = {
-            regex(R"(^((/\*(.|\n)*?\*/)|(//[^\n]*)))"),   // comments
-            regex("^\n"),                           // newline
-            regex(R"(^(("([^"\\]|\\.)*")|('([^'\\]|\\.)*')))"),           // string literal
-            regex("^null"),                         // null
-            regex("^(true|false)"),                 // bool literal
+            regex(R"(^((/\*(.|\n)*?\*/)|(//[^\n]*)))"),                     // comments
+            regex("^\n"),                                                   // newline
+            regex(R"(^(("([^"\\]|\\.)*")|('([^'\\]|\\.)*')))"),             // string literal
+            regex("^null"),                                                 // null
+            regex("^(true|false)"),                                         // bool literal
             regex("^((0[xb][a-fA-F0-9]+)|([0-9]+((\\.[0-9]+)([eE][+\\-]?[0-9]+)?)?))"), // numeric literal
-            regex("^(/.*/[gimsuy]*)"),           // regex literal
-            regex("^([a-zA-Z$][\\w]*)"),              // identificator
+            regex("^(/.*/[gimsuy]*)"),                                      // regex literal
+            regex("^([a-zA-Z$][\\w]*)"),                                    // identifier
+            // punctuator
             regex(R"(^((===)|(!==)|(<=)|(>=)|(==)|(!=)|(\+{2})|(--)|(<<)|(>>)|(&&)|([|]{2})|(\+=)|(-=)|(\*=)|(%=)|(&=)|([|]=)|(\^=)|[.;,<>+\-*/%&|^!~?:={}()\[\]]))")
     };
 }
+
+// main constructor
 
 Lexer::Lexer(string source) : source(source) {
     correct = true;
     tables = vector<vector<string>>(11);
     make_regex();
     make_keywords();
+}
 
-    // Normalization
+void Lexer::full_lexical_analyse() {
+    lexical_analyse();
+
+    write_tables(input_prefix + "tables/");
+    write_tokens(input_prefix + "TOKENS.txt");
+    write_tokens_ordered(input_prefix + "TOKENS_ORDERED.txt");
+}
+
+
+// Normalization
+
+void Lexer::normalize() {
     regex space_regex("([ \t]+)|((/\\*(.|\\n)*?\\*/)|(//[^\\n]*))");
-    regex cur_space_regex("^([ \t]+)");
     smatch space_match;
     normalized_source = regex_replace(source, space_regex, " ");
+}
 
-    cout << source << endl;
+// Lexical analysis
 
-    int pos = 0, col = 0, row = 0;
-
+void Lexer::lexical_analyse() {
+    regex cur_space_regex("^([ \t]+)");
+    pos = 0, col = 0, row = 0;
 
     while (pos < source.size()) {
         string cur_source = source.substr(pos);
@@ -112,22 +81,24 @@ Lexer::Lexer(string source) : source(source) {
 
         for (int i = 0; i < tokens_expressions.size(); ++i) {
             if (regex_search(cur_source, match, tokens_expressions[i])) {
-                if (i == IDENTIFICATION && keywords.find(match[0]) != keywords.end()) {
-                    i = KEYWORD;
+                int code = i;
+                string matched_substr = match[0];
+                if (code == IDENTIFIER && keywords.find(matched_substr) != keywords.end()) {
+                    code = KEYWORD;
                 }
-                if (i != NEWLINE && i != NULL_LITERAL) {
-                    tokens.emplace_back(static_cast<token_type>(i), match[0], pos, col, row, tables[i].size());
-                    tables[i].push_back(match[0]);
-                } else {
-                    tokens.emplace_back(static_cast<token_type>(i), match[0], pos, col, row);
+                if (code == NULL_LITERAL) {
+                    tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row);
+                } else if (code!= NEWLINE && code!= COMMENT) {
+                    tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row, tables[i].size());
+                    tables[i].push_back(matched_substr);
                 }
-                pos += match[0].length();
-                if (i == NEWLINE) {
+                pos += matched_substr.length();
+                if (code== NEWLINE) {
                     col = 0;
                     row++;
-                } else if (i == COMMENT && match[0].str()[1] == '*') {
+                } else if (code== COMMENT && matched_substr[1] == '*') {
                     int count_from_space = 0, height = 0;
-                    for (char c : match[0].str()) {
+                    for (char c : matched_substr) {
                         if (c == '\n') {
                             count_from_space = 0;
                             height++;
@@ -138,7 +109,7 @@ Lexer::Lexer(string source) : source(source) {
                     row += height;
                     col = count_from_space;
                 } else {
-                    col += match[0].length();
+                    col += matched_substr.length();
                 }
 
                 found = true;
@@ -158,19 +129,66 @@ Lexer::Lexer(string source) : source(source) {
             col++;
         }
     }
+}
 
-    for (const auto &token : tokens) {
-        cout << token.to_str() << endl;
-    }
 
-    cout << endl << endl;
 
-    for (int i = 0; i < 11; i++) {
-        if (i == NEWLINE || i == NULL_LITERAL)
+// OUTPUT FUNCTIONS
+
+
+void Lexer::write_tables(string path) {
+    for (int i = 0; i <= UNKNOWN; i++) {
+        if (i == NEWLINE || i == NULL_LITERAL || i == COMMENT)
             continue;
-        write_tables(Token::token_types[static_cast<token_type>(i)], tables[i]);
+        write_table(i, path);
+    }
+}
+
+void Lexer::write_table(int code, string path) {
+    string header = Token::token_types[static_cast<token_type>(code)];
+    string filename = header;
+    transform(filename.begin(), filename.end(), filename.begin(),
+              [](unsigned char c) { return std::tolower(c); });
+    cout << filename << endl;
+    ofstream output_stream(path + filename + ".csv");
+    output_stream << header << endl << endl;
+    for (int i = 0; i < tables[code].size(); i++) {
+        output_stream << i << ", " << tables[code][i] << endl;
+    }
+    output_stream.close();
+}
+
+void Lexer::write_tokens(string path) {
+    ofstream output_stream(path);
+    if (!correct) {
+        output_stream << "UNEXPECTED TOKEN {" << incorrect.get_value() << "} ON " << incorrect.get_column() << ":"
+                      << incorrect.get_line();
+        output_stream.close();
+        return;
     }
 
-    write_tokens();
+    for (int i = 0; i < tokens.size(); i++) {
+        output_stream << tokens[i].to_str_extended() << endl;
 
+        if (tokens[i].get_type() == NEWLINE)
+            output_stream << endl;
+    }
+    output_stream.close();
+}
+
+void Lexer::write_tokens_ordered(string path) {
+    ofstream output_stream(path);
+    int k = 1;
+    for (int i = 0; i < tokens.size(); i++) {
+        if (tokens[i].get_type() == COMMENT || tokens[i].get_type() == NEWLINE)
+            continue;
+        if (tokens[i].get_line() != k) {
+            output_stream << endl;
+            i--;
+            k++;
+        }
+        else
+            output_stream << tokens[i].to_str() << " ";
+    }
+    output_stream.close();
 }

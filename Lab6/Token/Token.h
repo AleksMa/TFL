@@ -21,8 +21,8 @@ enum token_type {
     BOOLEAN, // 4
     NUMERIC, // 5
     REGEXP, // 6
-    IDENTIFICATION, // 7
-    PUNCTUATION, // 8
+    IDENTIFIER, // 7
+    PUNCTUATOR, // 8
     KEYWORD, // 9
     UNKNOWN // 10
 };

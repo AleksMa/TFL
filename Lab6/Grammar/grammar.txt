@@ -6,7 +6,7 @@
 
 <primary-expr> := <object-accessor> | <literal> | ( <expression> )
 
-<object-accessor> := IDENTIFICATION | IDENTIFICATION [ <expression> ] | IDENTIFICATION . <object-accessor> | IDENTIFICATION . <object-accessor> [ <expression> ]
+<object-accessor> := IDENTIFIER | IDENTIFIER [ <expression> ] | IDENTIFIER . <object-accessor> | IDENTIFIER . <object-accessor> [ <expression> ]
 
 <expression> := <primary-expr> | <postfix-expr> | <prefix-expr> | <unary-expr> | <binary-expr> | <assignment-expr> | <ternary-expr> | <object-literal> | <array-literal>
 
@@ -34,7 +34,7 @@
 
 <object-key-value-list> := <object-key-value> | <object-key-value> , <object-key-value-list>
 
-<object-key-value> := STRING : <expression> | IDENTIFICATION : <expression>
+<object-key-value> := STRING : <expression> | IDENTIFIER : <expression>
 
 <array-literal> := [ ] | [ <array-element-list> ]
 
@@ -48,7 +48,7 @@
 
 <argument-list> := <argument> , <argument-list> | <argument>
 
-<argument> := IDENTIFICATION | IDENTIFICATION = <expression>
+<argument> := IDENTIFIER | IDENTIFIER = <expression>
 
 <function-body> := { <func-body-stmnt-list> } | <func-body-stmnt>
 
