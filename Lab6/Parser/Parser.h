@@ -74,23 +74,18 @@ public:
     bool argument_tail();
     bool function_body();
     bool function_body_statement_list();
-    bool function_body_statement_list_tail();
     bool function_body_statement();
     bool while_statement();
     bool for_statement();
     bool loop_body();
     bool loop_body_statement_list();
-    bool loop_body_statement_list_tail();
     bool loop_body_statement();
     bool if_else_statement();
     bool if_statement();
     bool else_statement_list();
     bool if_body();
     bool if_body_statement_list();
-    bool if_body_statement_list_tail();
     bool if_body_statement();
-
-
 };
 
 

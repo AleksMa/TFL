@@ -176,15 +176,20 @@ bool Parser::object_complex_tail() {
 }
 
 bool Parser::expression() {
-    return postfix_expression() ||
-           prefix_expression() ||
-           unary_expression() ||
-           binary_expression() ||
-           assignment_expression() ||
-           ternary_expression() ||
-           object_literal() ||
-           array_literal() ||
-           primary_expression();
+    bool check_expr = postfix_expression() ||
+                      prefix_expression() ||
+                      unary_expression() ||
+                      binary_expression() ||
+                      assignment_expression() ||
+                      ternary_expression() ||
+                      object_literal() ||
+                      array_literal() ||
+                      primary_expression();
+//    if (!check_expr && (check_value(";") || check_value(")"))) {
+//        next_token();
+//        return true;
+//    }
+    return check_expr;
 }
 
 bool Parser::postfix_expression() {
@@ -381,7 +386,7 @@ bool Parser::assignment_statement() {
     if (check_value("var") || check_value("let") || check_value("const")) {
         next_token();
     } else {
-        return false;
+        return expression_statement();
     }
 
     bool check_statement = assignment_expression() && check_value_move(";");
@@ -485,19 +490,6 @@ bool Parser::function_body_statement_list() {
     return check_statement;
 }
 
-bool Parser::function_body_statement_list_tail() {
-    if (check_value("}")) {
-        return true;
-    }
-
-    int prev_pointer = pointer;
-    bool check_array = check_value_move(",") && function_body_statement() && function_body_statement_list_tail();
-    if (!check_array)
-        pointer = prev_pointer;
-
-    return check_array;
-}
-
 bool Parser::function_body_statement() {
     int prev_pointer = pointer;
 
@@ -515,53 +507,168 @@ bool Parser::function_body_statement() {
 
 
 bool Parser::while_statement() {
-    return false;
+    int prev_pointer = pointer;
+
+    bool check_statement = check_value_move("while") &&
+                           check_value_move("(") && expression() && check_value_move(")") &&
+                           loop_body();
+
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }
 
 bool Parser::for_statement() {
-    return false;
+    int prev_pointer = pointer;
+
+    bool check_statement = check_value_move("for") &&
+                           check_value_move("(") &&
+                           assignment_statement() &&
+                           expression() && check_value_move(";") &&
+                           expression() &&
+                           check_value_move(")") &&
+                           loop_body();
+
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }
 
 bool Parser::loop_body() {
-    return false;
+    int prev_pointer = pointer;
+
+    bool check_statement;
+    if (check_value("{"))
+        check_statement = check_value_move("{") && loop_body_statement_list() && check_value_move("}");
+    else
+        check_statement = loop_body_statement();
+
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }
 
 bool Parser::loop_body_statement_list() {
-    return false;
-}
+    if (check_value("}")) {
+        return true;
+    }
 
-bool Parser::loop_body_statement_list_tail() {
-    return false;
+    int prev_pointer = pointer;
+    bool check_statement = loop_body_statement() && loop_body_statement_list();
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }
 
 bool Parser::loop_body_statement() {
-    return false;
+    int prev_pointer = pointer;
+
+    bool check_statement;
+    if (check_value("break"))
+        check_statement = check_value_move("break") && check_value_move(";");
+    else if (check_value("continue"))
+        check_statement = check_value_move("continue") && check_value_move(";");
+    else
+        check_statement = statement();
+
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }
 
 bool Parser::if_else_statement() {
-    return false;
+    int prev_pointer = pointer;
+
+    bool check_statement = if_statement() && else_statement_list();
+
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }
 
 bool Parser::if_statement() {
-    return false;
+    int prev_pointer = pointer;
+
+    bool check_statement = check_value_move("if") &&
+                           check_value_move("(") && expression() && check_value_move(")") &&
+                           if_body();
+
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }
 
 bool Parser::else_statement_list() {
-    return false;
+    if (!check_value("else")) {
+        return true;
+    }
+    int prev_pointer = pointer;
+
+    bool check_statement = check_value_move("else") &&
+                           if_statement() && else_statement_list();
+
+    if (!check_statement)
+        pointer = prev_pointer;
+    else
+        return check_statement;
+
+    pointer = prev_pointer;
+    check_statement = check_value_move("else") && if_body();
+
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }
 
 bool Parser::if_body() {
-    return false;
+    int prev_pointer = pointer;
+
+    bool check_statement;
+    if (check_value("{"))
+        check_statement = check_value_move("{") && if_body_statement_list() && check_value_move("}");
+    else
+        check_statement = if_body_statement();
+
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }
 
 bool Parser::if_body_statement_list() {
-    return false;
-}
+    if (check_value("}")) {
+        return true;
+    }
 
-bool Parser::if_body_statement_list_tail() {
-    return false;
+    int prev_pointer = pointer;
+    bool check_statement = loop_body_statement() && loop_body_statement_list();
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }
 
 bool Parser::if_body_statement() {
-    return false;
+    int prev_pointer = pointer;
+
+    bool check_statement;
+    if (check_value("break"))
+        check_statement = check_value_move("break") && check_value_move(";");
+    else if (check_value("continue"))
+        check_statement = check_value_move("continue") && check_value_move(";");
+    else
+        check_statement = statement();
+
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
 }

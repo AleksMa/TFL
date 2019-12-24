@@ -70,8 +70,6 @@
 
 <func-body-statement-list>  := <func-body-statement> <func-body-statement-list-tail> | empty
 
-<func-body-statement-list-tail> := , <func-body-statement> <func-body-statement-list-tail> | empty
-
 <func-body-statement>       := <statement> | return <expression> ;
 
 <while-statement>       := while ( <expression> ) <loop-body>
@@ -80,7 +78,7 @@
 
 <loop-body>             := { <loop-body-statement-list> } | <loop-body-statement>
 
-<loop-body-statement-list>  := <loop-body-statement> <loop-body-statement-list-tail>
+<loop-body-statement-list>  := <loop-body-statement> <loop-body-statement-list-tail> | empty
 
 <loop-body-statement-list-tail> := <loop-body-statement> <loop-body-statement-list-tail> | empty
 
@@ -94,8 +92,6 @@
 
 <if-body>               := { <if-body-statement-list> } | <if-body-statement>
 
-<if-body-statement-list>    := <if-body-statement> <if-body-statement-list-tail>
-
-<if-body-statement-list-tail> := <if-body-statement> <if-body-statement-list-tail> | empty
+<if-body-statement-list>    := <if-body-statement> <if-body-statement-list> | empty
 
 <if-body-statement>         := <statement> | break ;

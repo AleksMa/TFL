@@ -1,5 +1,14 @@
-a = function () {
-};
+// a = function () {
+//     b = 1;
+//     c = 2;
+//     return b;
+// };
+
+// for (let a = 0; a < 5; a++)
+//     continue;
+
+a = 5.5;
+
 /*
 function Dummy() {
     if (!Dummy.hasOwnProperty) {

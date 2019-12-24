@@ -1,8 +1,4 @@
-{IDENT, index: 0, pos: 1:1}
-{PUNCT, index: 0, pos: 1:2}
-{KW, index: 1, pos: 1:3}
-{PUNCT, index: 1, pos: 1:11}
-{PUNCT, index: 2, pos: 1:12}
-{PUNCT, index: 3, pos: 1:13}
-{PUNCT, index: 4, pos: 2:1}
-{PUNCT, index: 5, pos: 2:2}
+{IDENT, index: 0, pos: 10:1}
+{PUNCT, index: 0, pos: 10:2}
+{NUM, index: 0, pos: 10:3}
+{PUNCT, index: 1, pos: 10:6}

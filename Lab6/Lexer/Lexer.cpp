@@ -8,15 +8,18 @@
 
 void Lexer::make_keywords() {
     keywords = {
-            "break", "do", "instanceof",
-            "typeof", "case", "else",
-            "var", "catch", "finally",
-            "void", "continue", "for",
-            "switch", "while", "debugger",
-            "function", "this", "with",
-            "default", "if", "throw",
-            "delete", "in", "try",
-            "new", "return", "let", "const"
+            "break",
+            "else",
+            "var",
+            "continue",
+            "for",
+            "while",
+            "function",
+            "this",
+            "if",
+            "return",
+            "let",
+            "const"
     };
 }
 
@@ -27,7 +30,7 @@ void Lexer::make_regex() {
             regex(R"(^(("([^"\\]|\\.)*")|('([^'\\]|\\.)*')))"),             // string literal
             regex(R"(^null)"),                                                 // null
             regex(R"(^(true|false))"),                                         // bool literal
-            regex(R"(^((0[xb][a-fA-F0-9]+)|([0-9]+((\\.[0-9]+)([eE][+\\-]?[0-9]+)?)?)))"), // numeric literal
+            regex(R"(^((0[xb][a-fA-F0-9]+)|([0-9]+((\.[0-9]+)([eE][+\\-]?[0-9]+)?)?)))"), // numeric literal
             regex(R"(^(/.*/[gimsuy]*))"),                                      // regex literal
             regex(R"(^([a-zA-Z$][\w]*))"),                                    // identifier
             // punctuator
@@ -88,15 +91,15 @@ void Lexer::lexical_analyse() {
                 }
                 if (code == NULL_LITERAL) {
                     tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row);
-                } else if (code!= NEWLINE && code!= COMMENT) {
+                } else if (code != NEWLINE && code != COMMENT) {
                     tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row, tables[i].size());
                     tables[i].push_back(matched_substr);
                 }
                 pos += matched_substr.length();
-                if (code== NEWLINE) {
+                if (code == NEWLINE) {
                     col = 0;
                     row++;
-                } else if (code== COMMENT && matched_substr[1] == '*') {
+                } else if (code == COMMENT && matched_substr[1] == '*') {
                     int count_from_space = 0, height = 0;
                     for (char c : matched_substr) {
                         if (c == '\n') {
@@ -185,8 +188,7 @@ void Lexer::write_tokens_ordered(string path) {
             output_stream << endl;
             i--;
             k++;
-        }
-        else
+        } else
             output_stream << tokens[i].to_str() << " ";
     }
     output_stream.close();
