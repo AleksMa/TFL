@@ -34,11 +34,7 @@ private:
     bool check_doubled_op();
     bool check_unary_op();
 
-public:
-
-    Parser(vector<Token> tokens);
-
-    bool parse();
+    bool start_parse();
     bool statement_list();
     bool statement_list_tail();
     bool statement();
@@ -86,6 +82,11 @@ public:
     bool if_body();
     bool if_body_statement_list();
     bool if_body_statement();
+
+public:
+    Parser(vector<Token> tokens);
+
+    void parse();
 };
 
 

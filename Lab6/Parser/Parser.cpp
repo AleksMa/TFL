@@ -4,16 +4,19 @@
 
 #include "Parser.h"
 
-Parser::Parser(vector<Token> tokens) : tokens(tokens) {
-    parse();
-}
+Parser::Parser(vector<Token> tokens) : tokens(tokens) {}
 
-bool Parser::parse() {
-    pointer = 0;
-    correct = statement_list();
+void Parser::parse() {
+    correct = start_parse();
+
     cout << (correct ? "CORRECT" : "NOT CORRECT") << endl;
     if (!correct)
         cout << current_token().to_str_extended();
+}
+
+bool Parser::start_parse(){
+    pointer = 0;
+    return statement_list();
 }
 
 

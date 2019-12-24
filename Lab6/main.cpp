@@ -20,6 +20,9 @@ int main() {
 
     Lexer lex(source);
     lex.full_lexical_analyse();
+
     Parser parser(lex.getTokens());
+    parser.parse();
+
     return 0;
 }
