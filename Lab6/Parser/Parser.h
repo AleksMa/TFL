@@ -18,7 +18,7 @@ private:
     set<string> binary_ops = {"===", "!==", "<=", ">=", "==", "!=", "<<", ">>", "&&", "||", "<", ">", "+", "-", "*", "/", "%"};
     set<string> assignment_ops = {"+=", "-=", "*=", "%=", "&=", "|=", "^=", "="};
     set<string> doubled_ops = {"++", "--"};
-    set<string> unary_ops = {"+", "-"};
+    set<string> unary_ops = {"+", "-", "!"};
 
     bool is_empty();
     Token current_token();

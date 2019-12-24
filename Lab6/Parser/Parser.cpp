@@ -11,7 +11,9 @@ Parser::Parser(vector<Token> tokens) : tokens(tokens) {
 bool Parser::parse() {
     pointer = 0;
     correct = statement_list();
-    cout << (correct ? "CORRECT" : "NOT CORRECT");
+    cout << (correct ? "CORRECT" : "NOT CORRECT") << endl;
+    if (!correct)
+        cout << current_token().to_str_extended();
 }
 
 
@@ -444,7 +446,7 @@ bool Parser::argument_list_tail() {
 
 bool Parser::argument() {
     int prev_pointer = pointer;
-    bool check_argument = check_type(IDENTIFIER) && argument_tail();
+    bool check_argument = check_type_move(IDENTIFIER) && argument_tail();
     if (!check_argument)
         pointer = prev_pointer;
 
@@ -649,7 +651,7 @@ bool Parser::if_body_statement_list() {
     }
 
     int prev_pointer = pointer;
-    bool check_statement = loop_body_statement() && loop_body_statement_list();
+    bool check_statement = if_body_statement() && if_body_statement_list();
     if (!check_statement)
         pointer = prev_pointer;
 
@@ -664,6 +666,8 @@ bool Parser::if_body_statement() {
         check_statement = check_value_move("break") && check_value_move(";");
     else if (check_value("continue"))
         check_statement = check_value_move("continue") && check_value_move(";");
+    else if (check_value("return"))
+        check_statement = check_value_move("return") && expression() && check_value_move(";");
     else
         check_statement = statement();
 

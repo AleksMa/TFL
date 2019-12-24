@@ -1,16 +1,20 @@
-// a = function () {
-//     b = 1;
-//     c = 2;
-//     return b;
-// };
+let str = 'string';
 
-// for (let a = 0; a < 5; a++)
-//     continue;
+// [[;  // uncomment to get error
 
-a = 5.5;
+baz = {"0" : 0};
 
-/*
-function Dummy() {
+const decs = function () {
+    for (let i = 1; i <= slen; i++) {
+        baz[i] = i * 10;
+    }
+};
+
+const stressString = "some\"string\"";
+
+// some product code
+
+const Dummy = function () {
     if (!Dummy.hasOwnProperty) {
         Dummy.singleton = this;
         return Dummy.singleton;
@@ -18,15 +22,20 @@ function Dummy() {
     return Dummy.singleton;
 };
 
-//№a
-/!*
-MULTI
-LINE
-COMMENT *!/
+let a = 2 * 5;
+
+/*SOME
+* M
+* U
+* L
+* T
+* ILINE
+COM
+MENT
+*/
+
 
 Dummy.prototype.value = 'fail';
-
-let a = 10.5;
 
 Dummy.prototype.setValue = function (value) {
     this.value = value;
@@ -38,28 +47,5 @@ Dummy.prototype.getValue = function () {
 
 
 // Используем
-let foo = new Dummy;
-let bar = new Dummy;
-
-
-bar.setValue(123);
-
-// Тесты
-console.log('foo === bar ->', foo === bar); // true
-console.log('values:', [foo.getValue, bar.getValue]); // [123, 123]
-
-
-// Bonus
-// level
-baz = Dummy;
-console.log('baz === bar ->', baz === bar, baz.getValue); // true, 123
-
-function setTimeouts() {
-    for (var i = 1; i <= slen; i++) {
-        setTimeout("document.z.textdisplay.value = newMake()", i * 300);
-        setTimeout("window.status = newMake()", i * 300);
-    }
-}
-
-const stressString = "some\"string\"";
-*/
+let foo = Dummy;
+let bar = Dummy;

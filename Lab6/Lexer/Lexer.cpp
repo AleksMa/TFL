@@ -15,7 +15,6 @@ void Lexer::make_keywords() {
             "for",
             "while",
             "function",
-            "this",
             "if",
             "return",
             "let",
