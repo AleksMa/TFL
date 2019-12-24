@@ -15,6 +15,11 @@ private:
 
     vector<Token> tokens;
 
+    set<string> binary_ops = {"===", "!==", "<=", ">=", "==", "!=", "<<", ">>", "&&", "||", "<", ">", "+", "-", "*", "/", "%"};
+    set<string> assignment_ops = {"+=", "-=", "*=", "%=", "&=", "|=", "^=", "="};
+    set<string> doubled_ops = {"++", "--"};
+    set<string> unary_ops = {"+", "-"};
+
     bool is_empty();
     Token current_token();
     bool next_token();
@@ -23,6 +28,11 @@ private:
 
     bool check_type_move(token_type type);
     bool check_type(token_type type);
+
+    bool check_binary_op();
+    bool check_assignment_op();
+    bool check_doubled_op();
+    bool check_unary_op();
 
 public:
 
@@ -40,8 +50,9 @@ public:
     bool expression();
     bool postfix_expression();
     bool prefix_expression();
+    bool doubled_operator();
     bool unary_expression();
-    bool unary_operation();
+    bool unary_operator();
     bool binary_expression();
     bool binary_operation();
     bool assignment_expression();
@@ -56,10 +67,11 @@ public:
     bool array_element_list_tail();
     bool expression_statement();
     bool assignment_statement();
-    bool funtion_declaration();
+    bool function_declaration();
     bool argument_list();
     bool argument_list_tail();
     bool argument();
+    bool argument_tail();
     bool function_body();
     bool function_body_statement_list();
     bool function_body_statement_list_tail();

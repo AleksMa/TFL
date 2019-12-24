@@ -14,6 +14,7 @@ CMakeFiles/Lab6.dir/Token/Token.cpp.o: ../Token/Token.cpp
 CMakeFiles/Lab6.dir/Token/Token.cpp.o: ../Token/Token.h
 
 CMakeFiles/Lab6.dir/main.cpp.o: ../Lexer/Lexer.h
+CMakeFiles/Lab6.dir/main.cpp.o: ../Parser/Parser.h
 CMakeFiles/Lab6.dir/main.cpp.o: ../Token/Token.h
 CMakeFiles/Lab6.dir/main.cpp.o: ../main.cpp
 

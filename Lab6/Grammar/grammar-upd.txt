@@ -18,9 +18,11 @@
 
 <literal>               := STRING | NULL_LITERAL | BOOLEAN | NUMERIC | REGEXP
 
-<postfix-expr>          := <object-accessor> | <object-accessor> ++ | <object-accessor> --
+<postfix-expr>          := <object-accessor> | <object-accessor> <doubled-op>
 
-<prefix-expr>           := <object-accessor> | ++ <object-accessor> | -- <object-accessor>
+<prefix-expr>           := <doubled-op> <object-accessor> | <object-accessor>
+
+<doubled-op>            := ++ | --
 
 <unary-expr>            := <unary-op> <primary-expr>
 
@@ -38,33 +40,35 @@
 
 <ternary-expr>          := <primary-expr> ? <primary-expr> : <primary-expr>
 
-<object-literal>        := { } | { <object-key-value-list> }
+<object-literal>        := { <object-key-value-list>
 
-<object-key-value-list> := <object-key-value> <object-key-value-list-tail>
+<object-key-value-list> := <object-key-value> <object-key-value-list-tail> | }
 
-<object-key-value-list-tail> := , <object-key-value> <object-key-value-list-tail> | empty
+<object-key-value-list-tail> := , <object-key-value> <object-key-value-list-tail> | }
 
 <object-key-value>      := STRING : <expression> | IDENTIFIER : <expression>
 
-<array-literal>         := [ ] | [ <array-element-list> ]
+<array-literal>         := [ <array-element-list>
 
-<array-element-list>    := <expression> <array-element-list-tail>
+<array-element-list>    := <expression> <array-element-list-tail> | ]
 
-<array-element-list-tail> := , <expression> <array-element-list-tail> | empty
+<array-element-list-tail> := , <expression> <array-element-list-tail> | ]
 
-<assignment-statement>  := var <assignment-expr> ;
+<assignment-statement>  := var <assignment-expr> ; | let <assignment-expr> ; | const <assignment-expr> ;
 
 <function-declaration>  := function ( <argument-list> ) <function-body>
 
-<argument-list>         := <argument> <argument-list-tail>
+<argument-list>         := <argument> <argument-list-tail> | empty
 
 <argument-list-tail>    := , <argument> <argument-list> | empty
 
-<argument>              := IDENTIFIER | IDENTIFIER = <expression>
+<argument>              := IDENTIFIER <argument-tail>
+
+<argument-tail>         := = <expression> | empty
 
 <function-body>         := { <func-body-statement-list> } | <func-body-statement>
 
-<func-body-statement-list>  := <func-body-statement> <func-body-statement-list-tail>
+<func-body-statement-list>  := <func-body-statement> <func-body-statement-list-tail> | empty
 
 <func-body-statement-list-tail> := , <func-body-statement> <func-body-statement-list-tail> | empty
 

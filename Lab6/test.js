@@ -1,4 +1,5 @@
-Vlad[0];
+a = function () {
+};
 /*
 function Dummy() {
     if (!Dummy.hasOwnProperty) {
