@@ -46,6 +46,9 @@ public:
     int start() const;
     int end() const;
 
+    bool equalsClass(token_type type);
+    bool equals(string value);
+
     string to_str() const;
     string to_str_extended() const;
 

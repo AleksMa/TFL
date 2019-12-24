@@ -15,16 +15,28 @@ private:
 
     vector<Token> tokens;
 
+    bool is_empty();
+    Token current_token();
+    bool next_token();
+    bool check_value_move(string value);
+    bool check_value(string value);
+
+    bool check_type_move(token_type type);
+    bool check_type(token_type type);
+
 public:
 
     Parser(vector<Token> tokens);
 
+    bool parse();
     bool statement_list();
     bool statement_list_tail();
     bool statement();
     bool literal();
     bool primary_expression();
     bool object_accessor();
+    bool object_accessor_tail();
+    bool object_complex_tail();
     bool expression();
     bool postfix_expression();
     bool prefix_expression();

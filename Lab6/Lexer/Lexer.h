@@ -46,6 +46,7 @@ public:
     void lexical_analyse();
     void full_lexical_analyse();
 
+    vector<Token> getTokens();
 };
 
 

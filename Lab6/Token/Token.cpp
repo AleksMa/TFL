@@ -87,3 +87,11 @@ Token::Token(token_type type, const string &value, int pos, int col, int row, in
                                                                                                  pos(pos), col(col + 1),
                                                                                                  row(row + 1),
                                                                                                  table_index(table_value) {}
+
+bool Token::equalsClass(token_type type) {
+    return this->type == type;
+}
+
+bool Token::equals(string value) {
+    return this->value == value;
+}

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Lexer/Lexer.h"
+#include "Parser/Parser.h"
 
 string read_file(const string &path) {
     ifstream source_stream(path);
@@ -19,5 +20,6 @@ int main() {
 
     Lexer lex(source);
     lex.full_lexical_analyse();
+    Parser parser(lex.getTokens());
     return 0;
 }

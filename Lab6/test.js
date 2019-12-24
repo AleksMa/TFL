@@ -1,18 +1,22 @@
+Vlad[0];
+/*
 function Dummy() {
     if (!Dummy.hasOwnProperty) {
         Dummy.singleton = this;
         return Dummy.singleton;
     }
     return Dummy.singleton;
-}
+};
 
 //№a
-/*
+/!*
 MULTI
 LINE
-COMMENT */
+COMMENT *!/
 
 Dummy.prototype.value = 'fail';
+
+let a = 10.5;
 
 Dummy.prototype.setValue = function (value) {
     this.value = value;
@@ -38,7 +42,7 @@ console.log('values:', [foo.getValue, bar.getValue]); // [123, 123]
 // Bonus
 // level
 baz = Dummy;
-console.log('baz === bar ->', baz === bar, baz.getValue()); // true, 123
+console.log('baz === bar ->', baz === bar, baz.getValue); // true, 123
 
 function setTimeouts() {
     for (var i = 1; i <= slen; i++) {
@@ -48,3 +52,4 @@ function setTimeouts() {
 }
 
 const stressString = "some\"string\"";
+*/

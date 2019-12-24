@@ -4,11 +4,17 @@
 
 <statement>             := <expression-statement> | <assignment-statement> | <while-statement> | <if-else-statement> | <for-statement> | <function-declaration> | { <statement-list> } | ;
 
-<object-accessor>       := IDENTIFIER | IDENTIFIER [ <expression> ] | IDENTIFIER . <object-accessor> | IDENTIFIER . <object-accessor> [ <expression> ]
+<expression-statement>  := <expression> ;
 
 <expression>            := <primary-expr> | <postfix-expr> | <prefix-expr> | <unary-expr> | <binary-expr> | <assignment-expr> | <ternary-expr> | <object-literal> | <array-literal>
 
 <primary-expr>          := <object-accessor> | <literal> | ( <expression> )
+
+<object-accessor>       := IDENTIFIER <object-accessor-tail>
+
+<object-accessor-tail>  := [ <expression> ] | . <object-accessor> <object-complex-tail> | empty
+
+<object-complex-tail>   := [ <expression> ] | empty
 
 <literal>               := STRING | NULL_LITERAL | BOOLEAN | NUMERIC | REGEXP
 
@@ -45,8 +51,6 @@
 <array-element-list>    := <expression> <array-element-list-tail>
 
 <array-element-list-tail> := , <expression> <array-element-list-tail> | empty
-
-<expression-statement>  := <expression> ;
 
 <assignment-statement>  := var <assignment-expr> ;
 

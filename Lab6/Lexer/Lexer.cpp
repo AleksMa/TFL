@@ -23,15 +23,15 @@ void Lexer::make_keywords() {
 void Lexer::make_regex() {
     tokens_expressions = {
             regex(R"(^((/\*(.|\n)*?\*/)|(//[^\n]*)))"),                     // comments
-            regex("^\n"),                                                   // newline
+            regex(R"(^\n)"),                                                   // newline
             regex(R"(^(("([^"\\]|\\.)*")|('([^'\\]|\\.)*')))"),             // string literal
-            regex("^null"),                                                 // null
-            regex("^(true|false)"),                                         // bool literal
-            regex("^((0[xb][a-fA-F0-9]+)|([0-9]+((\\.[0-9]+)([eE][+\\-]?[0-9]+)?)?))"), // numeric literal
-            regex("^(/.*/[gimsuy]*)"),                                      // regex literal
-            regex("^([a-zA-Z$][\\w]*)"),                                    // identifier
+            regex(R"(^null)"),                                                 // null
+            regex(R"(^(true|false))"),                                         // bool literal
+            regex(R"(^((0[xb][a-fA-F0-9]+)|([0-9]+((\\.[0-9]+)([eE][+\\-]?[0-9]+)?)?)))"), // numeric literal
+            regex(R"(^(/.*/[gimsuy]*))"),                                      // regex literal
+            regex(R"(^([a-zA-Z$][\w]*))"),                                    // identifier
             // punctuator
-            regex(R"(^((===)|(!==)|(<=)|(>=)|(==)|(!=)|(\+{2})|(--)|(<<)|(>>)|(&&)|([|]{2})|(\+=)|(-=)|(\*=)|(%=)|(&=)|([|]=)|(\^=)|[.;,<>+\-*/%&|^!~?:={}()\[\]]))")
+            regex(R"(^((===)|(!==)|(<=)|(>=)|(==)|(!=)|(\+{2})|(--)|(<<)|(>>)|(&&)|([|]{2})|(\+=)|(-=)|(\*=)|(%=)|(/=)|([|]=)|(\^=)|[.;,<>+\-*/%&|^!~?:={}()\[\]]))")
     };
 }
 
@@ -149,7 +149,6 @@ void Lexer::write_table(int code, string path) {
     string filename = header;
     transform(filename.begin(), filename.end(), filename.begin(),
               [](unsigned char c) { return std::tolower(c); });
-    cout << filename << endl;
     ofstream output_stream(path + filename + ".csv");
     output_stream << header << endl << endl;
     for (int i = 0; i < tables[code].size(); i++) {
@@ -191,4 +190,8 @@ void Lexer::write_tokens_ordered(string path) {
             output_stream << tokens[i].to_str() << " ";
     }
     output_stream.close();
+}
+
+vector<Token> Lexer::getTokens() {
+    return tokens;
 }
