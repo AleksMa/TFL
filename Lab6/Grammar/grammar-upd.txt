@@ -1,6 +1,6 @@
-<statement-list>        := <statement> <statement-list-tail> | empty
+<statement-list>        := <statement> <statement-list-tail> | e
 
-<statement-list-tail>   := <statement> <statement-list-tail> | empty
+<statement-list-tail>   := <statement> <statement-list-tail> | e
 
 <statement>             := <expression-statement> | <assignment-statement> | <while-statement> | <if-else-statement> | <for-statement> | <function-declaration> | { <statement-list> } | ;
 
@@ -12,9 +12,9 @@
 
 <object-accessor>       := IDENTIFIER <object-accessor-tail>
 
-<object-accessor-tail>  := [ <expression> ] | . <object-accessor> <object-complex-tail> | empty
+<object-accessor-tail>  := [ <expression> ] | . <object-accessor> <object-complex-tail> | e
 
-<object-complex-tail>   := [ <expression> ] | empty
+<object-complex-tail>   := [ <expression> ] | e
 
 <literal>               := STRING | NULL_LITERAL | BOOLEAN | NUMERIC | REGEXP
 
@@ -56,19 +56,19 @@
 
 <assignment-statement>  := var <assignment-expr> ; | let <assignment-expr> ; | const <assignment-expr> ;
 
-<function-declaration>  := function ( <argument-list> ) <function-body>
+<function-declaration>  := function ( <argument-list> <function-body>
 
-<argument-list>         := <argument> <argument-list-tail> | empty
+<argument-list>         := <argument> <argument-list-tail> | )
 
-<argument-list-tail>    := , <argument> <argument-list> | empty
+<argument-list-tail>    := , <argument> <argument-list> | )
 
 <argument>              := IDENTIFIER <argument-tail>
 
-<argument-tail>         := = <expression> | empty
+<argument-tail>         := = <expression> | e
 
-<function-body>         := { <func-body-statement-list> } | <func-body-statement>
+<function-body>         := { <func-body-statement-list> | <func-body-statement>
 
-<func-body-statement-list>  := <func-body-statement> <func-body-statement-list-tail> | empty
+<func-body-statement-list>  := <func-body-statement> <func-body-statement-list-tail> | }
 
 <func-body-statement>       := <statement> | return <expression> ;
 
@@ -76,11 +76,9 @@
 
 <for-statement>         := for ( <expression> ; <expression> ; <expression> ) <loop-body>
 
-<loop-body>             := { <loop-body-statement-list> } | <loop-body-statement>
+<loop-body>             := { <loop-body-statement-list> | <loop-body-statement>
 
-<loop-body-statement-list>  := <loop-body-statement> <loop-body-statement-list-tail> | empty
-
-<loop-body-statement-list-tail> := <loop-body-statement> <loop-body-statement-list-tail> | empty
+<loop-body-statement-list>  := <loop-body-statement> <loop-body-statement-list-tail> | }
 
 <loop-body-statement>       := break ; | continue ; | <statement>
 
@@ -88,10 +86,10 @@
 
 <if-statement>          := if ( <expression> ) <if-body>
 
-<else-statement-list>   := else <if-statement> <else-statement-list> | empty
+<else-statement-list>   := else <if-statement> <else-statement-list> | else <if-body> | e
 
-<if-body>               := { <if-body-statement-list> } | <if-body-statement>
+<if-body>               := { <if-body-statement-list> | <if-body-statement>
 
-<if-body-statement-list>    := <if-body-statement> <if-body-statement-list> | empty
+<if-body-statement-list>    := <if-body-statement> <if-body-statement-list> | }
 
 <if-body-statement>         := <statement> | break ;
