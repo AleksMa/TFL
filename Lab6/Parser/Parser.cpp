@@ -14,7 +14,7 @@ void Parser::parse() {
         cout << current_token().to_str_extended();
 }
 
-bool Parser::start_parse(){
+bool Parser::start_parse() {
     pointer = 0;
     return statement_list();
 }
@@ -146,12 +146,16 @@ bool Parser::primary_expression() {
 }
 
 bool Parser::object_accessor() {
-    return check_type(IDENTIFIER) && object_accessor_tail();
+    //return check_type(IDENTIFIER) && object_accessor_tail();
+    int prev_pointer = pointer;
+    bool check_ident = check_type_move(IDENTIFIER) && object_accessor_tail();
+    if (!check_ident)
+        pointer = prev_pointer;
+    return check_ident;
 }
 
 bool Parser::object_accessor_tail() {
     int prev_pointer = pointer;
-    next_token();
     if (check_value("[")) {
         next_token();
         bool accessor_expression = expression() && check_value_move("]") && object_accessor_tail();
@@ -166,7 +170,7 @@ bool Parser::object_accessor_tail() {
         return accessor_expression;
     } else if (check_value("(")) {
         next_token();
-        bool accessor_expression = check_value_move(")") && object_accessor_tail();
+        bool accessor_expression = method_argument_list() && check_value_move(")") && object_accessor_tail();
         if (!accessor_expression)
             pointer = prev_pointer;
         return accessor_expression;
@@ -174,16 +178,30 @@ bool Parser::object_accessor_tail() {
     return true;
 }
 
-bool Parser::object_complex_tail() {
-    if (check_value("[")) {
-        int prev_pointer = pointer;
-        next_token();
-        bool accessor_expression = expression() && check_value_move("]");
-        if (!accessor_expression)
-            pointer = prev_pointer;
-        return accessor_expression;
+bool Parser::method_argument_list() {
+    if (check_value(")")) {
+        return true;
     }
-    return true;
+
+    int prev_pointer = pointer;
+    bool check_arguments = expression() && method_argument_list_tail();
+    if (!check_arguments)
+        pointer = prev_pointer;
+
+    return check_arguments;
+}
+
+bool Parser::method_argument_list_tail() {
+    if (check_value(")")) {
+        return true;
+    }
+
+    int prev_pointer = pointer;
+    bool check_array = check_value_move(",") && expression() && method_argument_list_tail();
+    if (!check_array)
+        pointer = prev_pointer;
+
+    return check_array;
 }
 
 bool Parser::expression() {
@@ -196,10 +214,6 @@ bool Parser::expression() {
                       object_literal() ||
                       array_literal() ||
                       primary_expression();
-//    if (!check_expr && (check_value(";") || check_value(")"))) {
-//        next_token();
-//        return true;
-//    }
     return check_expr;
 }
 
@@ -270,7 +284,7 @@ bool Parser::assignment_expression() {
         return true;
 
     pointer = prev_pointer;
-    check_expr = object_accessor() && check_value_move("=") && function_declaration();
+    check_expr = object_accessor() && check_value_move("=") && function_assignment();
     if (!check_expr)
         pointer = prev_pointer;
 
@@ -415,7 +429,20 @@ bool Parser::assignment_statement() {
     return check_statement;
 }
 
+
 bool Parser::function_declaration() {
+    int prev_pointer = pointer;
+
+    bool check_statement = check_value_move("function") && check_type_move(IDENTIFIER) &&
+                           check_value_move("(") && argument_list() && check_value_move(")") &&
+                           function_body();
+    if (!check_statement)
+        pointer = prev_pointer;
+
+    return check_statement;
+}
+
+bool Parser::function_assignment() {
     int prev_pointer = pointer;
 
     bool check_statement = check_value_move("function") &&

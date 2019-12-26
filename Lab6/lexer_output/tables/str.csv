@@ -1,2 +1,13 @@
 STR
 
+0, 'singleton'
+1, 'fail'
+2, 'foo === bar ->'
+3, 'values:'
+4, 'baz === bar ->'
+5, "document.z.textdisplay.value = newMake()"
+6, "window.status = newMake()"
+7, "some\"string\""
+8, 'string'
+9, "0"
+10, "some\"string\""

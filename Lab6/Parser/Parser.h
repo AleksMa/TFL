@@ -42,7 +42,8 @@ private:
     bool primary_expression();
     bool object_accessor();
     bool object_accessor_tail();
-    bool object_complex_tail();
+    bool method_argument_list();
+    bool method_argument_list_tail();
     bool expression();
     bool postfix_expression();
     bool prefix_expression();
@@ -64,6 +65,7 @@ private:
     bool expression_statement();
     bool assignment_statement();
     bool function_declaration();
+    bool function_assignment();
     bool argument_list();
     bool argument_list_tail();
     bool argument();
