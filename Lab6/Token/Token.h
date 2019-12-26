@@ -19,20 +19,6 @@ enum token_type {
     NEWLINE,
 
     // DEFINITE TOKENS
-            OP_EQUAL,
-    OP_EXCLAMATION,     // восклицательный знак !
-    NULL_LITERAL,
-    SEMICOLON,          // точка с запятой ;
-    POINT,
-    COMMA,
-    QUESTION,
-    COLON,              // двоеточие :
-    LEFT_ROUND,
-    RIGHT_ROUND,
-    LEFT_SQUARE,
-    RIGHT_SQUARE,
-    LEFT_CURLY,
-    RIGHT_CURLY,
     BREAK,
     CONTINUE,
     RETURN,
@@ -52,9 +38,24 @@ enum token_type {
     REGEXP,
     IDENTIFIER,
     OP_DOUBLED,
-    OP_ADDITIVE,
     OP_BINARY,
     OP_ASSIGN,
+    OP_ADDITIVE,
+
+    OP_EQUAL,
+    OP_EXCLAMATION,     // восклицательный знак !
+    NULL_LITERAL,
+    SEMICOLON,          // точка с запятой ;
+    POINT,
+    COMMA,
+    QUESTION,
+    COLON,              // двоеточие :
+    LEFT_ROUND,
+    RIGHT_ROUND,
+    LEFT_SQUARE,
+    RIGHT_SQUARE,
+    LEFT_CURLY,
+    RIGHT_CURLY,
 
     UNKNOWN
 };

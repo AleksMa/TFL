@@ -13,20 +13,6 @@ void Lexer::make_regex() {
             regex(R"(^\n)"),                                                    // newline
 
             // DEFINITE
-            regex(R"(^([=]))"),
-            regex(R"(^([!]))"),
-            regex(R"(^null)"),
-            regex(R"(^([;]))"),
-            regex(R"(^([.]))"),
-            regex(R"(^([,]))"),
-            regex(R"(^([?]))"),
-            regex(R"(^([:]))"),
-            regex(R"(^([(]))"),
-            regex(R"(^([)]))"),
-            regex(R"(^([\[]))"),
-            regex(R"(^([\]]))"),
-            regex(R"(^([{]))"),
-            regex(R"(^([}]))"),
             regex(R"(^break)"),
             regex(R"(^continue)"),
             regex(R"(^return)"),
@@ -46,9 +32,25 @@ void Lexer::make_regex() {
             regex(R"(^(/.*/[gimsuy]*))"),                                       // regex literal
             regex(R"(^([a-zA-Z$][\w]*))"),                                      // identifier
             regex(R"(^((\+{2})|(--)))"),                                        // doubled
-            regex(R"(^([+\-]))"),                                                // additive
             regex(R"(^((===)|(!==)|(<=)|(>=)|(==)|(!=)|(<<)|(>>)|(&&)|([|]{2})|[<>*/%]))"), // binary
-            regex(R"(^((\+=)|(-=)|(\*=)|(%=)|(/=)))")                          // assign
+            regex(R"(^((\+=)|(-=)|(\*=)|(%=)|(/=)))"),                          // assign
+            regex(R"(^([+\-]))"),                                                // additive
+
+
+            regex(R"(^([=]))"),
+            regex(R"(^([!]))"),
+            regex(R"(^null)"),
+            regex(R"(^([;]))"),
+            regex(R"(^([.]))"),
+            regex(R"(^([,]))"),
+            regex(R"(^([?]))"),
+            regex(R"(^([:]))"),
+            regex(R"(^([(]))"),
+            regex(R"(^([)]))"),
+            regex(R"(^([\[]))"),
+            regex(R"(^([\]]))"),
+            regex(R"(^([{]))"),
+            regex(R"(^([}]))")
     };
 }
 
@@ -56,7 +58,7 @@ void Lexer::make_regex() {
 
 Lexer::Lexer(string source) : source(source) {
     correct = true;
-    tables = vector<vector<string>>(OP_ASSIGN - STRING + 1);
+    tables = vector<vector<string>>(OP_ADDITIVE - STRING + 1);
     make_regex();
 }
 
@@ -99,11 +101,11 @@ void Lexer::lexical_analyse() {
             if (regex_search(cur_source, match, tokens_expressions[i])) {
                 int code = i;
                 string matched_substr = match[0];
-                if (OP_EQUAL <= code) {
-                    tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row);
-                } else if (STRING <= code) {
+                if (STRING <= code && code <= OP_ADDITIVE) {
                     tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row, tables[i].size());
-                    tables[i].push_back(matched_substr);
+                    tables[i - STRING].push_back(matched_substr);
+                } else if (NEWLINE < code) {
+                    tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row);
                 }
                 pos += matched_substr.length();
                 if (code == NEWLINE) {
@@ -150,7 +152,7 @@ void Lexer::lexical_analyse() {
 
 
 void Lexer::write_tables(string path) {
-    for (int i = STRING; i <= OP_ASSIGN; i++) {
+    for (int i = STRING; i <= OP_ADDITIVE; i++) {
         write_table(i, path);
     }
 }

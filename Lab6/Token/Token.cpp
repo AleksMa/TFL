@@ -10,13 +10,13 @@ Token::Token() {}
 
 string Token::to_str() const {
            return "{" + token_types[type] +
-                  (STRING <= type  && type <= OP_EQUAL ? ", " + to_string(table_index) : "") +
+                  (STRING <= type  && type <= OP_ADDITIVE ? ", " + to_string(table_index) : "") +
                   ", " + to_string(row) + ":" + to_string(col) + "}";
 }
 
 string Token::to_str_extended() const {
     return "{" + token_types[type] +
-           (STRING <= type  && type <= OP_EQUAL ? ", index: " + to_string(table_index) : "") +
+           (STRING <= type  && type <= OP_ADDITIVE ? ", index: " + to_string(table_index) : "") +
            ", pos: " + to_string(row) + ":" + to_string(col) + "}";
 }
 

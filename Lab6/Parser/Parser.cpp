@@ -60,19 +60,19 @@ bool Parser::next_token() {
 
 
 bool Parser::check_binary_op() {
-    return !is_empty() && binary_ops.find(current_token().get_value()) != binary_ops.end();
+    return check_type(OP_BINARY) || check_type(OP_ADDITIVE);
 }
 
 bool Parser::check_assignment_op() {
-    return !is_empty() && assignment_ops.find(current_token().get_value()) != assignment_ops.end();
+    return check_type(OP_ASSIGN) || check_type(OP_EQUAL);
 }
 
 bool Parser::check_doubled_op() {
-    return !is_empty() && doubled_ops.find(current_token().get_value()) != doubled_ops.end();
+    return check_type(OP_DOUBLED);
 }
 
 bool Parser::check_unary_op() {
-    return !is_empty() && unary_ops.find(current_token().get_value()) != unary_ops.end();
+    return check_type(OP_ADDITIVE) || check_type(OP_EXCLAMATION);
 }
 
 // PARSER
@@ -138,7 +138,7 @@ bool Parser::primary_expression() {
         return expressions;
 
     int prev_pointer = pointer;
-    bool check_expression = check_value_move("(") && expression() && check_value_move(")");
+    bool check_expression = check_type_move(LEFT_ROUND) && expression() && check_type_move(RIGHT_ROUND);
     if (!check_expression)
         pointer = prev_pointer;
 
@@ -156,21 +156,21 @@ bool Parser::object_accessor() {
 
 bool Parser::object_accessor_tail() {
     int prev_pointer = pointer;
-    if (check_value("[")) {
+    if (check_type(LEFT_SQUARE)) {
         next_token();
-        bool accessor_expression = expression() && check_value_move("]") && object_accessor_tail();
+        bool accessor_expression = expression() && check_type_move(RIGHT_SQUARE) && object_accessor_tail();
         if (!accessor_expression)
             pointer = prev_pointer;
         return accessor_expression;
-    } else if (check_value(".")) {
+    } else if (check_type(POINT)) {
         next_token();
         bool accessor_expression = object_accessor();
         if (!accessor_expression)
             pointer = prev_pointer;
         return accessor_expression;
-    } else if (check_value("(")) {
+    } else if (check_type(LEFT_ROUND)) {
         next_token();
-        bool accessor_expression = method_argument_list() && check_value_move(")") && object_accessor_tail();
+        bool accessor_expression = method_argument_list() && check_type_move(RIGHT_ROUND) && object_accessor_tail();
         if (!accessor_expression)
             pointer = prev_pointer;
         return accessor_expression;
@@ -179,7 +179,7 @@ bool Parser::object_accessor_tail() {
 }
 
 bool Parser::method_argument_list() {
-    if (check_value(")")) {
+    if (check_type(RIGHT_ROUND)) {
         return true;
     }
 
@@ -192,12 +192,12 @@ bool Parser::method_argument_list() {
 }
 
 bool Parser::method_argument_list_tail() {
-    if (check_value(")")) {
+    if (check_type(RIGHT_ROUND)) {
         return true;
     }
 
     int prev_pointer = pointer;
-    bool check_array = check_value_move(",") && expression() && method_argument_list_tail();
+    bool check_array = check_type_move(COMMA) && expression() && method_argument_list_tail();
     if (!check_array)
         pointer = prev_pointer;
 
@@ -284,7 +284,7 @@ bool Parser::assignment_expression() {
         return true;
 
     pointer = prev_pointer;
-    check_expr = object_accessor() && check_value_move("=") && function_assignment();
+    check_expr = object_accessor() && check_type_move(OP_EQUAL) && function_assignment();
     if (!check_expr)
         pointer = prev_pointer;
 
@@ -301,8 +301,8 @@ bool Parser::assignment_operation() {
 
 bool Parser::ternary_expression() {
     int prev_pointer = pointer;
-    bool check_expr = primary_expression() && check_value_move("?") &&
-                      primary_expression() && check_value_move(":") &&
+    bool check_expr = primary_expression() && check_type_move(QUESTION) &&
+                      primary_expression() && check_type_move(COLON) &&
                       primary_expression();
     if (!check_expr)
         pointer = prev_pointer;
@@ -312,7 +312,7 @@ bool Parser::ternary_expression() {
 
 bool Parser::object_literal() {
     int prev_pointer = pointer;
-    if (check_value("{")) {
+    if (check_type(LEFT_CURLY)) {
         next_token();
     } else {
         return false;
@@ -325,7 +325,7 @@ bool Parser::object_literal() {
 }
 
 bool Parser::object_kv_list() {
-    if (check_value("}")) {
+    if (check_type(RIGHT_CURLY)) {
         next_token();
         return true;
     }
@@ -339,13 +339,13 @@ bool Parser::object_kv_list() {
 }
 
 bool Parser::object_kv_list_tail() {
-    if (check_value("}")) {
+    if (check_type(RIGHT_CURLY)) {
         next_token();
         return true;
     }
 
     int prev_pointer = pointer;
-    bool check_object = check_value_move(",") && object_kv_pair() && object_kv_list_tail();
+    bool check_object = check_type_move(COMMA) && object_kv_pair() && object_kv_list_tail();
     if (!check_object)
         pointer = prev_pointer;
 
@@ -357,7 +357,7 @@ bool Parser::object_kv_pair() {
     if (check_type(STRING) || check_type(IDENTIFIER)) {
         next_token();
     }
-    bool check_object = check_value_move(":") && expression();
+    bool check_object = check_type_move(COLON) && expression();
     if (!check_object)
         pointer = prev_pointer;
 
@@ -366,7 +366,7 @@ bool Parser::object_kv_pair() {
 
 bool Parser::array_literal() {
     int prev_pointer = pointer;
-    if (check_value("[")) {
+    if (check_type(LEFT_SQUARE)) {
         next_token();
     } else {
         return false;
@@ -379,7 +379,7 @@ bool Parser::array_literal() {
 }
 
 bool Parser::array_element_list() {
-    if (check_value("]")) {
+    if (check_type(RIGHT_SQUARE)) {
         next_token();
         return true;
     }
@@ -393,13 +393,13 @@ bool Parser::array_element_list() {
 }
 
 bool Parser::array_element_list_tail() {
-    if (check_value("]")) {
+    if (check_type(RIGHT_SQUARE)) {
         next_token();
         return true;
     }
 
     int prev_pointer = pointer;
-    bool check_array = check_value_move(",") && expression() && array_element_list_tail();
+    bool check_array = check_type_move(COMMA) && expression() && array_element_list_tail();
     if (!check_array)
         pointer = prev_pointer;
 
@@ -408,21 +408,21 @@ bool Parser::array_element_list_tail() {
 
 bool Parser::assignment_statement() {
     int prev_pointer = pointer;
-    if (check_value("var") || check_value("let") || check_value("const")) {
+    if (check_type(VAR) || check_type(LET) || check_type(CONST)) {
         next_token();
     } else {
         return expression_statement();
     }
 
-    bool check_statement = assignment_expression() && check_value_move(";");
+    bool check_statement = assignment_expression() && check_type_move(SEMICOLON);
     if (!check_statement)
         pointer = prev_pointer;
     else
         return check_statement;
 
-    if (!check_value("const"))
+    if (!check_type(CONST))
         next_token();
-    check_statement = check_type_move(IDENTIFIER) && check_value_move(";");
+    check_statement = check_type_move(IDENTIFIER) && check_type_move(SEMICOLON);
     if (!check_statement)
         pointer = prev_pointer;
 
@@ -433,8 +433,8 @@ bool Parser::assignment_statement() {
 bool Parser::function_declaration() {
     int prev_pointer = pointer;
 
-    bool check_statement = check_value_move("function") && check_type_move(IDENTIFIER) &&
-                           check_value_move("(") && argument_list() && check_value_move(")") &&
+    bool check_statement = check_type_move(FUNCTION) && check_type_move(IDENTIFIER) &&
+                           check_type_move(LEFT_ROUND) && argument_list() && check_type_move(RIGHT_ROUND) &&
                            function_body();
     if (!check_statement)
         pointer = prev_pointer;
@@ -445,8 +445,8 @@ bool Parser::function_declaration() {
 bool Parser::function_assignment() {
     int prev_pointer = pointer;
 
-    bool check_statement = check_value_move("function") &&
-                           check_value_move("(") && argument_list() && check_value_move(")") &&
+    bool check_statement = check_type_move(FUNCTION) &&
+                           check_type_move(LEFT_ROUND) && argument_list() && check_type_move(RIGHT_ROUND) &&
                            function_body();
     if (!check_statement)
         pointer = prev_pointer;
@@ -455,7 +455,7 @@ bool Parser::function_assignment() {
 }
 
 bool Parser::argument_list() {
-    if (check_value(")")) {
+    if (check_type(RIGHT_ROUND)) {
         return true;
     }
 
@@ -468,12 +468,12 @@ bool Parser::argument_list() {
 }
 
 bool Parser::argument_list_tail() {
-    if (check_value(")")) {
+    if (check_type(RIGHT_ROUND)) {
         return true;
     }
 
     int prev_pointer = pointer;
-    bool check_array = check_value_move(",") && argument() && argument_list_tail();
+    bool check_array = check_type_move(COMMA) && argument() && argument_list_tail();
     if (!check_array)
         pointer = prev_pointer;
 
@@ -490,10 +490,10 @@ bool Parser::argument() {
 }
 
 bool Parser::argument_tail() {
-    if (check_value(")") || check_value(","))
+    if (check_type(RIGHT_ROUND) || check_type(COMMA))
         return true;
     int prev_pointer = pointer;
-    bool check_argument = check_value_move("=") && expression();
+    bool check_argument = check_type_move(OP_EQUAL) && expression();
     if (!check_argument)
         pointer = prev_pointer;
 
@@ -504,8 +504,8 @@ bool Parser::function_body() {
     int prev_pointer = pointer;
 
     bool check_statement;
-    if (check_value("{"))
-        check_statement = check_value_move("{") && function_body_statement_list() && check_value_move("}");
+    if (check_type(LEFT_CURLY))
+        check_statement = check_type_move(LEFT_CURLY) && function_body_statement_list() && check_type_move(RIGHT_CURLY);
     else
         check_statement = function_body_statement();
 
@@ -516,7 +516,7 @@ bool Parser::function_body() {
 }
 
 bool Parser::function_body_statement_list() {
-    if (check_value("}")) {
+    if (check_type(RIGHT_CURLY)) {
         return true;
     }
 
@@ -532,8 +532,8 @@ bool Parser::function_body_statement() {
     int prev_pointer = pointer;
 
     bool check_statement;
-    if (check_value("return"))
-        check_statement = check_value_move("return") && expression() && check_value_move(";");
+    if (check_type(RETURN))
+        check_statement = check_type_move(RETURN) && expression() && check_type_move(SEMICOLON);
     else
         check_statement = statement();
 
@@ -547,8 +547,8 @@ bool Parser::function_body_statement() {
 bool Parser::while_statement() {
     int prev_pointer = pointer;
 
-    bool check_statement = check_value_move("while") &&
-                           check_value_move("(") && expression() && check_value_move(")") &&
+    bool check_statement = check_type_move(WHILE) &&
+                           check_type_move(LEFT_ROUND) && expression() && check_type_move(RIGHT_ROUND) &&
                            loop_body();
 
     if (!check_statement)
@@ -560,12 +560,12 @@ bool Parser::while_statement() {
 bool Parser::for_statement() {
     int prev_pointer = pointer;
 
-    bool check_statement = check_value_move("for") &&
-                           check_value_move("(") &&
+    bool check_statement = check_type_move(FOR) &&
+                           check_type_move(LEFT_ROUND) &&
                            assignment_statement() &&
-                           expression() && check_value_move(";") &&
+                           expression() && check_type_move(SEMICOLON) &&
                            expression() &&
-                           check_value_move(")") &&
+                           check_type_move(RIGHT_ROUND) &&
                            loop_body();
 
     if (!check_statement)
@@ -578,8 +578,8 @@ bool Parser::loop_body() {
     int prev_pointer = pointer;
 
     bool check_statement;
-    if (check_value("{"))
-        check_statement = check_value_move("{") && loop_body_statement_list() && check_value_move("}");
+    if (check_type(LEFT_CURLY))
+        check_statement = check_type_move(LEFT_CURLY) && loop_body_statement_list() && check_type_move(RIGHT_CURLY);
     else
         check_statement = loop_body_statement();
 
@@ -590,7 +590,7 @@ bool Parser::loop_body() {
 }
 
 bool Parser::loop_body_statement_list() {
-    if (check_value("}")) {
+    if (check_type(RIGHT_CURLY)) {
         return true;
     }
 
@@ -606,10 +606,10 @@ bool Parser::loop_body_statement() {
     int prev_pointer = pointer;
 
     bool check_statement;
-    if (check_value("break"))
-        check_statement = check_value_move("break") && check_value_move(";");
-    else if (check_value("continue"))
-        check_statement = check_value_move("continue") && check_value_move(";");
+    if (check_type(BREAK))
+        check_statement = check_type_move(BREAK) && check_type_move(SEMICOLON);
+    else if (check_type(CONTINUE))
+        check_statement = check_type_move(CONTINUE) && check_type_move(SEMICOLON);
     else
         check_statement = statement();
 
@@ -633,8 +633,8 @@ bool Parser::if_else_statement() {
 bool Parser::if_statement() {
     int prev_pointer = pointer;
 
-    bool check_statement = check_value_move("if") &&
-                           check_value_move("(") && expression() && check_value_move(")") &&
+    bool check_statement = check_type_move(IF) &&
+                           check_type_move(LEFT_ROUND) && expression() && check_type_move(RIGHT_ROUND) &&
                            if_body();
 
     if (!check_statement)
@@ -644,12 +644,12 @@ bool Parser::if_statement() {
 }
 
 bool Parser::else_statement_list() {
-    if (!check_value("else")) {
+    if (!check_type(ELSE)) {
         return true;
     }
     int prev_pointer = pointer;
 
-    bool check_statement = check_value_move("else") &&
+    bool check_statement = check_type_move(ELSE) &&
                            if_statement() && else_statement_list();
 
     if (!check_statement)
@@ -658,7 +658,7 @@ bool Parser::else_statement_list() {
         return check_statement;
 
     pointer = prev_pointer;
-    check_statement = check_value_move("else") && if_body();
+    check_statement = check_type_move(ELSE) && if_body();
 
     if (!check_statement)
         pointer = prev_pointer;
@@ -670,8 +670,8 @@ bool Parser::if_body() {
     int prev_pointer = pointer;
 
     bool check_statement;
-    if (check_value("{"))
-        check_statement = check_value_move("{") && if_body_statement_list() && check_value_move("}");
+    if (check_type(LEFT_CURLY))
+        check_statement = check_type_move(LEFT_CURLY) && if_body_statement_list() && check_type_move(RIGHT_CURLY);
     else
         check_statement = if_body_statement();
 
@@ -682,7 +682,7 @@ bool Parser::if_body() {
 }
 
 bool Parser::if_body_statement_list() {
-    if (check_value("}")) {
+    if (check_type(RIGHT_CURLY)) {
         return true;
     }
 
@@ -698,12 +698,12 @@ bool Parser::if_body_statement() {
     int prev_pointer = pointer;
 
     bool check_statement;
-    if (check_value("break"))
-        check_statement = check_value_move("break") && check_value_move(";");
-    else if (check_value("continue"))
-        check_statement = check_value_move("continue") && check_value_move(";");
-    else if (check_value("return"))
-        check_statement = check_value_move("return") && expression() && check_value_move(";");
+    if (check_type(BREAK))
+        check_statement = check_type_move(BREAK) && check_type_move(SEMICOLON);
+    else if (check_type(CONTINUE))
+        check_statement = check_type_move(CONTINUE) && check_type_move(SEMICOLON);
+    else if (check_type(RETURN))
+        check_statement = check_type_move(RETURN) && expression() && check_type_move(SEMICOLON);
     else
         check_statement = statement();
 
