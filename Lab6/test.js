@@ -8,7 +8,6 @@ function Dummy() {
 
 //[[;  // uncomment to get error
 
-
 Dummy.prototype.value = 'fail';
 
 Dummy.prototype.setValue = function (value) {
@@ -46,9 +45,12 @@ function setTimeouts() {
     }
 }
 
-
+let arr = [1, 2, 3];
+alert(arr[0]);
 
 const stressString = "some\"string\"";
+
+alert(stressString);
 
 function testIfs() {
     if (a) {

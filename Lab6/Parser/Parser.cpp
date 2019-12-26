@@ -11,7 +11,7 @@ void Parser::parse() {
 
     cout << (correct ? "CORRECT" : "NOT CORRECT") << endl;
     if (!correct)
-        cout << current_token().to_str_extended();
+        cout << "Syntax error on line " << current_token().get_line();
 }
 
 bool Parser::start_parse() {
