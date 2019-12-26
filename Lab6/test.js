@@ -1,3 +1,34 @@
+function Dummy() {
+    if (!Dummy.hasOwnProperty('singleton')) {
+        Dummy.singleton = this;
+        return Dummy.singleton;
+    }
+    return Dummy.singleton;
+}
+
+// [[;  // uncomment to get parser error
+
+Dummy.prototype.value = 'fail';
+
+Dummy.prototype.setValue = function (value) {
+    this.value = value;
+};
+
+Dummy.prototype.getValue = function () {
+    return this.value;
+};
+
+
+// Используем
+let foo = Dummy();
+let bar = Dummy();
+
+
+bar.setValue(123);/*a
+
+a*/
+
+// Тесты
 console.log('foo === bar ->', foo === bar); // true
 console.log('values:', [foo.getValue(), bar.getValue()]); // [123, 123]
 
@@ -58,3 +89,5 @@ let a = 2 * 5;
 COM
 MENT
 */
+
+// №  // uncomment to get lexer error

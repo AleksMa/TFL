@@ -102,7 +102,9 @@ void Lexer::lexical_analyse() {
                 int code = i;
                 string matched_substr = match[0];
                 if (STRING <= code && code <= OP_ADDITIVE) {
-                    tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row, tables[i].size());
+                    tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row,
+                                        tables[i - STRING].size());
+
                     tables[i - STRING].push_back(matched_substr);
                 } else if (NEWLINE < code) {
                     tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row);
