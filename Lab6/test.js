@@ -50,6 +50,8 @@ alert(arr[0]);
 
 var obj = {'key': 'value', "complexKey": arr};
 
+alert(obj.key == 'value'? true : false);
+
 const stressString = "some\"string\"";
 
 alert(stressString);
