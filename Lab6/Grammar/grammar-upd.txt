@@ -12,9 +12,13 @@
 
 <object-accessor>       := IDENTIFIER <object-accessor-tail>
 
-<object-accessor-tail>  := [ <expression> ] | . <object-accessor> <object-complex-tail> | e
+<object-accessor-tail>  := [ <expression> ] <object-accessor-tail> | . <object-accessor> | ( <method-argument-list> <object-accessor-tail> | e
 
-<object-complex-tail>   := [ <expression> ] | e
+<method-argument-list>  := <argument> <argument-list-tail> | )
+
+<method-argument-list-tail>    := , <argument> <argument-list> | )
+
+<method-argument>       := IDENTIFIER <argument-tail>
 
 <literal>               := STRING | NULL_LITERAL | BOOLEAN | NUMERIC | REGEXP
 

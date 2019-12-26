@@ -154,13 +154,19 @@ bool Parser::object_accessor_tail() {
     next_token();
     if (check_value("[")) {
         next_token();
-        bool accessor_expression = expression() && check_value_move("]");
+        bool accessor_expression = expression() && check_value_move("]") && object_accessor_tail();
         if (!accessor_expression)
             pointer = prev_pointer;
         return accessor_expression;
     } else if (check_value(".")) {
         next_token();
-        bool accessor_expression = object_accessor() && object_complex_tail();
+        bool accessor_expression = object_accessor();
+        if (!accessor_expression)
+            pointer = prev_pointer;
+        return accessor_expression;
+    } else if (check_value("(")) {
+        next_token();
+        bool accessor_expression = check_value_move(")") && object_accessor_tail();
         if (!accessor_expression)
             pointer = prev_pointer;
         return accessor_expression;
