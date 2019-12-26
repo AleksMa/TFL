@@ -48,6 +48,8 @@ function setTimeouts() {
 let arr = [1, 2, 3];
 alert(arr[0]);
 
+var obj = {'key': 'value', "complexKey": arr};
+
 const stressString = "some\"string\"";
 
 alert(stressString);

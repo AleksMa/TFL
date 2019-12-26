@@ -7,7 +7,10 @@ STR
 4, 'baz === bar ->'
 5, "document.z.textdisplay.value = newMake()"
 6, "window.status = newMake()"
-7, "some\"string\""
-8, 'string'
-9, "0"
+7, 'key'
+8, 'value'
+9, "complexKey"
 10, "some\"string\""
+11, 'string'
+12, "0"
+13, "some\"string\""
