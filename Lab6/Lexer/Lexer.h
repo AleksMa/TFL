@@ -29,7 +29,6 @@ private:
     Token incorrect;
 
     void make_regex();
-    void make_keywords();
 
     string input_prefix = "/home/alexey/TFL/Lab6/lexer_output/";
 

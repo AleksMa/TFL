@@ -16,13 +16,12 @@ int main() {
 
     string input_file = "/home/alexey/TFL/Lab6/test.js";
     string source = read_file(input_file);
-    //cout << source << endl;
 
     Lexer lex(source);
     lex.full_lexical_analyse();
 
-    Parser parser(lex.getTokens());
-    parser.parse();
+    //Parser parser(lex.getTokens());
+    //parser.parse();
 
     return 0;
 }

@@ -97,3 +97,16 @@
 <if-body-statement-list>    := <if-body-statement> <if-body-statement-list> | }
 
 <if-body-statement>         := <statement> | break ;
+
+
+"break",
+            "else",
+            "var",
+            "continue",
+            "for",
+            "while",
+            "function",
+            "if",
+            "return",
+            "let",
+            "const"

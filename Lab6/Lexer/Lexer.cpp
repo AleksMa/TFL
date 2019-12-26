@@ -6,34 +6,49 @@
 
 // INIT FUNCTIONS
 
-void Lexer::make_keywords() {
-    keywords = {
-            "break",
-            "else",
-            "var",
-            "continue",
-            "for",
-            "while",
-            "function",
-            "if",
-            "return",
-            "let",
-            "const"
-    };
-}
-
 void Lexer::make_regex() {
     tokens_expressions = {
-            regex(R"(^((/\*(.|\n)*?\*/)|(//[^\n]*)))"),                     // comments
-            regex(R"(^\n)"),                                                   // newline
-            regex(R"(^(("([^"\\]|\\.)*")|('([^'\\]|\\.)*')))"),             // string literal
-            regex(R"(^null)"),                                                 // null
-            regex(R"(^(true|false))"),                                         // bool literal
+            // REMOVABLE
+            regex(R"(^((/\*(.|\n)*?\*/)|(//[^\n]*)))"),                         // comments
+            regex(R"(^\n)"),                                                    // newline
+
+            // STORABLE
+            regex(R"(^(("([^"\\]|\\.)*")|('([^'\\]|\\.)*')))"),                 // string literal
+            regex(R"(^(true|false))"),                                          // bool literal
             regex(R"(^((0[xb][a-fA-F0-9]+)|([0-9]+((\.[0-9]+)([eE][+\\-]?[0-9]+)?)?)))"), // numeric literal
-            regex(R"(^(/.*/[gimsuy]*))"),                                      // regex literal
-            regex(R"(^([a-zA-Z$][\w]*))"),                                    // identifier
-            // punctuator
-            regex(R"(^((===)|(!==)|(<=)|(>=)|(==)|(!=)|(\+{2})|(--)|(<<)|(>>)|(&&)|([|]{2})|(\+=)|(-=)|(\*=)|(%=)|(/=)|([|]=)|(\^=)|[.;,<>+\-*/%&|^!~?:={}()\[\]]))")
+            regex(R"(^(/.*/[gimsuy]*))"),                                       // regex literal
+            regex(R"(^([a-zA-Z$][\w]*))"),                                      // identifier
+            regex(R"(^((\+{2})|(--)))"),                                        // doubled
+            regex(R"(^([+-]))"),                                                // additive
+            regex(R"(^((===)|(!==)|(<=)|(>=)|(==)|(!=)|(<<)|(>>)|(&&)|([|]{2})|[<>*/%]))"), // binary
+            regex(R"(^((\+=)|(-=)|(\*=)|(%=)|(/=)))"),                          // assign
+
+            // DEFINITE
+            regex(R"(^=)"),
+            regex(R"(^!)"),
+            regex(R"(^null)"),
+            regex(R"(^;)"),
+            regex(R"(^\.)"),
+            regex(R"(^,)"),
+            regex(R"(^\?)"),
+            regex(R"(^:)"),
+            regex(R"(^()"),
+            regex(R"(^))"),
+            regex(R"(^[)"),
+            regex(R"(^])"),
+            regex(R"(^{)"),
+            regex(R"(^})"),
+            regex(R"(^break)"),
+            regex(R"(^continue)"),
+            regex(R"(^return)"),
+            regex(R"(^function)"),
+            regex(R"(^for)"),
+            regex(R"(^while)"),
+            regex(R"(^if)"),
+            regex(R"(^else)"),
+            regex(R"(^var)"),
+            regex(R"(^let)"),
+            regex(R"(^const)")
     };
 }
 
@@ -41,9 +56,8 @@ void Lexer::make_regex() {
 
 Lexer::Lexer(string source) : source(source) {
     correct = true;
-    tables = vector<vector<string>>(11);
+    tables = vector<vector<string>>(OP_ASSIGN - STRING + 1);
     make_regex();
-    make_keywords();
 }
 
 void Lexer::full_lexical_analyse() {
@@ -85,12 +99,9 @@ void Lexer::lexical_analyse() {
             if (regex_search(cur_source, match, tokens_expressions[i])) {
                 int code = i;
                 string matched_substr = match[0];
-                if (code == IDENTIFIER && keywords.find(matched_substr) != keywords.end()) {
-                    code = KEYWORD;
-                }
-                if (code == NULL_LITERAL) {
+                if (OP_EQUAL <= code) {
                     tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row);
-                } else if (code != NEWLINE && code != COMMENT) {
+                } else if (STRING <= code) {
                     tokens.emplace_back(static_cast<token_type>(code), matched_substr, pos, col, row, tables[i].size());
                     tables[i].push_back(matched_substr);
                 }
@@ -139,9 +150,7 @@ void Lexer::lexical_analyse() {
 
 
 void Lexer::write_tables(string path) {
-    for (int i = 0; i <= UNKNOWN; i++) {
-        if (i == NEWLINE || i == NULL_LITERAL || i == COMMENT)
-            continue;
+    for (int i = STRING; i <= OP_ASSIGN; i++) {
         write_table(i, path);
     }
 }
@@ -153,8 +162,8 @@ void Lexer::write_table(int code, string path) {
               [](unsigned char c) { return std::tolower(c); });
     ofstream output_stream(path + filename + ".csv");
     output_stream << header << endl << endl;
-    for (int i = 0; i < tables[code].size(); i++) {
-        output_stream << i << ", " << tables[code][i] << endl;
+    for (int i = 0; i < tables[code - STRING].size(); i++) {
+        output_stream << i << ", " << tables[code - STRING][i] << endl;
     }
     output_stream.close();
 }
@@ -181,7 +190,7 @@ void Lexer::write_tokens_ordered(string path) {
     ofstream output_stream(path);
     int k = 1;
     for (int i = 0; i < tokens.size(); i++) {
-        if (tokens[i].get_type() == COMMENT || tokens[i].get_type() == NEWLINE)
+        if (tokens[i].get_type() <= NEWLINE)
             continue;
         if (tokens[i].get_line() != k) {
             output_stream << endl;

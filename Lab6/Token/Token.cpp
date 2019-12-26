@@ -4,48 +4,19 @@
 
 #include "Token.h"
 
-
-map<token_type, string> Token::token_types = {
-        {COMMENT,      "COM"},
-        {NEWLINE,      "NL"},
-        {STRING,       "STR"},
-        {NULL_LITERAL, "NULL"},
-        {BOOLEAN,      "BOOL"},
-        {NUMERIC,      "NUM"},
-        {REGEXP,       "RE"},
-        {IDENTIFIER,   "IDENT"},
-        {PUNCTUATOR,   "PUNCT"},
-        {KEYWORD,      "KW"},
-        {UNKNOWN,      "UNKNOWN"}
-};
-
-//map<token_type, string> Token::token_types = {
-//        {COMMENT,        "COMMENT"},
-//        {NEWLINE,        "NEWLINE"},
-//        {STRING,         "STRING"},
-//        {NULL_LITERAL,   "NULL_LITERAL"},
-//        {BOOLEAN,        "BOOLEAN"},
-//        {NUMERIC,        "NUMERIC"},
-//        {REGEXP,         "REGEXP"},
-//        {IDENTIFIER, "IDENTIFIER"},
-//        {PUNCTUATOR,    "PUNCTUATOR"},
-//        {KEYWORD,        "KEYWORD"},
-//        {UNKNOWN,        "UNKNOWN"}
-//};
-
 Token::Token(token_type type, string value) : type(type), value(value) {}
 
 Token::Token() {}
 
 string Token::to_str() const {
            return "{" + token_types[type] +
-                  (type != NEWLINE && type != NULL_LITERAL ? ", " + to_string(table_index) : "") +
+                  (STRING <= type  && type <= OP_EQUAL ? ", " + to_string(table_index) : "") +
                   ", " + to_string(row) + ":" + to_string(col) + "}";
 }
 
 string Token::to_str_extended() const {
     return "{" + token_types[type] +
-           (type != NEWLINE && type != NULL_LITERAL ? ", index: " + to_string(table_index) : "") +
+           (STRING <= type  && type <= OP_EQUAL ? ", index: " + to_string(table_index) : "") +
            ", pos: " + to_string(row) + ":" + to_string(col) + "}";
 }
 
@@ -95,3 +66,50 @@ bool Token::equalsClass(token_type type) {
 bool Token::equals(string value) {
     return this->value == value;
 }
+
+
+map<token_type, string> Token::token_types = {
+        // REMOVABLE TOKENS
+        {COMMENT, "COMMENT"},
+        {NEWLINE, "NEWLINE"},
+
+        // STORABLE TOKENS
+        {STRING, "STRING"},
+        {BOOLEAN, "BOOLEAN"},
+        {NUMERIC, "NUMERIC"},
+        {REGEXP, "REGEXP"},
+        {IDENTIFIER, "IDENTIFIER"},
+        {PUNCTUATOR, "PUNCTUATOR"},
+        {OP_DOUBLED, "OP_DOUBLED"},
+        {OP_ADDITIVE, "OP_ADDITIVE"},
+        {OP_BINARY, "OP_BINARY"},
+        {OP_ASSIGN, "OP_ASSIGN"},
+
+        // DEFINITE TOKENS
+        {OP_EQUAL, "OP_EQUAL"},
+        {OP_EXCLAMATION, "OP_EXCLAMATION"},     // восклицательный знак !
+        {NULL_LITERAL, "NULL_LITERAL"},
+        {SEMICOLON, "SEMICOLON"},		  // точка с запятой ;
+        {POINT, "POINT"},
+        {COMMA, "COMMA"},
+        {QUESTION, "QUESTION"},
+        {COLON, "COLON"},		      // двоеточие :
+        {LEFT_ROUND, "LEFT_ROUND"},
+        {RIGHT_ROUND, "RIGHT_ROUND"},
+        {LEFT_SQUARE, "LEFT_SQUARE"},
+        {RIGHT_SQUARE, "RIGHT_SQUARE"},
+        {LEFT_CURLY, "LEFT_CURLY"},
+        {RIGHT_CURLY, "RIGHT_CURLY"},
+        {BREAK, "BREAK"},
+        {CONTINUE, "CONTINUE"},
+        {RETURN, "RETURN"},
+        {FUNCTION, "FUNCTION"},
+        {FOR, "FOR"},
+        {WHILE, "WHILE"},
+        {IF, "IF"},
+        {ELSE, "ELSE"},
+        {VAR, "VAR"},
+        {LET, "LET"},
+        {CONST, "CONST"},
+        {UNKNOWN, "UNKNOWN"}
+};

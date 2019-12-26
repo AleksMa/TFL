@@ -14,17 +14,49 @@ using namespace std;
 //https://ariya.io/2012/07/most-popular-javascript-tokens
 
 enum token_type {
-    COMMENT, // 0
-    NEWLINE, // 1
-    STRING, // 2
-    NULL_LITERAL, // 3
-    BOOLEAN, // 4
-    NUMERIC, // 5
-    REGEXP, // 6
-    IDENTIFIER, // 7
-    PUNCTUATOR, // 8
-    KEYWORD, // 9
-    UNKNOWN // 10
+    // REMOVABLE TOKENS
+    COMMENT,
+    NEWLINE,
+
+    // STORABLE TOKENS
+    STRING,
+    BOOLEAN,
+    NUMERIC,
+    REGEXP,
+    IDENTIFIER,
+    PUNCTUATOR,
+    OP_DOUBLED,
+    OP_ADDITIVE,
+    OP_BINARY,
+    OP_ASSIGN,
+
+    // DEFINITE TOKENS
+    OP_EQUAL,
+    OP_EXCLAMATION,     // восклицательный знак !
+    NULL_LITERAL,
+    SEMICOLON,          // точка с запятой ;
+    POINT,
+    COMMA,
+    QUESTION,
+    COLON,              // двоеточие :
+    LEFT_ROUND,
+    RIGHT_ROUND,
+    LEFT_SQUARE,
+    RIGHT_SQUARE,
+    LEFT_CURLY,
+    RIGHT_CURLY,
+    BREAK,
+    CONTINUE,
+    RETURN,
+    FUNCTION,
+    FOR,
+    WHILE,
+    IF,
+    ELSE,
+    VAR,
+    LET,
+    CONST,
+    UNKNOWN
 };
 
 class Token {
