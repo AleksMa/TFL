@@ -79,7 +79,6 @@ map<token_type, string> Token::token_types = {
         {NUMERIC, "NUMERIC"},
         {REGEXP, "REGEXP"},
         {IDENTIFIER, "IDENTIFIER"},
-        {PUNCTUATOR, "PUNCTUATOR"},
         {OP_DOUBLED, "OP_DOUBLED"},
         {OP_ADDITIVE, "OP_ADDITIVE"},
         {OP_BINARY, "OP_BINARY"},

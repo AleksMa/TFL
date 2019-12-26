@@ -15,23 +15,11 @@ using namespace std;
 
 enum token_type {
     // REMOVABLE TOKENS
-    COMMENT,
+            COMMENT,
     NEWLINE,
 
-    // STORABLE TOKENS
-    STRING,
-    BOOLEAN,
-    NUMERIC,
-    REGEXP,
-    IDENTIFIER,
-    PUNCTUATOR,
-    OP_DOUBLED,
-    OP_ADDITIVE,
-    OP_BINARY,
-    OP_ASSIGN,
-
     // DEFINITE TOKENS
-    OP_EQUAL,
+            OP_EQUAL,
     OP_EXCLAMATION,     // восклицательный знак !
     NULL_LITERAL,
     SEMICOLON,          // точка с запятой ;
@@ -56,6 +44,18 @@ enum token_type {
     VAR,
     LET,
     CONST,
+
+    // STORABLE TOKENS
+            STRING,
+    BOOLEAN,
+    NUMERIC,
+    REGEXP,
+    IDENTIFIER,
+    OP_DOUBLED,
+    OP_ADDITIVE,
+    OP_BINARY,
+    OP_ASSIGN,
+
     UNKNOWN
 };
 
@@ -74,14 +74,19 @@ public:
     string get_value() const;
 
     int get_line() const;
+
     int get_column() const;
+
     int start() const;
+
     int end() const;
 
     bool equalsClass(token_type type);
+
     bool equals(string value);
 
     string to_str() const;
+
     string to_str_extended() const;
 
     void set_position(int lineNumber, int columnNumber, int pos);

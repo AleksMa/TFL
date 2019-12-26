@@ -101,13 +101,13 @@ bool Parser::statement() {
     if (expressions)
         return expressions;
 
-    if (check_value(";")) {
+    if (check_type(SEMICOLON)) {
         next_token();
         return true;
     }
 
     int prev_pointer = pointer;
-    bool check_block = check_value_move("{") && statement_list() && check_value_move("}");
+    bool check_block = check_type_move(LEFT_CURLY) && statement_list() && check_type_move(RIGHT_CURLY);
     if (!check_block)
         pointer = prev_pointer;
     return check_block;
@@ -115,7 +115,7 @@ bool Parser::statement() {
 
 bool Parser::expression_statement() {
     int prev_pointer = pointer;
-    bool check_expression = expression() && check_value_move(";");
+    bool check_expression = expression() && check_type_move(SEMICOLON);
     if (!check_expression)
         pointer = prev_pointer;
     return check_expression;

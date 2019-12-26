@@ -12,32 +12,21 @@ void Lexer::make_regex() {
             regex(R"(^((/\*(.|\n)*?\*/)|(//[^\n]*)))"),                         // comments
             regex(R"(^\n)"),                                                    // newline
 
-            // STORABLE
-            regex(R"(^(("([^"\\]|\\.)*")|('([^'\\]|\\.)*')))"),                 // string literal
-            regex(R"(^(true|false))"),                                          // bool literal
-            regex(R"(^((0[xb][a-fA-F0-9]+)|([0-9]+((\.[0-9]+)([eE][+\\-]?[0-9]+)?)?)))"), // numeric literal
-            regex(R"(^(/.*/[gimsuy]*))"),                                       // regex literal
-            regex(R"(^([a-zA-Z$][\w]*))"),                                      // identifier
-            regex(R"(^((\+{2})|(--)))"),                                        // doubled
-            regex(R"(^([+-]))"),                                                // additive
-            regex(R"(^((===)|(!==)|(<=)|(>=)|(==)|(!=)|(<<)|(>>)|(&&)|([|]{2})|[<>*/%]))"), // binary
-            regex(R"(^((\+=)|(-=)|(\*=)|(%=)|(/=)))"),                          // assign
-
             // DEFINITE
-            regex(R"(^=)"),
-            regex(R"(^!)"),
+            regex(R"(^([=]))"),
+            regex(R"(^([!]))"),
             regex(R"(^null)"),
-            regex(R"(^;)"),
-            regex(R"(^\.)"),
-            regex(R"(^,)"),
-            regex(R"(^\?)"),
-            regex(R"(^:)"),
-            regex(R"(^()"),
-            regex(R"(^))"),
-            regex(R"(^[)"),
-            regex(R"(^])"),
-            regex(R"(^{)"),
-            regex(R"(^})"),
+            regex(R"(^([;]))"),
+            regex(R"(^([.]))"),
+            regex(R"(^([,]))"),
+            regex(R"(^([?]))"),
+            regex(R"(^([:]))"),
+            regex(R"(^([(]))"),
+            regex(R"(^([)]))"),
+            regex(R"(^([\[]))"),
+            regex(R"(^([\]]))"),
+            regex(R"(^([{]))"),
+            regex(R"(^([}]))"),
             regex(R"(^break)"),
             regex(R"(^continue)"),
             regex(R"(^return)"),
@@ -48,7 +37,18 @@ void Lexer::make_regex() {
             regex(R"(^else)"),
             regex(R"(^var)"),
             regex(R"(^let)"),
-            regex(R"(^const)")
+            regex(R"(^const)"),
+
+            // STORABLE
+            regex(R"(^(("([^"\\]|\\.)*")|('([^'\\]|\\.)*')))"),                 // string literal
+            regex(R"(^(true|false))"),                                          // bool literal
+            regex(R"(^((0[xb][a-fA-F0-9]+)|([0-9]+((\.[0-9]+)([eE][+\\-]?[0-9]+)?)?)))"), // numeric literal
+            regex(R"(^(/.*/[gimsuy]*))"),                                       // regex literal
+            regex(R"(^([a-zA-Z$][\w]*))"),                                      // identifier
+            regex(R"(^((\+{2})|(--)))"),                                        // doubled
+            regex(R"(^([+\-]))"),                                                // additive
+            regex(R"(^((===)|(!==)|(<=)|(>=)|(==)|(!=)|(<<)|(>>)|(&&)|([|]{2})|[<>*/%]))"), // binary
+            regex(R"(^((\+=)|(-=)|(\*=)|(%=)|(/=)))")                          // assign
     };
 }
 
