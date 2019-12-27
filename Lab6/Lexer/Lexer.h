@@ -20,7 +20,6 @@ private:
     string normalized_source;
 
     vector<regex> tokens_expressions;
-    set<string> keywords;
 
     vector<class Token> tokens;
     vector<vector<string>> tables;

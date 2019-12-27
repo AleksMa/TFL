@@ -20,12 +20,6 @@ string Token::to_str_extended() const {
            ", pos: " + to_string(row) + ":" + to_string(col) + "}";
 }
 
-void Token::set_position(int lineNumber, int columnNumber, int posNumber) {
-    pos = lineNumber + 1;
-    col = columnNumber + 1;
-    row = pos;
-}
-
 
 token_type Token::get_type() const {
     return type;
@@ -43,14 +37,6 @@ int Token::get_column() const {
     return col;
 }
 
-int Token::start() const {
-    return pos;
-}
-
-int Token::end() const {
-    return pos + value.size();
-}
-
 Token::Token(token_type type, string value, int pos, int col, int row) :
         type(type), value(value), pos(pos), col(col + 1), row(row + 1) {}
 
@@ -64,11 +50,6 @@ Token::Token(token_type type, string value, int pos, int col, int row, int table
 bool Token::equalsClass(token_type type) {
     return this->type == type;
 }
-
-bool Token::equals(string value) {
-    return this->value == value;
-}
-
 
 map<token_type, string> Token::token_types = {
         // REMOVABLE TOKENS

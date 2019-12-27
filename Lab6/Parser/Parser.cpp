@@ -573,7 +573,6 @@ bool Parser::for_statement() {
                            check_type_move(RIGHT_ROUND) &&
                            loop_body();
 
-
     pop(check_statement);
 
     return check_statement;
@@ -587,7 +586,6 @@ bool Parser::loop_body() {
         check_statement = check_type_move(LEFT_CURLY) && loop_body_statement_list() && check_type_move(RIGHT_CURLY);
     else
         check_statement = loop_body_statement();
-
 
     pop(check_statement);
 
@@ -618,7 +616,6 @@ bool Parser::loop_body_statement() {
     else
         check_statement = statement();
 
-
     pop(check_statement);
 
     return check_statement;
@@ -628,7 +625,6 @@ bool Parser::if_else_statement() {
     push();
 
     bool check_statement = if_statement() && else_statement_list();
-
 
     pop(check_statement);
 
@@ -641,7 +637,6 @@ bool Parser::if_statement() {
     bool check_statement = check_type_move(IF) &&
                            check_type_move(LEFT_ROUND) && expression() && check_type_move(RIGHT_ROUND) &&
                            if_body();
-
 
     pop(check_statement);
 
@@ -657,15 +652,13 @@ bool Parser::else_statement_list() {
     bool check_statement = check_type_move(ELSE) &&
                            if_statement() && else_statement_list();
 
-
     pop(check_statement);
     if (check_statement)
         return check_statement;
 
     push();
-    //pop();
-    check_statement = check_type_move(ELSE) && if_body();
 
+    check_statement = check_type_move(ELSE) && if_body();
 
     pop(check_statement);
 
@@ -680,7 +673,6 @@ bool Parser::if_body() {
         check_statement = check_type_move(LEFT_CURLY) && if_body_statement_list() && check_type_move(RIGHT_CURLY);
     else
         check_statement = if_body_statement();
-
 
     pop(check_statement);
 
@@ -712,7 +704,6 @@ bool Parser::if_body_statement() {
         check_statement = check_type_move(RETURN) && expression() && check_type_move(SEMICOLON);
     else
         check_statement = statement();
-
 
     pop(check_statement);
 

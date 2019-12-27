@@ -11,15 +11,16 @@
 using namespace std;
 
 
+
 //https://ariya.io/2012/07/most-popular-javascript-tokens
 
 enum token_type {
-    // REMOVABLE TOKENS
+    // REMOVABLE
             COMMENT,
     NEWLINE,
 
     // DEFINITE TOKENS
-    BREAK,
+            BREAK,
     CONTINUE,
     RETURN,
     FUNCTION,
@@ -42,7 +43,8 @@ enum token_type {
     OP_ASSIGN,
     OP_ADDITIVE,
 
-    OP_EQUAL,
+    // DEFINITE TOKENS
+            OP_EQUAL,
     OP_EXCLAMATION,     // восклицательный знак !
     NULL_LITERAL,
     SEMICOLON,          // точка с запятой ;
@@ -60,6 +62,7 @@ enum token_type {
     UNKNOWN
 };
 
+
 class Token {
 private:
     token_type type;
@@ -75,29 +78,16 @@ public:
     string get_value() const;
 
     int get_line() const;
-
     int get_column() const;
-
-    int start() const;
-
-    int end() const;
 
     bool equalsClass(token_type type);
 
-    bool equals(string value);
-
     string to_str() const;
-
     string to_str_extended() const;
 
-    void set_position(int lineNumber, int columnNumber, int pos);
-
     Token();
-
     Token(token_type type, string value);
-
     Token(token_type type, string value, int pos, int col, int row);
-
     Token(token_type type, string value, int pos, int col, int row, int table_value);
 
     static map<token_type, string> token_types;

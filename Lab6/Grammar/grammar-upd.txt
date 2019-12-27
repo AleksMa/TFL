@@ -1,112 +1,99 @@
-<statement-list>        := <statement> <statement-list-tail> | e
+<statement-list>            := <statement> <statement-list-tail> | e
 
-<statement-list-tail>   := <statement> <statement-list-tail> | e
+<statement-list-tail>       := <statement> <statement-list-tail> | e
 
-<statement>             := <expression-statement> | <assignment-statement> | <while-statement> | <if-else-statement> | <for-statement> | <function-declaration> | { <statement-list> } | ;
+<statement>                 := <expression-statement> | <assignment-statement> | <while-statement> | <if-else-statement> | <for-statement> | <function-declaration> | { <statement-list> } | ;
 
-<expression-statement>  := <expression> ;
+<expression-statement>      := <expression> ;
 
-<expression>            := <primary-expr> | <postfix-expr> | <prefix-expr> | <unary-expr> | <binary-expr> | <assignment-expr> | <ternary-expr> | <object-literal> | <array-literal>
+<expression>                := <primary-expr> | <postfix-expr> | <prefix-expr> | <unary-expr> | <binary-expr> | <assignment-expr> | <ternary-expr> | <object-literal> | <array-literal>
 
-<primary-expr>          := <object-accessor> | <literal> | ( <expression> )
+<primary-expr>              := <object-accessor> | <literal> | ( <expression> )
 
-<object-accessor>       := IDENTIFIER <object-accessor-tail>
+<object-accessor>           := IDENTIFIER <object-accessor-tail>
 
-<object-accessor-tail>  := [ <expression> ] <object-accessor-tail> | . <object-accessor> | ( <method-argument-list> <object-accessor-tail> | e
+<object-accessor-tail>      := [ <expression> ] <object-accessor-tail> | . <object-accessor> | ( <method-argument-list> <object-accessor-tail> | e
 
-<method-argument-list>  := <argument> <argument-list-tail> | )
+<method-argument-list>      := <argument> <argument-list-tail> | )
 
-<method-argument-list-tail>    := , <argument> <argument-list> | )
+<method-argument-list-tail> := , <argument> <argument-list> | )
 
-<method-argument>       := IDENTIFIER <argument-tail>
+<method-argument>           := IDENTIFIER <argument-tail>
 
-<literal>               := STRING | NULL_LITERAL | BOOLEAN | NUMERIC | REGEXP
+<literal>                   := STRING | NULL_LITERAL | BOOLEAN | NUMERIC | REGEXP
 
-<postfix-expr>          := <object-accessor> | <object-accessor> <doubled-op>
+<postfix-expr>              := <object-accessor> | <object-accessor> <doubled-op>
 
-<prefix-expr>           := <doubled-op> <object-accessor> | <object-accessor>
+<prefix-expr>               := <doubled-op> <object-accessor> | <object-accessor>
 
-<doubled-op>            := ++ | --
+<doubled-op>                := ++ | --
 
-<unary-expr>            := <unary-op> <primary-expr>
+<unary-expr>                := <unary-op> <primary-expr>
 
-<unary-op>              := - | + | !
+<unary-op>                  := - | + | !
 
-<binary-expr>           := <primary-expr> <binary-op> <expression>
+<binary-expr>               := <primary-expr> <binary-op> <expression>
 
-<binary-op>             := === | !== | <= | >= | == | != | << | >> | && | || | < | > | + | - | * | / | %
+<binary-op>                 := === | !== | <= | >= | == | != | << | >> | && | || | < | > | + | - | * | / | %
 
-<assignment-expr>       := <assignment> | <assignment> , <assignment-expr>
+<assignment-expr>           := <assignment> | <assignment> , <assignment-expr>
 
-<assignment>            := <object-accessor> <assignment-op> <expression> | <object-accessor> = <function-declaration>
+<assignment>                := <object-accessor> <assignment-op> <expression> | <object-accessor> = <function-declaration>
 
-<assignment-op>         := += | -= | *= | %= | &= | |= | ^= | =
+<assignment-op>             := += | -= | *= | %= | &= | |= | ^= | =
 
-<ternary-expr>          := <primary-expr> ? <primary-expr> : <primary-expr>
+<ternary-expr>              := <primary-expr> ? <primary-expr> : <primary-expr>
 
-<object-literal>        := { <object-key-value-list>
+<object-literal>            := { <object-key-value-list>
 
-<object-key-value-list> := <object-key-value> <object-key-value-list-tail> | }
+<object-key-value-list>     := <object-key-value> <object-key-value-list-tail> | }
 
 <object-key-value-list-tail> := , <object-key-value> <object-key-value-list-tail> | }
 
-<object-key-value>      := STRING : <expression> | IDENTIFIER : <expression>
+<object-key-value>          := STRING : <expression> | IDENTIFIER : <expression>
 
-<array-literal>         := [ <array-element-list>
+<array-literal>             := [ <array-element-list>
 
-<array-element-list>    := <expression> <array-element-list-tail> | ]
+<array-element-list>        := <expression> <array-element-list-tail> | ]
 
-<array-element-list-tail> := , <expression> <array-element-list-tail> | ]
+<array-element-list-tail>   := , <expression> <array-element-list-tail> | ]
 
-<assignment-statement>  := var <assignment-expr> ; | let <assignment-expr> ; | const <assignment-expr> ;
+<assignment-statement>      := var <assignment-expr> ; | let <assignment-expr> ; | const <assignment-expr> ;
 
-<function-declaration>  := function ( <argument-list> <function-body>
+<function-declaration>      := function ( <argument-list> <function-body>
 
-<argument-list>         := <argument> <argument-list-tail> | )
+<argument-list>             := <argument> <argument-list-tail> | )
 
-<argument-list-tail>    := , <argument> <argument-list> | )
+<argument-list-tail>        := , <argument> <argument-list> | )
 
-<argument>              := IDENTIFIER <argument-tail>
+<argument>                  := IDENTIFIER <argument-tail>
 
-<argument-tail>         := = <expression> | e
+<argument-tail>             := = <expression> | e
 
-<function-body>         := { <func-body-statement-list> | <func-body-statement>
+<function-body>             := { <func-body-statement-list> | <func-body-statement>
 
 <func-body-statement-list>  := <func-body-statement> <func-body-statement-list-tail> | }
 
 <func-body-statement>       := <statement> | return <expression> ;
 
-<while-statement>       := while ( <expression> ) <loop-body>
+<while-statement>           := while ( <expression> ) <loop-body>
 
-<for-statement>         := for ( <expression> ; <expression> ; <expression> ) <loop-body>
+<for-statement>             := for ( <expression> ; <expression> ; <expression> ) <loop-body>
 
-<loop-body>             := { <loop-body-statement-list> | <loop-body-statement>
+<loop-body>                 := { <loop-body-statement-list> | <loop-body-statement>
 
 <loop-body-statement-list>  := <loop-body-statement> <loop-body-statement-list-tail> | }
 
 <loop-body-statement>       := break ; | continue ; | <statement>
 
-<if-else-statement>     := <if-statement> <else-statement-list>
+<if-else-statement>         := <if-statement> <else-statement-list>
 
-<if-statement>          := if ( <expression> ) <if-body>
+<if-statement>              := if ( <expression> ) <if-body>
 
-<else-statement-list>   := else <if-statement> <else-statement-list> | else <if-body> | e
+<else-statement-list>       := else <if-statement> <else-statement-list> | else <if-body> | e
 
-<if-body>               := { <if-body-statement-list> | <if-body-statement>
+<if-body>                   := { <if-body-statement-list> | <if-body-statement>
 
 <if-body-statement-list>    := <if-body-statement> <if-body-statement-list> | }
 
 <if-body-statement>         := <statement> | break ;
-
-
-"break",
-            "else",
-            "var",
-            "continue",
-            "for",
-            "while",
-            "function",
-            "if",
-            "return",
-            "let",
-            "const"

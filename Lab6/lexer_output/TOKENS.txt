@@ -32,9 +32,6 @@
 {IDENTIFIER, index: 9, pos: 6:13}
 {SEMICOLON, pos: 6:22}
 {RIGHT_CURLY, pos: 7:1}
-{LEFT_SQUARE, pos: 9:1}
-{LEFT_SQUARE, pos: 9:2}
-{SEMICOLON, pos: 9:3}
 {IDENTIFIER, index: 10, pos: 11:1}
 {POINT, pos: 11:6}
 {IDENTIFIER, index: 11, pos: 11:7}
