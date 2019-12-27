@@ -15,19 +15,15 @@ private:
 
     vector<Token> tokens;
 
-//    set<string> binary_ops = {"===", "!==", "<=", ">=", "==", "!=", "<<", ">>", "&&", "||", "<", ">", "+", "-", "*", "/", "%"};
-//    set<string> assignment_ops = {"+=", "-=", "*=", "%=", "&=", "|=", "^=", "="};
-//    set<string> doubled_ops = {"++", "--"};
-//    set<string> unary_ops = {"+", "-", "!"};
-
     bool is_empty();
     Token current_token();
     bool next_token();
-    bool check_value_move(string value);
-    bool check_value(string value);
 
     bool check_type_move(token_type type);
     bool check_type(token_type type);
+
+    int push();
+    int pop(bool check);
 
     bool check_binary_op();
     bool check_assignment_op();
@@ -84,6 +80,8 @@ private:
     bool if_body();
     bool if_body_statement_list();
     bool if_body_statement();
+
+    stack<int> steps;
 
 public:
     Parser(vector<Token> tokens);

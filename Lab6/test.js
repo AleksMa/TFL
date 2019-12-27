@@ -50,7 +50,9 @@ alert(arr[0]);
 
 var obj = {'key': 'value', "complexKey": arr};
 
-alert(obj.key == 'value'? true : false);
+alert(obj.key === 'value'? 1 : 2);
+
+//alert(obj.key === 'value'? 1 ; 2);
 
 const stressString = "some\"string\"";
 
@@ -78,8 +80,6 @@ const decs = function () {
     }
 };
 
-const stressString = "some\"string\"";
-
 let a = 2 * 5;
 
 /*SOME
@@ -92,4 +92,4 @@ COM
 MENT
 */
 
-// №  // uncomment to get lexer error
+// №  // uncomment to get lexer err

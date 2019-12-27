@@ -32,6 +32,9 @@
 {IDENTIFIER, index: 9, pos: 6:13}
 {SEMICOLON, pos: 6:22}
 {RIGHT_CURLY, pos: 7:1}
+{LEFT_SQUARE, pos: 9:1}
+{LEFT_SQUARE, pos: 9:2}
+{SEMICOLON, pos: 9:3}
 {IDENTIFIER, index: 10, pos: 11:1}
 {POINT, pos: 11:6}
 {IDENTIFIER, index: 11, pos: 11:7}
@@ -230,116 +233,111 @@
 {POINT, pos: 53:10}
 {IDENTIFIER, index: 65, pos: 53:11}
 {OP_BINARY, index: 5, pos: 53:14}
-{STRING, index: 10, pos: 53:16}
-{QUESTION, pos: 53:23}
-{BOOLEAN, index: 0, pos: 53:24}
-{COLON, pos: 53:28}
-{BOOLEAN, index: 1, pos: 53:29}
-{RIGHT_ROUND, pos: 53:34}
-{SEMICOLON, pos: 53:35}
-{CONST, pos: 55:1}
-{IDENTIFIER, index: 66, pos: 55:6}
-{OP_EQUAL, pos: 55:18}
-{STRING, index: 11, pos: 55:19}
-{SEMICOLON, pos: 55:35}
-{IDENTIFIER, index: 67, pos: 57:1}
-{LEFT_ROUND, pos: 57:6}
-{IDENTIFIER, index: 68, pos: 57:7}
-{RIGHT_ROUND, pos: 57:19}
-{SEMICOLON, pos: 57:20}
-{FUNCTION, pos: 59:1}
-{IDENTIFIER, index: 69, pos: 59:9}
-{LEFT_ROUND, pos: 59:16}
-{RIGHT_ROUND, pos: 59:17}
-{LEFT_CURLY, pos: 59:18}
-{IF, pos: 60:1}
-{LEFT_ROUND, pos: 60:3}
-{IDENTIFIER, index: 70, pos: 60:4}
-{RIGHT_ROUND, pos: 60:5}
-{LEFT_CURLY, pos: 60:6}
-{RETURN, pos: 61:1}
-{IDENTIFIER, index: 71, pos: 61:7}
-{SEMICOLON, pos: 61:8}
-{RIGHT_CURLY, pos: 62:1}
-{ELSE, pos: 62:2}
-{IF, pos: 62:6}
-{LEFT_ROUND, pos: 62:8}
-{IDENTIFIER, index: 72, pos: 62:9}
-{RIGHT_ROUND, pos: 62:10}
+{STRING, index: 10, pos: 53:17}
+{QUESTION, pos: 53:24}
+{NUMERIC, index: 8, pos: 53:25}
+{COLON, pos: 53:26}
+{NUMERIC, index: 9, pos: 53:27}
+{RIGHT_ROUND, pos: 53:28}
+{SEMICOLON, pos: 53:29}
+{CONST, pos: 57:1}
+{IDENTIFIER, index: 66, pos: 57:6}
+{OP_EQUAL, pos: 57:18}
+{STRING, index: 11, pos: 57:19}
+{SEMICOLON, pos: 57:35}
+{IDENTIFIER, index: 67, pos: 59:1}
+{LEFT_ROUND, pos: 59:6}
+{IDENTIFIER, index: 68, pos: 59:7}
+{RIGHT_ROUND, pos: 59:19}
+{SEMICOLON, pos: 59:20}
+{FUNCTION, pos: 61:1}
+{IDENTIFIER, index: 69, pos: 61:9}
+{LEFT_ROUND, pos: 61:16}
+{RIGHT_ROUND, pos: 61:17}
+{LEFT_CURLY, pos: 61:18}
+{IF, pos: 62:1}
+{LEFT_ROUND, pos: 62:3}
+{IDENTIFIER, index: 70, pos: 62:4}
+{RIGHT_ROUND, pos: 62:5}
+{LEFT_CURLY, pos: 62:6}
 {RETURN, pos: 63:1}
-{IDENTIFIER, index: 73, pos: 63:7}
+{IDENTIFIER, index: 71, pos: 63:7}
 {SEMICOLON, pos: 63:8}
-{ELSE, pos: 64:1}
-{IF, pos: 64:5}
-{LEFT_ROUND, pos: 64:7}
-{IDENTIFIER, index: 74, pos: 64:8}
-{RIGHT_ROUND, pos: 64:9}
-{LEFT_CURLY, pos: 64:10}
+{RIGHT_CURLY, pos: 64:1}
+{ELSE, pos: 64:2}
+{IF, pos: 64:6}
+{LEFT_ROUND, pos: 64:8}
+{IDENTIFIER, index: 72, pos: 64:9}
+{RIGHT_ROUND, pos: 64:10}
 {RETURN, pos: 65:1}
-{IDENTIFIER, index: 75, pos: 65:7}
+{IDENTIFIER, index: 73, pos: 65:7}
 {SEMICOLON, pos: 65:8}
-{RIGHT_CURLY, pos: 66:1}
-{ELSE, pos: 66:2}
+{ELSE, pos: 66:1}
+{IF, pos: 66:5}
+{LEFT_ROUND, pos: 66:7}
+{IDENTIFIER, index: 74, pos: 66:8}
+{RIGHT_ROUND, pos: 66:9}
+{LEFT_CURLY, pos: 66:10}
 {RETURN, pos: 67:1}
-{IDENTIFIER, index: 76, pos: 67:7}
+{IDENTIFIER, index: 75, pos: 67:7}
 {SEMICOLON, pos: 67:8}
 {RIGHT_CURLY, pos: 68:1}
-{LET, pos: 71:1}
-{IDENTIFIER, index: 77, pos: 71:4}
-{OP_EQUAL, pos: 71:7}
-{STRING, index: 12, pos: 71:8}
-{SEMICOLON, pos: 71:16}
-{IDENTIFIER, index: 78, pos: 73:1}
-{OP_EQUAL, pos: 73:4}
-{LEFT_CURLY, pos: 73:5}
-{STRING, index: 13, pos: 73:6}
-{COLON, pos: 73:9}
-{NUMERIC, index: 8, pos: 73:10}
-{RIGHT_CURLY, pos: 73:11}
-{SEMICOLON, pos: 73:12}
-{CONST, pos: 75:1}
-{IDENTIFIER, index: 79, pos: 75:6}
-{OP_EQUAL, pos: 75:10}
-{FUNCTION, pos: 75:11}
-{LEFT_ROUND, pos: 75:19}
-{RIGHT_ROUND, pos: 75:20}
-{LEFT_CURLY, pos: 75:21}
-{FOR, pos: 76:1}
-{LEFT_ROUND, pos: 76:4}
-{LET, pos: 76:5}
-{IDENTIFIER, index: 80, pos: 76:8}
-{OP_EQUAL, pos: 76:9}
-{NUMERIC, index: 9, pos: 76:10}
-{SEMICOLON, pos: 76:11}
-{IDENTIFIER, index: 81, pos: 76:12}
-{OP_BINARY, index: 6, pos: 76:13}
-{IDENTIFIER, index: 82, pos: 76:15}
-{SEMICOLON, pos: 76:19}
-{IDENTIFIER, index: 83, pos: 76:20}
-{OP_DOUBLED, index: 1, pos: 76:21}
-{RIGHT_ROUND, pos: 76:23}
-{LEFT_CURLY, pos: 76:24}
-{IDENTIFIER, index: 84, pos: 77:1}
-{LEFT_SQUARE, pos: 77:4}
-{IDENTIFIER, index: 85, pos: 77:5}
-{RIGHT_SQUARE, pos: 77:6}
-{OP_EQUAL, pos: 77:7}
-{IDENTIFIER, index: 86, pos: 77:8}
-{OP_BINARY, index: 7, pos: 77:9}
-{NUMERIC, index: 10, pos: 77:10}
-{SEMICOLON, pos: 77:12}
-{RIGHT_CURLY, pos: 78:1}
-{RIGHT_CURLY, pos: 79:1}
-{SEMICOLON, pos: 79:2}
-{CONST, pos: 81:1}
-{IDENTIFIER, index: 87, pos: 81:6}
-{OP_EQUAL, pos: 81:18}
-{STRING, index: 14, pos: 81:19}
-{SEMICOLON, pos: 81:35}
+{ELSE, pos: 68:2}
+{RETURN, pos: 69:1}
+{IDENTIFIER, index: 76, pos: 69:7}
+{SEMICOLON, pos: 69:8}
+{RIGHT_CURLY, pos: 70:1}
+{LET, pos: 73:1}
+{IDENTIFIER, index: 77, pos: 73:4}
+{OP_EQUAL, pos: 73:7}
+{STRING, index: 12, pos: 73:8}
+{SEMICOLON, pos: 73:16}
+{IDENTIFIER, index: 78, pos: 75:1}
+{OP_EQUAL, pos: 75:4}
+{LEFT_CURLY, pos: 75:5}
+{STRING, index: 13, pos: 75:6}
+{COLON, pos: 75:9}
+{NUMERIC, index: 10, pos: 75:10}
+{RIGHT_CURLY, pos: 75:11}
+{SEMICOLON, pos: 75:12}
+{CONST, pos: 77:1}
+{IDENTIFIER, index: 79, pos: 77:6}
+{OP_EQUAL, pos: 77:10}
+{FUNCTION, pos: 77:11}
+{LEFT_ROUND, pos: 77:19}
+{RIGHT_ROUND, pos: 77:20}
+{LEFT_CURLY, pos: 77:21}
+{FOR, pos: 78:1}
+{LEFT_ROUND, pos: 78:4}
+{LET, pos: 78:5}
+{IDENTIFIER, index: 80, pos: 78:8}
+{OP_EQUAL, pos: 78:9}
+{NUMERIC, index: 11, pos: 78:10}
+{SEMICOLON, pos: 78:11}
+{IDENTIFIER, index: 81, pos: 78:12}
+{OP_BINARY, index: 6, pos: 78:13}
+{IDENTIFIER, index: 82, pos: 78:15}
+{SEMICOLON, pos: 78:19}
+{IDENTIFIER, index: 83, pos: 78:20}
+{OP_DOUBLED, index: 1, pos: 78:21}
+{RIGHT_ROUND, pos: 78:23}
+{LEFT_CURLY, pos: 78:24}
+{IDENTIFIER, index: 84, pos: 79:1}
+{LEFT_SQUARE, pos: 79:4}
+{IDENTIFIER, index: 85, pos: 79:5}
+{RIGHT_SQUARE, pos: 79:6}
+{OP_EQUAL, pos: 79:7}
+{IDENTIFIER, index: 86, pos: 79:8}
+{OP_BINARY, index: 7, pos: 79:9}
+{NUMERIC, index: 12, pos: 79:10}
+{SEMICOLON, pos: 79:12}
+{RIGHT_CURLY, pos: 80:1}
+{RIGHT_CURLY, pos: 81:1}
+{SEMICOLON, pos: 81:2}
 {LET, pos: 83:1}
-{IDENTIFIER, index: 88, pos: 83:4}
+{IDENTIFIER, index: 87, pos: 83:4}
 {OP_EQUAL, pos: 83:5}
-{NUMERIC, index: 11, pos: 83:6}
+{NUMERIC, index: 13, pos: 83:6}
 {OP_BINARY, index: 8, pos: 83:7}
-{NUMERIC, index: 12, pos: 83:8}
+{NUMERIC, index: 14, pos: 83:8}
 {SEMICOLON, pos: 83:9}
