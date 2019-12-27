@@ -20,62 +20,6 @@ bool Parser::start_parse() {
     return statement_list();
 }
 
-
-bool Parser::is_empty() {
-    return pointer >= tokens.size();
-}
-
-Token Parser::current_token() {
-    return tokens[pointer];
-}
-
-bool Parser::check_type_move(token_type type) {
-    bool check = !is_empty() && current_token().equalsClass(type);
-    if (check)
-        next_token();
-    return check;
-}
-
-bool Parser::check_type(token_type type) {
-    bool check = !is_empty() && current_token().equalsClass(type);
-    return check;
-}
-
-bool Parser::next_token() {
-    pointer++;
-    return !is_empty();
-}
-
-int Parser::push() {
-    steps.push(pointer);
-    return pointer;
-}
-
-int Parser::pop(bool check) {
-    int temp_pointer = steps.top();
-    if (!check)
-        pointer = temp_pointer;
-    steps.pop();
-    return pointer;
-}
-
-
-bool Parser::check_binary_op() {
-    return check_type(OP_BINARY) || check_type(OP_ADDITIVE);
-}
-
-bool Parser::check_assignment_op() {
-    return check_type(OP_ASSIGN) || check_type(OP_EQUAL);
-}
-
-bool Parser::check_doubled_op() {
-    return check_type(OP_DOUBLED);
-}
-
-bool Parser::check_unary_op() {
-    return check_type(OP_ADDITIVE) || check_type(OP_EXCLAMATION);
-}
-
 // PARSER
 
 
@@ -708,4 +652,60 @@ bool Parser::if_body_statement() {
     pop(check_statement);
 
     return check_statement;
+}
+
+
+bool Parser::is_empty() {
+    return pointer >= tokens.size();
+}
+
+Token Parser::current_token() {
+    return tokens[pointer];
+}
+
+bool Parser::check_type_move(token_type type) {
+    bool check = !is_empty() && current_token().equalsClass(type);
+    if (check)
+        next_token();
+    return check;
+}
+
+bool Parser::check_type(token_type type) {
+    bool check = !is_empty() && current_token().equalsClass(type);
+    return check;
+}
+
+bool Parser::next_token() {
+    pointer++;
+    return !is_empty();
+}
+
+int Parser::push() {
+    steps.push(pointer);
+    return pointer;
+}
+
+int Parser::pop(bool check) {
+    int temp_pointer = steps.top();
+    if (!check)
+        pointer = temp_pointer;
+    steps.pop();
+    return pointer;
+}
+
+
+bool Parser::check_binary_op() {
+    return check_type(OP_BINARY) || check_type(OP_ADDITIVE);
+}
+
+bool Parser::check_assignment_op() {
+    return check_type(OP_ASSIGN) || check_type(OP_EQUAL);
+}
+
+bool Parser::check_doubled_op() {
+    return check_type(OP_DOUBLED);
+}
+
+bool Parser::check_unary_op() {
+    return check_type(OP_ADDITIVE) || check_type(OP_EXCLAMATION);
 }
