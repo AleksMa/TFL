@@ -98,7 +98,7 @@ public:
 
     Token(token_type type, string value, int pos, int col, int row);
 
-    Token(token_type type, const string &value, int pos, int col, int row, int table_value);
+    Token(token_type type, string value, int pos, int col, int row, int table_value);
 
     static map<token_type, string> token_types;
 };

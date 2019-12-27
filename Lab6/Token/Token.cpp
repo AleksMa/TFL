@@ -9,14 +9,14 @@ Token::Token(token_type type, string value) : type(type), value(value) {}
 Token::Token() {}
 
 string Token::to_str() const {
-           return "{" + token_types[type] +
-                  (STRING <= type  && type <= OP_ADDITIVE ? ", " + to_string(table_index) : "") +
-                  ", " + to_string(row) + ":" + to_string(col) + "}";
+    return "{" + token_types[type] +
+           (STRING <= type && type <= OP_ADDITIVE ? ", " + to_string(table_index) : "") +
+           ", " + to_string(row) + ":" + to_string(col) + "}";
 }
 
 string Token::to_str_extended() const {
     return "{" + token_types[type] +
-           (STRING <= type  && type <= OP_ADDITIVE ? ", index: " + to_string(table_index) : "") +
+           (STRING <= type && type <= OP_ADDITIVE ? ", index: " + to_string(table_index) : "") +
            ", pos: " + to_string(row) + ":" + to_string(col) + "}";
 }
 
@@ -54,10 +54,12 @@ int Token::end() const {
 Token::Token(token_type type, string value, int pos, int col, int row) :
         type(type), value(value), pos(pos), col(col + 1), row(row + 1) {}
 
-Token::Token(token_type type, const string &value, int pos, int col, int row, int table_value) : type(type), value(value),
+Token::Token(token_type type, string value, int pos, int col, int row, int table_value) : type(type),
+                                                                                                 value(value),
                                                                                                  pos(pos), col(col + 1),
                                                                                                  row(row + 1),
-                                                                                                 table_index(table_value) {}
+                                                                                                 table_index(
+                                                                                                         table_value) {}
 
 bool Token::equalsClass(token_type type) {
     return this->type == type;
@@ -70,45 +72,45 @@ bool Token::equals(string value) {
 
 map<token_type, string> Token::token_types = {
         // REMOVABLE TOKENS
-        {COMMENT, "COMMENT"},
-        {NEWLINE, "NEWLINE"},
+        {COMMENT,        "COMMENT"},
+        {NEWLINE,        "NEWLINE"},
 
         // STORABLE TOKENS
-        {STRING, "STRING"},
-        {BOOLEAN, "BOOLEAN"},
-        {NUMERIC, "NUMERIC"},
-        {REGEXP, "REGEXP"},
-        {IDENTIFIER, "IDENTIFIER"},
-        {OP_DOUBLED, "OP_DOUBLED"},
-        {OP_ADDITIVE, "OP_ADDITIVE"},
-        {OP_BINARY, "OP_BINARY"},
-        {OP_ASSIGN, "OP_ASSIGN"},
+        {STRING,         "STRING"},
+        {BOOLEAN,        "BOOLEAN"},
+        {NUMERIC,        "NUMERIC"},
+        {REGEXP,         "REGEXP"},
+        {IDENTIFIER,     "IDENTIFIER"},
+        {OP_DOUBLED,     "OP_DOUBLED"},
+        {OP_ADDITIVE,    "OP_ADDITIVE"},
+        {OP_BINARY,      "OP_BINARY"},
+        {OP_ASSIGN,      "OP_ASSIGN"},
 
         // DEFINITE TOKENS
-        {OP_EQUAL, "OP_EQUAL"},
+        {OP_EQUAL,       "OP_EQUAL"},
         {OP_EXCLAMATION, "OP_EXCLAMATION"},     // восклицательный знак !
-        {NULL_LITERAL, "NULL_LITERAL"},
-        {SEMICOLON, "SEMICOLON"},		  // точка с запятой ;
-        {POINT, "POINT"},
-        {COMMA, "COMMA"},
-        {QUESTION, "QUESTION"},
-        {COLON, "COLON"},		      // двоеточие :
-        {LEFT_ROUND, "LEFT_ROUND"},
-        {RIGHT_ROUND, "RIGHT_ROUND"},
-        {LEFT_SQUARE, "LEFT_SQUARE"},
-        {RIGHT_SQUARE, "RIGHT_SQUARE"},
-        {LEFT_CURLY, "LEFT_CURLY"},
-        {RIGHT_CURLY, "RIGHT_CURLY"},
-        {BREAK, "BREAK"},
-        {CONTINUE, "CONTINUE"},
-        {RETURN, "RETURN"},
-        {FUNCTION, "FUNCTION"},
-        {FOR, "FOR"},
-        {WHILE, "WHILE"},
-        {IF, "IF"},
-        {ELSE, "ELSE"},
-        {VAR, "VAR"},
-        {LET, "LET"},
-        {CONST, "CONST"},
-        {UNKNOWN, "UNKNOWN"}
+        {NULL_LITERAL,   "NULL_LITERAL"},
+        {SEMICOLON,      "SEMICOLON"},          // точка с запятой ;
+        {POINT,          "POINT"},
+        {COMMA,          "COMMA"},
+        {QUESTION,       "QUESTION"},
+        {COLON,          "COLON"},              // двоеточие :
+        {LEFT_ROUND,     "LEFT_ROUND"},
+        {RIGHT_ROUND,    "RIGHT_ROUND"},
+        {LEFT_SQUARE,    "LEFT_SQUARE"},
+        {RIGHT_SQUARE,   "RIGHT_SQUARE"},
+        {LEFT_CURLY,     "LEFT_CURLY"},
+        {RIGHT_CURLY,    "RIGHT_CURLY"},
+        {BREAK,          "BREAK"},
+        {CONTINUE,       "CONTINUE"},
+        {RETURN,         "RETURN"},
+        {FUNCTION,       "FUNCTION"},
+        {FOR,            "FOR"},
+        {WHILE,          "WHILE"},
+        {IF,             "IF"},
+        {ELSE,           "ELSE"},
+        {VAR,            "VAR"},
+        {LET,            "LET"},
+        {CONST,          "CONST"},
+        {UNKNOWN,        "UNKNOWN"}
 };
