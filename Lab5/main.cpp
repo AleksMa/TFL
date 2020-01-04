@@ -13,10 +13,11 @@ string read_file(const string &path) {
 
 int main() {
 
-    string input_file = "/home/alexey/TFL/Lab5/test.js";
+    string input_file = "/home/alexey/TFL/Lab6/test.js";
     string source = read_file(input_file);
-    //cout << source << endl;
 
     Lexer lex(source);
+    lex.full_lexical_analyse();
+
     return 0;
 }

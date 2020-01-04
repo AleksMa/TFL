@@ -10,55 +10,87 @@
 
 using namespace std;
 
-enum TokenType {
-    COMMENT, // 0
-    NEWLINE, // 1
-    STRING, // 2
-    NULL_LITERAL, // 3
-    BOOLEAN, // 4
-    NUMERIC, // 5
-    REGEXP, // 6
-    IDENTIFICATION, // 7
-    PUNCTUATION, // 8
-    KEYWORD, // 9
-    UNKNOWN // 10
+
+
+//https://ariya.io/2012/07/most-popular-javascript-tokens
+
+enum token_type {
+    // REMOVABLE
+            COMMENT,
+    NEWLINE,
+
+    // DEFINITE TOKENS
+            BREAK,
+    CONTINUE,
+    RETURN,
+    FUNCTION,
+    FOR,
+    WHILE,
+    IF,
+    ELSE,
+    VAR,
+    LET,
+    CONST,
+
+    // STORABLE TOKENS
+            STRING,
+    BOOLEAN,
+    NUMERIC,
+    REGEXP,
+    IDENTIFIER,
+    OP_DOUBLED,
+    OP_BINARY,
+    OP_ASSIGN,
+    OP_ADDITIVE,
+
+    // DEFINITE TOKENS
+            OP_EQUAL,
+    OP_EXCLAMATION,     // восклицательный знак !
+    NULL_LITERAL,
+    SEMICOLON,          // точка с запятой ;
+    POINT,
+    COMMA,
+    QUESTION,
+    COLON,              // двоеточие :
+    LEFT_ROUND,
+    RIGHT_ROUND,
+    LEFT_SQUARE,
+    RIGHT_SQUARE,
+    LEFT_CURLY,
+    RIGHT_CURLY,
+
+    UNKNOWN
 };
+
 
 class Token {
 private:
-    TokenType type;
+    token_type type;
     string value;
     int pos;
     int col;
     int row;
-    int tableValue;
+    int table_index;
 
 public:
-    TokenType getType() const;
+    token_type get_type() const;
 
-    const string &getValue() const;
+    string get_value() const;
 
-    int getLine() const;
+    int get_line() const;
+    int get_column() const;
 
-    int getColumn() const;
+    bool equalsClass(token_type type);
 
-    int start() const;
-
-    int end() const;
-
-    string toString() const;
-
-    void setPosition(int lineNumber, int columnNumber, int pos);
+    string to_str() const;
+    string to_str_extended() const;
 
     Token();
+    Token(token_type type, string value);
+    Token(token_type type, string value, int pos, int col, int row);
+    Token(token_type type, string value, int pos, int col, int row, int table_value);
 
-    Token(TokenType type, string value);
-
-    Token(TokenType type, string value, int pos, int col, int row);
-
-    Token(TokenType type, const string &value, int pos, int col, int row, int tableValue);
-
-    static map<TokenType, string> tokenTypes;
+    static map<token_type, string> token_types;
 };
 
 

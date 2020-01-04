@@ -14,29 +14,37 @@ using namespace std;
 
 class Lexer {
 private:
-    vector<class Token> tokens;
-    vector<regex> tokensExpressions;
-    string source;
-    string normalizedSource;
-    set<string> keywords;
+    int pos, col, row;
 
+    string source;
+    string normalized_source;
+
+    vector<regex> tokens_expressions;
+
+    vector<class Token> tokens;
     vector<vector<string>> tables;
 
-    vector<string> commentsTable;
-    vector<string> stringsTable;
-    vector<string> boolTable;
-    vector<string> numericTable;
-    vector<string> regexTable;
-    vector<string> identificatorTable;
-    vector<string> keywordTable;
-    vector<string> punctuationTable;
+    bool correct;
+    Token incorrect;
 
-    void makeRegex();
-    void makeKeywords();
+    void make_regex();
+
+    string input_prefix = "/home/alexey/TFL/Lab5/lexer_output/";
+
+    void write_table(int code, string path);
+    void write_tables(string path);
+    void write_tokens(string path);
+    void write_tokens_ordered(string path);
 
 public:
 
     Lexer(string source);
+
+    void normalize();
+    void lexical_analyse();
+    void full_lexical_analyse();
+
+    vector<Token> getTokens();
 };
 
 

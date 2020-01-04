@@ -4,66 +4,94 @@
 
 #include "Token.h"
 
-map<TokenType, string> Token::tokenTypes = {
-        {COMMENT,        "COMMENT"}, // 0
-        {NEWLINE,        "NEWLINE"}, // 1
-        {STRING,         "STRING"}, // 2
-        {NULL_LITERAL,   "NULL_LITERAL"}, // 3
-        {BOOLEAN,        "BOOLEAN"},// 4
-        {NUMERIC,        "NUMERIC"}, // 5
-        {REGEXP,         "REGEXP"}, // 6
-        {IDENTIFICATION, "IDENTIFICATION"}, // 7
-        {PUNCTUATION,    "PUNCTUATION"}, // 8
-        {KEYWORD,        "KEYWORD"}, // 9
-        {UNKNOWN,        "UNKNOWN"} // 10
-};
-
-Token::Token(TokenType type, string value) : type(type), value(value) {}
+Token::Token(token_type type, string value) : type(type), value(value) {}
 
 Token::Token() {}
 
-string Token::toString() const {
-    //return "{token: " + value + ", type: " + tokenTypes[type] + ", position: " + to_string(row) + ":" + to_string(col) + "}";
-    return "{type: " + tokenTypes[type] +
-           (type != NEWLINE && type != NULL_LITERAL ? ", index: " + to_string(tableValue) : "") +
-           ", position: " + to_string(row) + ":" + to_string(col) + "}";
+string Token::to_str() const {
+    return "{" + token_types[type] +
+           (STRING <= type && type <= OP_ADDITIVE ? ", " + to_string(table_index) : "") +
+           ", " + to_string(row) + ":" + to_string(col) + "}";
 }
 
-void Token::setPosition(int lineNumber, int columnNumber, int posNumber) {
-    pos = lineNumber + 1;
-    col = columnNumber + 1;
-    row = posNumber;
+string Token::to_str_extended() const {
+    return "{" + token_types[type] +
+           (STRING <= type && type <= OP_ADDITIVE ? ", index: " + to_string(table_index) : "") +
+           ", pos: " + to_string(row) + ":" + to_string(col) + "}";
 }
 
 
-TokenType Token::getType() const {
+token_type Token::get_type() const {
     return type;
 }
 
-const string &Token::getValue() const {
+string Token::get_value() const {
     return value;
 }
 
-int Token::getLine() const {
-    return pos;
-}
-
-int Token::getColumn() const {
-    return col;
-}
-
-int Token::start() const {
+int Token::get_line() const {
     return row;
 }
 
-int Token::end() const {
-    return row + value.size();
+int Token::get_column() const {
+    return col;
 }
 
-Token::Token(TokenType type, string value, int pos, int col, int row) :
+Token::Token(token_type type, string value, int pos, int col, int row) :
         type(type), value(value), pos(pos), col(col + 1), row(row + 1) {}
 
-Token::Token(TokenType type, const string &value, int pos, int col, int row, int tableValue) : type(type), value(value),
-                                                                                               pos(pos), col(col + 1),
-                                                                                               row(row + 1),
-                                                                                               tableValue(tableValue) {}
+Token::Token(token_type type, string value, int pos, int col, int row, int table_value) : type(type),
+                                                                                                 value(value),
+                                                                                                 pos(pos), col(col + 1),
+                                                                                                 row(row + 1),
+                                                                                                 table_index(
+                                                                                                         table_value) {}
+
+bool Token::equalsClass(token_type type) {
+    return this->type == type;
+}
+
+map<token_type, string> Token::token_types = {
+        // REMOVABLE TOKENS
+        {COMMENT,        "COMMENT"},
+        {NEWLINE,        "NEWLINE"},
+
+        // STORABLE TOKENS
+        {STRING,         "STRING"},
+        {BOOLEAN,        "BOOLEAN"},
+        {NUMERIC,        "NUMERIC"},
+        {REGEXP,         "REGEXP"},
+        {IDENTIFIER,     "IDENTIFIER"},
+        {OP_DOUBLED,     "OP_DOUBLED"},
+        {OP_ADDITIVE,    "OP_ADDITIVE"},
+        {OP_BINARY,      "OP_BINARY"},
+        {OP_ASSIGN,      "OP_ASSIGN"},
+
+        // DEFINITE TOKENS
+        {OP_EQUAL,       "OP_EQUAL"},
+        {OP_EXCLAMATION, "OP_EXCLAMATION"},     // восклицательный знак !
+        {NULL_LITERAL,   "NULL_LITERAL"},
+        {SEMICOLON,      "SEMICOLON"},          // точка с запятой ;
+        {POINT,          "POINT"},
+        {COMMA,          "COMMA"},
+        {QUESTION,       "QUESTION"},
+        {COLON,          "COLON"},              // двоеточие :
+        {LEFT_ROUND,     "LEFT_ROUND"},
+        {RIGHT_ROUND,    "RIGHT_ROUND"},
+        {LEFT_SQUARE,    "LEFT_SQUARE"},
+        {RIGHT_SQUARE,   "RIGHT_SQUARE"},
+        {LEFT_CURLY,     "LEFT_CURLY"},
+        {RIGHT_CURLY,    "RIGHT_CURLY"},
+        {BREAK,          "BREAK"},
+        {CONTINUE,       "CONTINUE"},
+        {RETURN,         "RETURN"},
+        {FUNCTION,       "FUNCTION"},
+        {FOR,            "FOR"},
+        {WHILE,          "WHILE"},
+        {IF,             "IF"},
+        {ELSE,           "ELSE"},
+        {VAR,            "VAR"},
+        {LET,            "LET"},
+        {CONST,          "CONST"},
+        {UNKNOWN,        "UNKNOWN"}
+};
