@@ -92,4 +92,4 @@ COM
 MENT
 */
 
-// №  // uncomment to get lexer error
+// №  // uncomment to get lexer err

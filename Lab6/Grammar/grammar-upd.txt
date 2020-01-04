@@ -1,7 +1,5 @@
 <statement-list>            := <statement> <statement-list-tail> | e
 
-<statement-list-tail>       := <statement> <statement-list-tail> | e
-
 <statement>                 := <expression-statement> | <assignment-statement> | <while-statement> | <if-else-statement> | <for-statement> | <function-declaration> | { <statement-list> } | ;
 
 <expression-statement>      := <expression> ;
