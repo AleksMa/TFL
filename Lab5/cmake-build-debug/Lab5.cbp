@@ -99,6 +99,9 @@
 		<Unit filename="/home/alexey/TFL/Lab5/main.cpp">
 			<Option target="Lab5"/>
 		</Unit>
+		<Unit filename="/home/alexey/TFL/Lab5/temp.cpp">
+			<Option target="Lab5"/>
+		</Unit>
 		<Unit filename="/home/alexey/TFL/Lab5/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

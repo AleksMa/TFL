@@ -16,11 +16,11 @@ using namespace std;
 
 enum token_type {
     // REMOVABLE
-            COMMENT,
+    COMMENT,
     NEWLINE,
 
     // DEFINITE TOKENS
-            BREAK,
+    BREAK,
     CONTINUE,
     RETURN,
     FUNCTION,
@@ -33,7 +33,7 @@ enum token_type {
     CONST,
 
     // STORABLE TOKENS
-            STRING,
+    STRING,
     BOOLEAN,
     NUMERIC,
     REGEXP,
@@ -44,7 +44,7 @@ enum token_type {
     OP_ADDITIVE,
 
     // DEFINITE TOKENS
-            OP_EQUAL,
+    OP_EQUAL,
     OP_EXCLAMATION,     // восклицательный знак !
     NULL_LITERAL,
     SEMICOLON,          // точка с запятой ;
