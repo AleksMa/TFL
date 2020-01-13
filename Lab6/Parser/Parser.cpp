@@ -79,7 +79,7 @@ bool Parser::literal() {
 }
 
 bool Parser::primary_expression() {
-    bool expressions = object_accessor() || literal();
+    bool expressions = object_accessor(false) || literal();
     if (expressions)
         return expressions;
 
@@ -91,8 +91,18 @@ bool Parser::primary_expression() {
     return check_expression;
 }
 
-bool Parser::object_accessor() {
+bool Parser::object_accessor(bool first) {
+    if (!first) {
+        if (check_type(IDENTIFIER) && (identifies.find(current_token().get_value()) == identifies.end())) {
+            cout << current_token().get_value() << endl;
+            return false;
+        }
+    }
     push();
+    if (first && check_type(IDENTIFIER)){
+        identifies.insert(current_token().get_value());
+        cout << current_token().get_value() << endl;
+    }
     bool check_ident = check_type_move(IDENTIFIER) && object_accessor_tail();
 
     pop(check_ident);
@@ -109,7 +119,7 @@ bool Parser::object_accessor_tail() {
         return accessor_expression;
     } else if (check_type(POINT)) {
         next_token();
-        bool accessor_expression = object_accessor();
+        bool accessor_expression = object_accessor(true);
 
         pop(accessor_expression);
         return accessor_expression;
@@ -165,7 +175,7 @@ bool Parser::expression() {
 
 bool Parser::postfix_expression() {
     push();
-    bool check_expr = object_accessor() && doubled_operator();
+    bool check_expr = object_accessor(false) && doubled_operator();
 
     pop(check_expr);
 
@@ -174,7 +184,7 @@ bool Parser::postfix_expression() {
 
 bool Parser::prefix_expression() {
     push();
-    bool check_expr = doubled_operator() && object_accessor();
+    bool check_expr = doubled_operator() && object_accessor(false);
 
     pop(check_expr);
 
@@ -191,7 +201,7 @@ bool Parser::doubled_operator() {
 
 bool Parser::unary_expression() {
     push();
-    bool check_expr = unary_operator() && object_accessor();
+    bool check_expr = unary_operator() && object_accessor(false);
 
     pop(check_expr);
 
@@ -225,23 +235,30 @@ bool Parser::binary_operation() {
 
 bool Parser::assignment_expression() {
     push();
-    bool check_expr = object_accessor() && assignment_operation() && expression();
+    set<string> temp;
+    for (string s : identifies){
+        temp.insert(s);
+    }
+    bool check_expr = object_accessor(true) && assignment_operation() && expression();
 
     pop(check_expr);
     if (check_expr)
         return true;
+    identifies = temp;
 
     push();
     // pop();
-    check_expr = object_accessor() && check_type_move(OP_EQUAL) && function_assignment();
+    check_expr = object_accessor(true) && check_type_move(OP_EQUAL) && function_assignment();
 
     pop(check_expr);
 
+    if(!check_expr)
+        identifies = temp;
     return check_expr;
 }
 
 bool Parser::assignment_operation() {
-    if (check_assignment_op()) {
+    if (check_assignment_op() || check_type(OP_EQUAL)) {
         next_token();
         return true;
     }
@@ -382,7 +399,13 @@ bool Parser::assignment_statement() {
 bool Parser::function_declaration() {
     push();
 
-    bool check_statement = check_type_move(FUNCTION) && check_type_move(IDENTIFIER) &&
+    bool check_func = check_type_move(FUNCTION);
+
+    if (check_func && check_type(IDENTIFIER)){
+        identifies.insert(current_token().get_value());
+    }
+
+    bool check_statement = check_func && check_type_move(IDENTIFIER) &&
                            check_type_move(LEFT_ROUND) && argument_list() && check_type_move(RIGHT_ROUND) &&
                            function_body();
 
@@ -430,6 +453,9 @@ bool Parser::argument_list_tail() {
 }
 
 bool Parser::argument() {
+    if (check_type(IDENTIFIER) && identifies.find(current_token().get_value()) == identifies.end()){
+        return false;
+    }
     push();
     bool check_argument = check_type_move(IDENTIFIER) && argument_tail();
 

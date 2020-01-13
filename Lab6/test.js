@@ -1,3 +1,5 @@
+this = 0;
+
 function Dummy() {
     if (!Dummy.hasOwnProperty('singleton')) {
         Dummy.singleton = this;
@@ -18,6 +20,8 @@ Dummy.prototype.getValue = function () {
     return this.value;
 };
 
+//let a = 5;
+
 
 // Используем
 let foo = Dummy();
@@ -27,6 +31,7 @@ let bar = Dummy();
 bar.setValue(123);/*a
 
 a*/
+console = this;
 
 // Тесты
 console.log('foo === bar ->', foo === bar); // true
@@ -39,13 +44,17 @@ baz = Dummy();
 console.log('baz === bar ->', baz === bar, baz.getValue()); // true, 123
 
 function setTimeouts() {
-    for (let i = 1; i <= slen; i++) {
+    const setTimeout = this;
+    for (let i = 1; i <= 5; i++) {
         setTimeout("document.z.textdisplay.value = newMake()", i * 300);
         setTimeout("window.status = newMake()", i * 300);
     }
 }
 
 let arr = [1, 2, 3];
+
+alert = this;
+
 alert(arr[0]);
 
 var obj = {'key': 'value', "complexKey": arr};
@@ -59,14 +68,14 @@ const stressString = "some\"string\"";
 alert(stressString);
 
 function testIfs() {
-    if (a) {
-        return a;
-    } else if (b)
-        return b;
-    else if (d) {
-        return d;
+    if (1) {
+        return 1;
+    } else if (2)
+        return 2;
+    else if (3) {
+        return 3;
     } else
-        return c;
+        return 4;
 }
 
 
@@ -75,7 +84,7 @@ let str = 'string';
 baz = {"0": 0};
 
 const decs = function () {
-    for (let i = 1; i <= slen; i++) {
+    for (let i = 1; i <= 5; i++) {
         baz[i] = i * 10;
     }
 };
@@ -93,3 +102,6 @@ MENT
 */
 
 // №  // uncomment to get lexer err
+
+something = 5;
+console.log(something);

@@ -19,6 +19,8 @@ private:
     Token current_token();
     bool next_token();
 
+    set<string> identifies;
+
     bool check_type_move(token_type type);
     bool check_type(token_type type);
 
@@ -36,7 +38,7 @@ private:
     bool statement();
     bool literal();
     bool primary_expression();
-    bool object_accessor();
+    bool object_accessor(bool first);
     bool object_accessor_tail();
     bool method_argument_list();
     bool method_argument_list_tail();
